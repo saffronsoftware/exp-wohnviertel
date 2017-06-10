@@ -1,0 +1,35 @@
+{
+  "name": "wohnviertel",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "async": "^1.5.0",
+    "body-parser": "^1.14.1",
+    "compression": "^1.6.1",
+    "cookie-parser": "^1.4.0",
+    "errorhandler": "^1.4.3",
+    "express": "^4.13.3",
+    "lodash": "^4.13.1",
+    "moment": "^2.14.1",
+    "morgan": "^1.6.1",
+    "pug": "^2.0.0-alpha6",
+    "stylus": "^0.51.1"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.2.1",
+    "coffee-script": "^1.9.2",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-stylus": "^2.4.0",
+    "gulp-watch": "^4.3.5",
+    "nib": "^1.1.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "gulp": "node_modules/gulp/bin/gulp.js --gulpfile gulpfile.babel.js",
+    "build": "node_modules/gulp/bin/gulp.js build --gulpfile gulpfile.babel.js",
+    "build-production": "node_modules/gulp/bin/gulp.js build --production --gulpfile gulpfile.babel.js"
+  }
+}

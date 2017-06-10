@@ -1,0 +1,53 @@
+@import 'responsive'
+
+.grid-container
+  margin 0 auto
+  overflow hidden
+  &.grid-container--1200
+    width 1200px
+
+.grid-row
+  display flex
+  flex-flow row wrap
+  margin 0 -1rem
+  &.grid-row--nogutter
+    margin 0
+    & > .grid-item
+      padding 0
+  &.grid-row--2 > .grid-item,
+  &.grid-row--3 > .grid-item,
+  &.grid-row--4 > .grid-item
+    flex-grow 0
+  &.grid-row--2 > .grid-item
+    flex-basis 50%
+    max-width 50%
+  &.grid-row--3 > .grid-item
+    flex-basis 33.3%
+    max-width 33.3%
+  &.grid-row--4 > .grid-item
+    flex-basis 25%
+    max-width 25%
+  & > .grid-item
+    flex-grow 1
+    flex-basis 0
+    padding 0 1rem
+    &.grid-item--1
+      flex-grow 1
+    &.grid-item--2
+      flex-grow 2
+    &.grid-item--3
+      flex-grow 3
+    &.grid-item--4
+      flex-grow 4
+    &.grid-item--5
+      flex-grow 5
+    &.grid-item--6
+      flex-grow 6
+    &.grid-item--7
+      flex-grow 7
+    &.grid-item--8
+      flex-grow 8
+    &.grid-item--9
+      flex-grow 9
+    &.grid-item--10
+      flex-grow 10

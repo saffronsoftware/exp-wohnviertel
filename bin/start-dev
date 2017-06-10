@@ -1,0 +1,2 @@
+#!/bin/bash
+nodemon -w . --debug -i public -i data server.js
