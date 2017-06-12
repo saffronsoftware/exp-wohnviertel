@@ -1,13 +1,5 @@
-/*
-Tasks:
-  * build
-    Build all files
-  * watch
-    Build all files and watch
-Add "--production" to tasks to enable minification.
-*/
+// # Settings
 
-// > settings
 const cssBuildDir = './public/stylesheets/build/'
 const cssBuildGroups = [
   {
@@ -24,10 +16,31 @@ const cssBuildGroups = [
 
 const jsBuildDir = './public/javascripts/build/'
 const jsBuildGroups = [
+  // {
+  //   dest: 'home.js',
+  //   src: [
+  //     './public/javascripts/views/pages/home/index.js',
+  //   ],
+  // },
 ]
-// < settings
+
+const browserifyBuildDir = './public/javascripts/build/'
+const browserifyBuildGroups = [
+  {
+    dest: 'home.js',
+    src: [
+      './app/frontend/home.js',
+    ],
+  },
+]
+
+// ---
 
 import gulp from 'gulp'
+import buffer from 'vinyl-buffer'
+import source from 'vinyl-source-stream'
+import browserify from 'browserify'
+import babelify from 'babelify';
 import babel from 'gulp-babel'
 import plumber from 'gulp-plumber'
 import watch from 'gulp-watch'
@@ -58,6 +71,26 @@ gulp.task('js', ['babel'], (done) => {
   async.map(jsBuildGroups, makeBuildGroup, done)
 })
 
+gulp.task('browserify', (done) => {
+  function makeBuildGroup(buildGroup, done) {
+    var b = browserify({
+      entries: buildGroup.src,
+      debug: true,
+    })
+
+    return b
+      .transform(babelify)
+      .bundle()
+      .on('error', done)
+      .pipe(source(buildGroup.dest))
+      .pipe(buffer())
+      .pipe(gulp.dest(browserifyBuildDir))
+      .on('end', done)
+  }
+
+  async.map(browserifyBuildGroups, makeBuildGroup, done)
+})
+
 gulp.task('stylus', (done) => {
   gulp
     .src('./app/stylesheets/**/*.styl')
@@ -82,8 +115,9 @@ gulp.task('css', ['stylus'], (done) => {
 
 gulp.task('watch', () => {
   watch('./app/views/**/*.js', () => gulp.start('js'))
+  watch('./app/frontend/**/*.js', () => gulp.start('browserify'))
   watch('./app/stylesheets/**/*.styl', () => gulp.start('css'))
 })
 
-gulp.task('build', ['js', 'css'])
+gulp.task('build', ['js', 'css', 'browserify'])
 gulp.task('default', ['watch', 'build'])

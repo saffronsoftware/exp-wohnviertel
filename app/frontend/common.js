@@ -1,0 +1,25 @@
+const DISTRICTS = [
+  'altstadt-grossbasel',
+  'altstadt-kleinbasel',
+  'am-ring',
+  'bachletten',
+  'bettingen',
+  'breite',
+  'bruderholz',
+  'clara',
+  'gotthelf',
+  'gundeldingen',
+  'hirzbrunnen',
+  'iselin',
+  'kleinhüningen',
+  'klybeck',
+  'matthäus',
+  'riehen',
+  'rosental',
+  'st-alban',
+  'st-johann',
+  'vorstädte',
+  'wettstein',
+]
+
+export {DISTRICTS}
