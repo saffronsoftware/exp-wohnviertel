@@ -7,6 +7,7 @@
     "body-parser": "^1.14.1",
     "compression": "^1.6.1",
     "cookie-parser": "^1.4.0",
+    "d3": "^4.9.1",
     "errorhandler": "^1.4.3",
     "express": "^4.13.3",
     "lodash": "^4.13.1",
