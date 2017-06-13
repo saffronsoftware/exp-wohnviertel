@@ -1,5 +1,6 @@
 import {DISTRICTS, SETTINGS} from './common'
-import TestGraph from './test-graph'
+import BarChart from './bar-chart'
+import RangeChart from './range-chart'
 import * as d3 from 'd3'
 import async from 'async'
 
@@ -37,8 +38,12 @@ function getData(done) {
 }
 
 getData((err, allData) => {
-  let testGraph = new TestGraph({
+  let barChart = new BarChart({
     allData,
-    selSvg: '#test-graph-svg',
+    selSvg: '#test-graph-1',
+  })
+  let rangeChart = new RangeChart({
+    allData,
+    selSvg: '#test-graph-2',
   })
 })

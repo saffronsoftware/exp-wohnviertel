@@ -33,7 +33,7 @@ export default class TestGraph {
     let year = '2016'
     this.graphData = AGE_GROUPS.map((ageGroup) => ({
       ageGroup: ageGroup,
-      value: this.allData[district]['Alter: ' + ageGroup][year]
+      value: this.allData[district]['Alter: ' + ageGroup][year],
     }))
     this.updateAxes()
   }
@@ -50,6 +50,11 @@ export default class TestGraph {
       .attr('class', 'axis axis--x')
       .attr('transform', `translate(0, ${this.height})`)
       .call(d3.axisBottom(this.x))
+      .append('text')
+      .attr('x', this.width)
+      .attr('dy', '-0.6rem')
+      .attr('text-anchor', 'end')
+      .text('Age group')
 
     this.g.selectAll('.axis.axis--y').remove()
     this.g
@@ -57,17 +62,18 @@ export default class TestGraph {
       .attr('class', 'axis axis--y')
       .call(d3.axisLeft(this.y).ticks(10))
       .append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('y', 6)
-      .attr('dy', '0.7rem')
+      .attr('transform', 'rotate(90)')
+      .attr('dx', '3rem')
+      .attr('dy', '-0.6rem')
       .attr('text-anchor', 'end')
-      .text('Age group')
+      .text('Population')
 
     let bars = this.g
       .selectAll('.bar')
       .data(this.graphData)
 
     bars.exit().remove()
+
     bars
       .enter()
       .append('rect')

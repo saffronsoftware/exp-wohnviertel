@@ -22,6 +22,30 @@ export const DISTRICTS = [
   'wettstein',
 ]
 
+export const DISTRICT_NAMES = {
+  'altstadt-grossbasel': 'Altstadt Grossbasel',
+  'altstadt-kleinbasel': 'Altstadt Kleinbasel',
+  'am-ring': 'Am Ring',
+  'bachletten': 'Bachletten',
+  'bettingen': 'Bettingen',
+  'breite': 'Breite',
+  'bruderholz': 'Bruderholz',
+  'clara': 'Clara',
+  'gotthelf': 'Gotthelf',
+  'gundeldingen': 'Gundeldingen',
+  'hirzbrunnen': 'Hirzbrunnen',
+  'iselin': 'Iselin',
+  'kleinhüningen': 'Kleinhüningen',
+  'klybeck': 'Klybeck',
+  'matthäus': 'Matthäus',
+  'riehen': 'Riehen',
+  'rosental': 'Rosental',
+  'st-alban': 'St. Alban',
+  'st-johann': 'St. Johann',
+  'vorstädte': 'Vorstädte',
+  'wettstein': 'Wettstein',
+}
+
 export const MEASUREMENTS = [
   'Bevölkerung: Schweizer',
   'Bevölkerung: Ausländer',
