@@ -162,7 +162,7 @@ export default class TestGraph {
         .duration(200)
         .style('opacity', 1)
       tooltip
-        .html(parentDatum.key)
+        .html(parentDatum.key + ', ' + (d.data[parentDatum.key] * 100).toFixed(2) + '%')
         .style('left', left + 'px')
         .style('top', top + 'px')
       d3.select(el).classed('active', true)
