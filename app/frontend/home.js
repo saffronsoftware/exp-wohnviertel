@@ -1,6 +1,7 @@
 import {DISTRICTS, SETTINGS} from './common'
 import BarChart from './bar-chart'
 import RangeChart from './range-chart'
+import StackChart from './stack-chart'
 import * as d3 from 'd3'
 import async from 'async'
 
@@ -45,5 +46,9 @@ getData((err, allData) => {
   let rangeChart = new RangeChart({
     allData,
     selSvg: '#test-graph-2',
+  })
+  let stackChart = new StackChart({
+    allData,
+    selSvg: '#test-graph-3',
   })
 })

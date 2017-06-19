@@ -1,4 +1,4 @@
-import {AGE_GROUPS} from './common'
+import {AGE_GROUPS, AGE_GROUPS_PREFIX} from './common'
 import * as d3 from 'd3'
 
 export default class TestGraph {
@@ -17,11 +17,14 @@ export default class TestGraph {
 
     this.width = elSvgDims.width - margins.left - margins.right
     this.height = elSvgDims.height - margins.top - margins.bottom
-    this.x = d3.scaleBand().rangeRound([0, this.width]).padding(0.1)
-    this.y = d3.scaleLinear().rangeRound([this.height, 0])
+
     this.g = svg
       .append('g')
       .attr('transform', `translate(${margins.left}, ${margins.right})`)
+
+    this.x = d3.scaleBand().rangeRound([0, this.width]).padding(0.1)
+    this.y = d3.scaleLinear().rangeRound([this.height, 0])
+
     this.graphData = []
 
     this.makeGraphData()
@@ -33,7 +36,7 @@ export default class TestGraph {
     let year = '2016'
     this.graphData = AGE_GROUPS.map((ageGroup) => ({
       ageGroup: ageGroup,
-      value: this.allData[district]['Alter: ' + ageGroup][year],
+      value: this.allData[district][AGE_GROUPS_PREFIX + ageGroup][year],
     }))
     this.updateAxes()
   }

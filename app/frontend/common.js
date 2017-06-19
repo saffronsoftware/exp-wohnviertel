@@ -123,9 +123,23 @@ export const MEASUREMENTS = [
   'Geld: Steuerbelastung des Reinvermögens',
 ]
 
+export const AGE_GROUPS_PREFIX = 'Alter: '
+
 export const AGE_GROUPS = MEASUREMENTS
-  .filter((d) => d.indexOf('Alter:') == 0)
-  .map((d) => d.replace('Alter: ', ''))
+  .filter((d) => d.indexOf(AGE_GROUPS_PREFIX) == 0)
+  .map((d) => d.replace(AGE_GROUPS_PREFIX, ''))
+
+export const CITIZENSHIPS_PREFIX = 'Staatsangehörigkeit: '
+
+export const CITIZENSHIPS_OTHERS = 'Übriges Ausland'
+
+export const CITIZENSHIPS_REDUCED = [
+  'Kroatien', 'Sri Lanka', 'Polen',
+]
+
+export const CITIZENSHIPS = MEASUREMENTS
+  .filter((d) => d.indexOf(CITIZENSHIPS_PREFIX) == 0)
+  .map((d) => d.replace(CITIZENSHIPS_PREFIX, ''))
 
 export const SETTINGS = {
   csvPath: '/data/',

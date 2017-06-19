@@ -18,10 +18,13 @@ export default class TestGraph {
 
     this.width = elSvgDims.width - margins.left - margins.right
     this.height = elSvgDims.height - margins.top - margins.bottom
-    this.x = d3.scaleLinear().range([0, this.width])
+
     this.g = svg
       .append('g')
       .attr('transform', `translate(${margins.left}, ${margins.right})`)
+
+    this.x = d3.scaleLinear().range([0, this.width])
+
     this.graphData = []
 
     this.setGraphData(this.makeGraphData())

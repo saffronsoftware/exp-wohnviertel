@@ -1,9 +1,26 @@
+.graph-tooltip
+  position absolute
+  padding 0.2rem 0.4rem
+  margin-top -1.5rem
+  background white
+  pointer-events none
+  transform translate(-50%)
+
 svg
+  display block
+  margin 0 auto
   font-size 1rem
   text
     fill black
   .range-node
     text
       font-size 0.7rem
+  .legend
+    text
+      font-size 0.7rem
+  .bar-group
+    .bar
+      &.active
+        fill #40d689
   svg
     overflow visible !important
