@@ -187,6 +187,7 @@ export default class TestGraph {
 
   hideUnfocusedBars() {
     d3.selectAll('.bar-group:not(.bar-group--focused)')
+      .classed('bar-group--hidden', true)
       .transition()
       .duration(200)
       .style('opacity', 0)
@@ -194,6 +195,7 @@ export default class TestGraph {
 
   showAllBars() {
     d3.selectAll('.bar-group')
+      .classed('bar-group--hidden', false)
       .transition()
       .duration(400)
       .style('opacity', 1)
