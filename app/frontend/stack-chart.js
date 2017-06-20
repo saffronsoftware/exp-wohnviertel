@@ -309,8 +309,8 @@ export default class TestGraph {
   }
 
   draw() {
-    this.drawAxes()
     this.drawBars()
+    this.drawAxes()
     this.drawLegend()
   }
 }
