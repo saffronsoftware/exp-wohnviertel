@@ -37,8 +37,13 @@ export default class TestGraph {
       [].concat(colors.GRAPHIQ3_LOWER).concat(['#cccccc'])
     )
 
+    this.isFocused = false
+    this.sortingProperty = 'district'
+    this.tooltipsEnabled = true
+
     this.makeGraphData()
     this.draw()
+    this.drawTooltip()
   }
 
   makeGraphData() {
@@ -80,7 +85,10 @@ export default class TestGraph {
 
   updateAxes() {
     this.x.domain([0, 1])
-    this.y.domain(this.graphData.map((d) => d.district))
+    this.y.domain(
+      _.sortBy(this.graphData, (d) => d[this.sortingProperty])
+        .map((d) => d.district)
+    )
     this.z.domain(this.stackKeys)
   }
 
@@ -123,7 +131,7 @@ export default class TestGraph {
       .attr('text-anchor', 'end')
       .attr('y', 0)
       .selectAll('g')
-      .data(_.reverse(this.stackKeys))
+      .data(this.stackKeys)
       .enter()
       .append('g')
       .attr('transform', (d, i) => `translate(0, ${i * 25})`)
@@ -144,45 +152,140 @@ export default class TestGraph {
       .text((d) => d)
   }
 
-  drawBars() {
-    d3.select('.graph-tooltip').remove()
-    let tooltip = d3.select('body')
+  getAllBars() {
+    return this.g
+      .selectAll('.bar-group')
+      .data(d3.stack().keys(this.stackKeys)(this.graphData))
+      .selectAll('.bar')
+      .data((d) => d)
+  }
+
+  getFocusedBars() {
+    return d3.selectAll('.bar-group.bar-group--focused .bar')
+  }
+
+  zeroBarX(bars) {
+    return bars
+      .transition()
+      .duration(400)
+      .attr('x', 0)
+  }
+
+  updateBarX(bars) {
+    return bars
+      .transition()
+      .duration(400)
+      .attr('x', (d) => this.x(d[0]))
+  }
+
+  updateBarY(bars) {
+    return bars
+      .transition()
+      .duration(400)
+      .attr('y', (d) => this.y(d.data.district))
+  }
+
+  hideUnfocusedBars() {
+    d3.selectAll('.bar-group:not(.bar-group--focused)')
+      .transition()
+      .duration(200)
+      .style('opacity', 0)
+  }
+
+  showAllBars() {
+    d3.selectAll('.bar-group')
+      .transition()
+      .duration(400)
+      .style('opacity', 1)
+  }
+
+  focusBar(el) {
+    this.isFocused = true
+    let barGroup = el.parentNode
+    let parentDatum = d3.select(barGroup).datum()
+    this.sortingProperty = parentDatum.key
+
+    d3.select(barGroup)
+      .classed('bar-group--focused', true)
+
+    this.hideUnfocusedBars()
+    this.updateAxes()
+    this.drawAxes()
+    this.updateBarY(this.zeroBarX(this.getFocusedBars()))
+  }
+
+  unfocusBar() {
+    this.isFocused = false
+    this.tooltipsEnabled = false
+    this.sortingProperty = 'district'
+
+    d3.select('.bar-group--focused')
+      .classed('bar-group--focused', false)
+
+    this.updateAxes()
+    this.drawAxes()
+    this.updateBarX(this.updateBarY(this.getAllBars()))
+    setTimeout(() => {
+      this.tooltipsEnabled = true
+      this.showAllBars()
+    }, 800)
+  }
+
+  drawTooltip() {
+    this.tooltip = d3.select('body')
       .append('div')
       .attr('class', 'graph-tooltip')
       .style('opacity', 0)
+  }
 
-    function onMouseover(el, d) {
-      let rect = el.getBoundingClientRect()
-      let barMid = (this.x(d[1]) - this.x(d[0])) / 2
-      let left = rect.left + window.scrollX + barMid
-      let top = rect.top + window.scrollY
-      let parentDatum = d3.select(el.parentNode).datum()
-      tooltip
-        .transition()
-        .duration(200)
-        .style('opacity', 1)
-      tooltip
-        .html(parentDatum.key + ', ' + (d.data[parentDatum.key] * 100).toFixed(2) + '%')
-        .style('left', left + 'px')
-        .style('top', top + 'px')
-      d3.select(el).classed('active', true)
+  showTooltip(el, d) {
+    if (!this.tooltipsEnabled) {
+      return
     }
-
-    function onMouseout(el, d) {
-      tooltip
-        .transition()
-        .duration(200)
-        .style('opacity', 0)
-      d3.select(el).classed('active', false)
+    let rect = el.getBoundingClientRect()
+    let barMid = (this.x(d[1]) - this.x(d[0])) / 2
+    let left = rect.left + window.scrollX + barMid
+    let top = rect.top + window.scrollY
+    let barGroup = el.parentNode
+    let parentDatum = d3.select(barGroup).datum()
+    if (this.isFocused && !(d3.select(barGroup).classed('bar-group--focused'))) {
+      return
     }
+    this.tooltip
+      .transition()
+      .duration(200)
+      .style('opacity', 1)
+    this.tooltip
+      .html(parentDatum.key + ', ' + (d.data[parentDatum.key] * 100).toFixed(2) + '%')
+      .style('left', left + 'px')
+      .style('top', top + 'px')
+    d3.select(el).classed('active', true)
+  }
 
-    let bars = this.g
+  hideTooltip(el, d) {
+    this.tooltip
+      .transition()
+      .duration(200)
+      .style('opacity', 0)
+    d3.select(el).classed('active', false)
+  }
+
+  toggleFocus(el, d) {
+    if (this.isFocused) {
+      this.unfocusBar(el)
+    } else {
+      this.focusBar(el)
+    }
+  }
+
+  drawBars() {
+    let barGroups = this.g
       .selectAll('.bar-group')
       .data(d3.stack().keys(this.stackKeys)(this.graphData))
 
-    bars.exit().remove()
+    barGroups.exit().remove()
 
-    let barGroups = bars
+    barGroups = barGroups
       .enter()
       .append('g')
       .attr('fill', (d) => this.z(d.key))
@@ -198,8 +301,9 @@ export default class TestGraph {
       .attr('y', (d) => this.y(d.data.district))
       .attr('height', this.y.bandwidth())
       .attr('width', (d) => this.x(d[1]) - this.x(d[0]))
-      .on('mouseover', bindContext(this, onMouseover))
-      .on('mouseout', bindContext(this, onMouseout))
+      .on('mouseover', bindContext(this, this.showTooltip))
+      .on('mouseout', bindContext(this, this.hideTooltip))
+      .on('click', bindContext(this, this.toggleFocus))
   }
 
   draw() {
