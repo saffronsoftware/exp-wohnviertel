@@ -1,3 +1,5 @@
+import * as _ from 'lodash'
+
 export const DISTRICTS = [
   'altstadt-grossbasel',
   'altstadt-kleinbasel',
@@ -140,6 +142,14 @@ export const CITIZENSHIPS_REDUCED = [
 export const CITIZENSHIPS = MEASUREMENTS
   .filter((d) => d.indexOf(CITIZENSHIPS_PREFIX) == 0)
   .map((d) => d.replace(CITIZENSHIPS_PREFIX, ''))
+
+export const CITIZENSHIPS_NONREDUCED = _.difference(CITIZENSHIPS, CITIZENSHIPS_REDUCED)
+
+export const RELIGIONS_PREFIX = 'Religion: '
+
+export const RELIGIONS = MEASUREMENTS
+  .filter((d) => d.indexOf(RELIGIONS_PREFIX) == 0)
+  .map((d) => d.replace(RELIGIONS_PREFIX, ''))
 
 export const SETTINGS = {
   csvPath: '/data/',

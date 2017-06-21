@@ -1,15 +1,15 @@
-import {
-  DISTRICTS, DISTRICT_NAMES, CITIZENSHIPS, CITIZENSHIPS_PREFIX,
-  CITIZENSHIPS_OTHERS, CITIZENSHIPS_REDUCED,
-} from './common'
 import {bindContext} from './util'
-import * as colors from './colors'
 import * as _ from 'lodash'
 import * as d3 from 'd3'
 
 export default class TestGraph {
-  constructor({allData, selSvg}) {
+  constructor({allData, selSvg, getKeys, getGraphData, xLabel, yLabel, colors}) {
     this.allData = allData
+    this.getKeys = getKeys
+    this.getGraphData = getGraphData
+    this.xLabel = xLabel
+    this.yLabel = yLabel
+    this.colors = colors
 
     const elSvg = document.querySelector(selSvg)
     const elSvgDims = elSvg.getBoundingClientRect()
@@ -33,9 +33,7 @@ export default class TestGraph {
 
     this.x = d3.scaleLinear().rangeRound([0, this.graphWidth])
     this.y = d3.scaleBand().rangeRound([0, this.height]).padding(0.1)
-    this.z = d3.scaleOrdinal().range(
-      [].concat(colors.GRAPHIQ3_LOWER).concat(['#cccccc'])
-    )
+    this.z = d3.scaleOrdinal().range(this.colors)
 
     this.isFocused = false
     this.sortingProperty = 'district'
@@ -47,39 +45,8 @@ export default class TestGraph {
   }
 
   makeGraphData() {
-    let year = '2016'
-    const getCitKey = (cit) => CITIZENSHIPS_PREFIX + cit
-
-    this.graphData = DISTRICTS.map((district) => {
-      let total = CITIZENSHIPS.reduce((total, citizenship) => {
-        return total + this.allData[district][getCitKey(citizenship)][year]
-      }, 0)
-
-      let districtData = CITIZENSHIPS.reduce((districtData, citizenship) => {
-        if (CITIZENSHIPS_REDUCED.includes(citizenship)) {
-          return districtData
-        }
-
-        districtData[citizenship] = this.allData[district][getCitKey(citizenship)][year] / total
-
-        if (citizenship == CITIZENSHIPS_OTHERS) {
-          districtData[citizenship] += CITIZENSHIPS_REDUCED.reduce(
-            (sum, redCitizenship) => {
-              return sum + this.allData[district][getCitKey(redCitizenship)][year] / total
-            }, 0
-          )
-        }
-
-        return districtData
-      }, {})
-
-      districtData.total = total
-      districtData.district = DISTRICT_NAMES[district]
-
-      return districtData
-    })
-
-    this.stackKeys = _.difference(CITIZENSHIPS, CITIZENSHIPS_REDUCED)
+    this.graphData = this.getGraphData()
+    this.stackKeys = this.getKeys()
     this.updateAxes()
   }
 
@@ -109,7 +76,7 @@ export default class TestGraph {
       .attr('dx', '0')
       .attr('dy', '2.2rem')
       .attr('text-anchor', 'end')
-      .text('Teil')
+      .text(this.xLabel)
 
     this.g.selectAll('.axis.axis--y').remove()
     this.g
@@ -120,7 +87,7 @@ export default class TestGraph {
       .attr('dx', '0rem')
       .attr('dy', '-0.8rem')
       .attr('text-anchor', 'end')
-      .text('Wohnviertel')
+      .text(this.yLabel)
   }
 
   drawLegend() {
