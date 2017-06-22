@@ -6,6 +6,7 @@ import * as colors from './colors'
 import {
   getCitizenshipData, getCitizenshipKeys,
   getReligionData, getReligionKeys,
+  getAgeData, getAgeKeys,
 } from './data-getters'
 import * as d3 from 'd3'
 import async from 'async'
@@ -82,5 +83,15 @@ getData((err, allData) => {
       '#aaaaaa',
       '#cccccc',
     ]
+  })
+
+  let ageChart = new StackChart({
+    allData,
+    selSvg: '#age-chart',
+    getKeys: getAgeKeys,
+    getGraphData: getAgeData(allData),
+    xLabel: 'Teil',
+    yLabel: 'Wohnviertel',
+    colors: colors.GRAPHIQ3_12_LOWER.concat(['#cccccc']),
   })
 })
