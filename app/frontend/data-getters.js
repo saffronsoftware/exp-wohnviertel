@@ -2,8 +2,9 @@ import {
   DISTRICTS, DISTRICT_NAMES,
   CITIZENSHIPS, CITIZENSHIPS_PREFIX, CITIZENSHIPS_OTHERS,
   CITIZENSHIPS_REDUCED, CITIZENSHIPS_NONREDUCED,
-  RELIGIONS, RELIGIONS_PREFIX,
+  RELIGIONS, RELIGIONS_PREFIX, RELIGIONS_DEFAULT_SORT,
   AGE_GROUPS, AGE_GROUPS_PREFIX,
+  AGE_GROUPS_REDUCTION, AGE_GROUPS_REDUCED, AGE_GROUPS_DEFAULT_SORT,
 } from './common'
 import * as _ from 'lodash'
 
@@ -78,6 +79,10 @@ export function getReligionKeys() {
   return RELIGIONS
 }
 
+export function getReligionDefaultSort() {
+  return RELIGIONS_DEFAULT_SORT
+}
+
 export function getAgeData(allData) {
   return function() {
     let year = '2016'
@@ -91,7 +96,9 @@ export function getAgeData(allData) {
       let districtData = AGE_GROUPS.reduce((districtData, ageGroup) => {
         let rawDatum = allData[district][getKey(ageGroup)][year]
         let proportionalDatum = rawDatum / total
-        districtData[ageGroup] = proportionalDatum
+        let reducedKey = AGE_GROUPS_REDUCTION[ageGroup]
+        districtData[reducedKey] = districtData[reducedKey] || 0
+        districtData[reducedKey] += proportionalDatum
         return districtData
       }, {})
 
@@ -104,5 +111,9 @@ export function getAgeData(allData) {
 }
 
 export function getAgeKeys() {
-  return AGE_GROUPS
+  return AGE_GROUPS_REDUCED
+}
+
+export function getAgeDefaultSort() {
+  return AGE_GROUPS_DEFAULT_SORT
 }

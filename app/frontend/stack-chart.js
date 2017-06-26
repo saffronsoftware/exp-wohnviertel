@@ -3,13 +3,16 @@ import * as _ from 'lodash'
 import * as d3 from 'd3'
 
 export default class TestGraph {
-  constructor({allData, selSvg, getKeys, getGraphData, xLabel, yLabel, colors}) {
+  constructor({
+    allData, selSvg, getKeys, getGraphData, xLabel, yLabel, colors, defaultSort
+  }) {
     this.allData = allData
     this.getKeys = getKeys
     this.getGraphData = getGraphData
     this.xLabel = xLabel
     this.yLabel = yLabel
     this.colors = colors
+    this.defaultSort = defaultSort || 'district'
 
     const elSvg = document.querySelector(selSvg)
     const elSvgDims = elSvg.getBoundingClientRect()
@@ -36,7 +39,7 @@ export default class TestGraph {
     this.z = d3.scaleOrdinal().range(this.colors)
 
     this.isFocused = false
-    this.sortingProperty = 'district'
+    this.sortingProperty = this.defaultSort
     this.tooltipsEnabled = true
 
     this.makeGraphData()
@@ -186,7 +189,7 @@ export default class TestGraph {
   unfocusBar() {
     this.isFocused = false
     this.tooltipsEnabled = false
-    this.sortingProperty = 'district'
+    this.sortingProperty = this.defaultSort
 
     d3.select('.bar-group--focused')
       .classed('bar-group--focused', false)

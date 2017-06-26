@@ -131,6 +131,36 @@ export const AGE_GROUPS = MEASUREMENTS
   .filter((d) => d.indexOf(AGE_GROUPS_PREFIX) == 0)
   .map((d) => d.replace(AGE_GROUPS_PREFIX, ''))
 
+export const AGE_GROUPS_REDUCTION = {
+  '0-4': '0-9',
+  '5-9': '0-9',
+  '10-14': '10-19',
+  '15-19': '10-19',
+  '20-24': '20-29',
+  '25-29': '20-29',
+  '30-34': '30-39',
+  '35-39': '30-39',
+  '40-44': '40-49',
+  '45-49': '40-49',
+  '50-54': '50-59',
+  '55-59': '50-59',
+  '60-64': '60-69',
+  '65-69': '60-69',
+  '70-74': '70-99',
+  '75-79': '70-99',
+  '80-84': '70-99',
+  '85-89': '70-99',
+  '90-94': '90-114',
+  '95-99': '90-114',
+  '100-104': '90-114',
+  '105-109': '90-114',
+  '110-114': '90-114',
+}
+
+export const AGE_GROUPS_REDUCED = _.uniq(_.values(AGE_GROUPS_REDUCTION))
+
+export const AGE_GROUPS_DEFAULT_SORT = '0-9'
+
 export const CITIZENSHIPS_PREFIX = 'Staatsangehörigkeit: '
 
 export const CITIZENSHIPS_OTHERS = 'Übriges Ausland'
@@ -150,6 +180,8 @@ export const RELIGIONS_PREFIX = 'Religion: '
 export const RELIGIONS = MEASUREMENTS
   .filter((d) => d.indexOf(RELIGIONS_PREFIX) == 0)
   .map((d) => d.replace(RELIGIONS_PREFIX, ''))
+
+export const RELIGIONS_DEFAULT_SORT = 'Keine Zugehörigkeit'
 
 export const SETTINGS = {
   csvPath: '/data/',

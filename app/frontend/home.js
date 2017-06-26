@@ -5,8 +5,8 @@ import StackChart from './stack-chart'
 import * as colors from './colors'
 import {
   getCitizenshipData, getCitizenshipKeys,
-  getReligionData, getReligionKeys,
-  getAgeData, getAgeKeys,
+  getReligionData, getReligionKeys, getReligionDefaultSort,
+  getAgeData, getAgeKeys, getAgeDefaultSort,
 } from './data-getters'
 import * as d3 from 'd3'
 import async from 'async'
@@ -82,7 +82,8 @@ getData((err, allData) => {
       colors.GRAPHIQ3_12_LOWER[11],
       '#aaaaaa',
       '#cccccc',
-    ]
+    ],
+    defaultSort: getReligionDefaultSort(),
   })
 
   let ageChart = new StackChart({
@@ -93,5 +94,6 @@ getData((err, allData) => {
     xLabel: 'Teil',
     yLabel: 'Wohnviertel',
     colors: colors.GRAPHIQ3_12_LOWER.concat(['#cccccc']),
+    defaultSort: getAgeDefaultSort(),
   })
 })
