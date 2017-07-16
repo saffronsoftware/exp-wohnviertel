@@ -14,7 +14,8 @@
     "moment": "^2.14.1",
     "morgan": "^1.6.1",
     "pug": "^2.0.0-alpha6",
-    "stylus": "^0.51.1"
+    "stylus": "^0.51.1",
+    "three": "^0.86.0"
   },
   "devDependencies": {
     "babel-preset-env": "^1.2.1",
@@ -27,7 +28,6 @@
     "gulp-plumber": "^1.1.0",
     "gulp-stylus": "^2.4.0",
     "gulp-watch": "^4.3.5",
-    "nib": "^1.1.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
