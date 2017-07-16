@@ -35,7 +35,7 @@ export default class TestGraph {
     const year = '2016'
     let graphData = DISTRICTS.map((district) => ({
       district: district,
-      // Ausländerteil
+      // Ausländeranteil
       value:
         this.allData[district]['Bevölkerung: Ausländer'][year] / (
           this.allData[district]['Bevölkerung: Ausländer'][year] +
@@ -56,7 +56,7 @@ export default class TestGraph {
   updateAxes() {
     const min = d3.min(this.graphData.map((d) => d.value))
     const max = d3.max(this.graphData.map((d) => d.value))
-    const padding = (max - min) / 15
+    const padding = (max - min) / 12
     this.x.domain([min - padding, max + padding])
   }
 
@@ -90,7 +90,7 @@ export default class TestGraph {
       .attr('x', this.width)
       .attr('dy', '-0.6rem')
       .attr('text-anchor', 'end')
-      .text('Ausländerteil')
+      .text('Ausländeranteil')
 
     let nodes = this.g
       .selectAll('.range-node')
