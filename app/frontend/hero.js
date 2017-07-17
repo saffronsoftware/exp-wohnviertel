@@ -1,3 +1,4 @@
+import {bindContext} from './util'
 import * as THREE from 'three'
 import * as _ from 'lodash'
 import * as colors from './colors'
@@ -10,13 +11,19 @@ export default class Hero {
     this.objectSize = 10
     this.objectDepth = 200
     this.objectDefaultZ = 0 - (this.objectDepth / 2)
-    this.objectCountX = 20
+    this.objectCountX = 21
     this.objectCountY = 20
     this.objectSpeed = 0.03
     this.objectDirectionChangeChance = 0
     this.objectMinZ = this.objectDefaultZ
     this.objectZDiff = 3
     this.objectMaxZ = this.objectMinZ + this.objectZDiff
+    this.mouseRotationDampenX = 70000
+    this.mouseRotationDampenY = 20000
+    this.cameraRotXTarget = 0
+    this.cameraRotYTarget = 0
+    this.cameraRotXSpeed = 0.1
+    this.cameraRotYSpeed = 0.1
 
     this.updateDimensions()
 
@@ -27,9 +34,23 @@ export default class Hero {
     this.lights = this.makeLights()
 
     Dom(window).bind('resize', () => this.updateAndEnactDimensions())
+    Dom(this.elContainer).bind('mousemove', this.reactToMouse.bind(this))
 
     this.enactDimensions()
     this.render()
+  }
+
+  reactToMouse(event) {
+    const mouseXOnMove = event.clientX - (this.width / 2)
+    this.cameraRotYTarget = -mouseXOnMove / this.mouseRotationDampenX
+
+    const mouseYOnMove = event.clientY - (this.height / 2)
+    this.cameraRotXTarget = -mouseYOnMove / this.mouseRotationDampenY
+  }
+
+  updateCameraRotation() {
+    this.camera.rotation.x += (this.cameraRotXTarget - this.camera.rotation.x) * this.cameraRotXSpeed
+    this.camera.rotation.y += (this.cameraRotYTarget - this.camera.rotation.y) * this.cameraRotYSpeed
   }
 
   randomizeObjectDirections() {
@@ -56,6 +77,7 @@ export default class Hero {
   animate() {
     this.randomizeObjectDirections()
     this.updateObjectPositions()
+    this.updateCameraRotation()
   }
 
   render() {

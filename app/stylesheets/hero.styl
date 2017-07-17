@@ -11,15 +11,17 @@
     bottom 0
     padding 8rem 0
     background rgba(255,255,255,0.4)
-    text-align center
+    pointer-events none // Allow events to pass to scene underneath
     h1
       margin 0
       margin-bottom 1rem
       font-size 5rem
-      font-weight 200
+      line-height 0
       div
-        display inline-block
-        padding 1rem 2rem
-        margin-bottom 1rem
-        background #2d0f41
-        color white
+        span
+          display inline-block
+          margin-bottom 1rem
+          padding 0.5rem 1.5rem 1.0rem 1.5rem
+          line-height 1
+          background #2d0f41
+          color white
