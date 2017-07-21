@@ -96,6 +96,7 @@ export default class Hero {
     let camera = new THREE.PerspectiveCamera(this.cameraFov, this.aspectRatio, 0.1, 1000)
     camera.up = new THREE.Vector3(0, 1, 0)
     camera.rotation.x = this.cameraAngle
+    camera.position.x = -(this.objectSize / 2)
     camera.position.z = this.cameraZ
     return camera
   }
@@ -119,8 +120,8 @@ export default class Hero {
   }
 
   makeObject(x, y) {
-    let colorSet = colors.GRAPHIQ3_12_LOWER
-    let colorIndex = _.random(2, 4)
+    let colorSet = colors.GRAPHIQ3_12_HIGHS
+    let colorIndex = _.random(3, colorSet.length - 4)
     let colorCode = colorSet[colorIndex]
     let color = parseInt(colorCode.slice(1), 16)
 
@@ -174,12 +175,10 @@ export default class Hero {
   }
 
   makeLights() {
-    let ambientLight = new THREE.AmbientLight(0xffffff)
-    ambientLight.intensity = 1.2
+    let ambientLight = new THREE.AmbientLight(0xd6ffff, 1.2)
     this.scene.add(ambientLight)
 
-    let dirLight = new THREE.DirectionalLight(0xffffff)
-    dirLight.intensity = 0.3
+    let dirLight = new THREE.DirectionalLight(0xffffff, 0.3)
     dirLight.position.set(200, 150, 80)
     // this.setLightShadow(dirLight)
     this.scene.add(dirLight)
