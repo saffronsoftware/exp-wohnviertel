@@ -143,3 +143,47 @@ export function getWelfareData(allData) {
     return graphData
   }
 }
+
+export function getMedianWealthData(allData) {
+  return function() {
+    const year = '2014'
+    let graphData = DISTRICTS.map((district) => ({
+      district: district,
+      value: this.allData[district]['Geld: Reinvermögen Median'][year]
+    }))
+    return graphData
+  }
+}
+
+export function getAverageWealthData(allData) {
+  return function() {
+    const year = '2014'
+    let graphData = DISTRICTS.map((district) => ({
+      district: district,
+      value: this.allData[district]['Geld: Reinvermögen Mittelwert'][year]
+    }))
+    return graphData
+  }
+}
+
+export function getMedianIncomeData(allData) {
+  return function() {
+    const year = '2014'
+    let graphData = DISTRICTS.map((district) => ({
+      district: district,
+      value: this.allData[district]['Geld: Reineinkommen Median'][year]
+    }))
+    return graphData
+  }
+}
+
+export function getAverageIncomeData(allData) {
+  return function() {
+    const year = '2014'
+    let graphData = DISTRICTS.map((district) => ({
+      district: district,
+      value: this.allData[district]['Geld: Reineinkommen Mittelwert'][year]
+    }))
+    return graphData
+  }
+}

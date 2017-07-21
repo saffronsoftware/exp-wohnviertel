@@ -1,14 +1,16 @@
-import {DISTRICTS, DISTRICT_NAMES} from './common'
-import * as util from './util'
 import * as d3 from 'd3'
 import * as _ from 'lodash'
+import {DISTRICTS, DISTRICT_NAMES} from './common'
+import * as util from './util'
 
 export default class RangeChart {
-  constructor({allData, selSvg, getGraphData, xLabel, colors}) {
+  constructor({allData, selSvg, getGraphData, xLabel, colors, isPercent, tickFormat}) {
     this.allData = allData
     this.getGraphData = getGraphData
     this.xLabel = xLabel
     this.colors = colors
+    this.isPercent = isPercent
+    this.tickFormat = tickFormat
 
     const elSvg = document.querySelector(selSvg)
     elSvg.classList.add('chart', 'range-chart')
@@ -39,7 +41,7 @@ export default class RangeChart {
 
   makeGraphData() {
     // NOTE: It is very important that data is sorted, for `fixCollisions()`
-    // to work.
+    // and colors to work.
     this.graphData = _.sortBy(this.getGraphData(), (d) => d.value)
     this.updateAxes()
   }
@@ -60,31 +62,39 @@ export default class RangeChart {
   }
 
   fixCollisions(nodes) {
-    const nrIterations = 20
-    const minDist = 22 // px
-    const forceFactor = 10
-    const force = minDist / forceFactor
+    const NR_ITERATIONS = 200
+    const MIN_DIST = 22 // px
+    const FORCE_FACTOR = 10
+    const FORCE = MIN_DIST / FORCE_FACTOR
     function doFixCollisions(d) {
       let curr = d3.select(this)
       let prev = d3.select(this.previousElementSibling)
       if (!prev.empty() && prev.classed('range-node')) {
-        if (Math.abs(prev.attr('x') - curr.attr('x')) < minDist) {
-          prev.attr('x', prev.attr('x') - force)
+        if (Math.abs(prev.attr('x') - curr.attr('x')) < MIN_DIST) {
+          prev.attr('x', prev.attr('x') - FORCE)
         }
       }
     }
-    _.times(nrIterations, () => {
+    _.times(NR_ITERATIONS, () => {
       nodes.each(doFixCollisions)
     })
   }
 
   draw() {
     this.g.selectAll('.axis.axis--x').remove()
+
+    let bottomAxis = d3.axisBottom(this.x)
+      .ticks(10, this.isPercent ? '%' : undefined)
+
+    if (this.tickFormat) {
+      bottomAxis = bottomAxis.tickFormat(this.tickFormat)
+    }
+
     this.g
       .append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', `translate(0, ${this.height})`)
-      .call(d3.axisBottom(this.x).ticks(10, '%'))
+      .call(bottomAxis)
       .append('text')
       .attr('x', this.width)
       .attr('dy', '-0.6rem')

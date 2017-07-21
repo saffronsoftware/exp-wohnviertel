@@ -1,11 +1,7 @@
+import * as d3 from 'd3'
 import * as data from './data'
-import {
-  getCitizenshipData, getCitizenshipKeys,
-  getReligionData, getReligionKeys, getReligionDefaultSort,
-  getAgeData, getAgeKeys, getAgeDefaultSort,
-  getForeignerData,
-  getWelfareData,
-} from './data-getters'
+import {DISTRICT_NAMES} from './common'
+import * as dataGetters from './data-getters'
 import Hero from './hero'
 import BarChart from './bar-chart'
 import RangeChart from './range-chart'
@@ -18,32 +14,69 @@ data.getData((err, allData) => {
     selContainer: '#hero',
   })
 
-  let barChart = new BarChart({
-    allData,
-    selSvg: '#test-graph-1',
-  })
-
   let foreignersChart = new RangeChart({
     allData,
     selSvg: '#foreigners-chart',
-    getGraphData: getForeignerData(allData),
+    getGraphData: dataGetters.getForeignerData(allData),
     xLabel: 'Ausländeranteil',
+    isPercent: true,
     colors: colors.GRAPHIQ3_12_LOWER,
   })
 
   let welfareChart = new RangeChart({
     allData,
     selSvg: '#welfare-chart',
-    getGraphData: getWelfareData(allData),
+    getGraphData: dataGetters.getWelfareData(allData),
     xLabel: 'Sozialhilfequote',
+    isPercent: true,
     colors: colors.GRAPHIQ3_12_LOWER,
+  })
+
+  let medianWealthChart = new BarChart({
+    allData,
+    selSvg: '#median-wealth-chart',
+    getGraphData: dataGetters.getMedianWealthData(allData),
+    xLabel: 'Reinvermögen Median',
+    colors: colors.GRAPHIQ3_12_LOWER,
+    xTickFormat: (d) => DISTRICT_NAMES[d],
+    yTickFormat: (d) => d3.format(',.0s')(d) + ' CHF',
+  })
+
+  let averageWealthChart = new BarChart({
+    allData,
+    selSvg: '#average-wealth-chart',
+    getGraphData: dataGetters.getAverageWealthData(allData),
+    xLabel: 'Reinvermögen Mittelwert',
+    colors: colors.GRAPHIQ3_12_LOWER,
+    xTickFormat: (d) => DISTRICT_NAMES[d],
+    yTickFormat: (d) => d3.format(',.0s')(d) + ' CHF',
+  })
+
+  let medianIncomeChart = new BarChart({
+    allData,
+    selSvg: '#median-income-chart',
+    getGraphData: dataGetters.getMedianIncomeData(allData),
+    xLabel: 'Reineinkommen Median',
+    colors: colors.GRAPHIQ3_12_LOWER,
+    xTickFormat: (d) => DISTRICT_NAMES[d],
+    yTickFormat: (d) => d3.format(',.0s')(d) + ' CHF',
+  })
+
+  let averageIncomeChart = new BarChart({
+    allData,
+    selSvg: '#average-income-chart',
+    getGraphData: dataGetters.getAverageIncomeData(allData),
+    xLabel: 'Reineinkommen Mittelwert',
+    colors: colors.GRAPHIQ3_12_LOWER,
+    xTickFormat: (d) => DISTRICT_NAMES[d],
+    yTickFormat: (d) => d3.format(',.0s')(d) + ' CHF',
   })
 
   let citizenshipChart = new StackChart({
     allData,
     selSvg: '#citizenship-chart',
-    getKeys: getCitizenshipKeys,
-    getGraphData: getCitizenshipData(allData),
+    getKeys: dataGetters.getCitizenshipKeys,
+    getGraphData: dataGetters.getCitizenshipData(allData),
     xLabel: 'Teil',
     yLabel: 'Wohnviertel',
     colors: colors.GRAPHIQ3_12_LOWER.concat(['#cccccc']),
@@ -52,8 +85,8 @@ data.getData((err, allData) => {
   let religionChart = new StackChart({
     allData,
     selSvg: '#religion-chart',
-    getKeys: getReligionKeys,
-    getGraphData: getReligionData(allData),
+    getKeys: dataGetters.getReligionKeys,
+    getGraphData: dataGetters.getReligionData(allData),
     xLabel: 'Teil',
     yLabel: 'Wohnviertel',
     colors: [
@@ -67,17 +100,17 @@ data.getData((err, allData) => {
       '#aaaaaa',
       '#cccccc',
     ],
-    defaultSort: getReligionDefaultSort(),
+    defaultSort: dataGetters.getReligionDefaultSort(),
   })
 
   let ageChart = new StackChart({
     allData,
     selSvg: '#age-chart',
-    getKeys: getAgeKeys,
-    getGraphData: getAgeData(allData),
+    getKeys: dataGetters.getAgeKeys,
+    getGraphData: dataGetters.getAgeData(allData),
     xLabel: 'Teil',
     yLabel: 'Wohnviertel',
     colors: colors.GRAPHIQ3_12_LOWER.concat(['#cccccc']),
-    defaultSort: getAgeDefaultSort(),
+    defaultSort: dataGetters.getAgeDefaultSort(),
   })
 })

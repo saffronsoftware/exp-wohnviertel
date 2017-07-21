@@ -1,6 +1,6 @@
-import {bindContext} from './util'
 import * as _ from 'lodash'
 import * as d3 from 'd3'
+import {bindContext} from './util'
 
 export default class RangeChart {
   constructor({

@@ -1,9 +1,18 @@
-import {AGE_GROUPS, AGE_GROUPS_PREFIX} from './common'
 import * as d3 from 'd3'
+import * as _ from 'lodash'
+import * as util from './util'
 
 export default class BarChart {
-  constructor({allData, selSvg}) {
+  constructor({
+    allData, selSvg, getGraphData, xLabel, yLabel, colors, xTickFormat, yTickFormat
+  }) {
     this.allData = allData
+    this.getGraphData = getGraphData
+    this.xLabel = xLabel
+    this.yLabel = yLabel
+    this.colors = colors
+    this.xTickFormat = xTickFormat
+    this.yTickFormat = yTickFormat
 
     const elSvg = document.querySelector(selSvg)
     elSvg.classList.add('chart', 'bar-chart')
@@ -12,8 +21,8 @@ export default class BarChart {
     const margins = {
       top: 50,
       right: 50,
-      bottom: 50,
-      left: 50,
+      bottom: 80,
+      left: 100,
     }
 
     this.width = elSvgDims.width - margins.left - margins.right
@@ -25,6 +34,7 @@ export default class BarChart {
 
     this.x = d3.scaleBand().rangeRound([0, this.width]).padding(0.1)
     this.y = d3.scaleLinear().rangeRound([this.height, 0])
+    this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
 
     this.graphData = []
 
@@ -33,44 +43,60 @@ export default class BarChart {
   }
 
   makeGraphData() {
-    let district = 'altstadt-grossbasel'
-    let year = '2016'
-    this.graphData = AGE_GROUPS.map((ageGroup) => ({
-      ageGroup: ageGroup,
-      value: this.allData[district][AGE_GROUPS_PREFIX + ageGroup][year],
-    }))
+    // NOTE: It is very important that data is sorted, for colors to work.
+    this.graphData = _.sortBy(this.getGraphData(), (d) => d.value)
     this.updateAxes()
   }
 
   updateAxes() {
-    this.x.domain(this.graphData.map((d) => d.ageGroup))
-    this.y.domain([0, d3.max(this.graphData.map((d) => d.value))])
+    let graphDataValues = this.graphData.map((d) => d.value)
+    this.x.domain(this.graphData.map((d) => d.district))
+    this.y.domain([0, d3.max(graphDataValues)])
+    this.color.domain(util.sampleEvenly(graphDataValues, this.colors.length))
+    console.log(util.sampleEvenly(graphDataValues, this.colors.length))
+    console.log(this.colors)
   }
 
   draw() {
+    let bottomAxis = d3.axisBottom(this.x)
+
+    if (this.xTickFormat) {
+      bottomAxis = bottomAxis.tickFormat(this.xTickFormat)
+    }
+
     this.g.selectAll('.axis.axis--x').remove()
-    this.g
+    let xAxis = this.g
       .append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', `translate(0, ${this.height})`)
-      .call(d3.axisBottom(this.x))
+      .call(bottomAxis)
+    xAxis
+      .selectAll('text')
+      .attr('transform', 'rotate(30)')
+      .attr('text-anchor', 'start')
+    xAxis
       .append('text')
-      .attr('x', this.width)
-      .attr('dy', '-0.6rem')
+      .attr('transform', `translate(${this.width}) rotate(90)`)
+      .attr('dy', '-0.8rem')
       .attr('text-anchor', 'end')
-      .text('Age group')
+      .text(this.xLabel)
+
+    let leftAxis = d3.axisLeft(this.y).ticks(10)
+    if (this.yTickFormat) {
+      leftAxis = leftAxis.tickFormat(this.yTickFormat)
+    }
 
     this.g.selectAll('.axis.axis--y').remove()
     this.g
       .append('g')
       .attr('class', 'axis axis--y')
-      .call(d3.axisLeft(this.y).ticks(10))
+      .call(leftAxis)
       .append('text')
       .attr('transform', 'rotate(90)')
       .attr('dx', '3rem')
       .attr('dy', '-0.6rem')
       .attr('text-anchor', 'end')
-      .text('Population')
+      .text(this.yLabel)
 
     let bars = this.g
       .selectAll('.bar')
@@ -82,9 +108,10 @@ export default class BarChart {
       .enter()
       .append('rect')
       .attr('class', 'bar')
-      .attr('x', (d) => this.x(d.ageGroup))
+      .attr('x', (d) => this.x(d.district))
       .attr('y', (d) => this.y(d.value))
       .attr('width', this.x.bandwidth())
       .attr('height', (d) => this.height - this.y(d.value))
+      .attr('fill', (d) => this.color(d.value))
   }
 }
