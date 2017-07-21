@@ -5,19 +5,27 @@
   background white
   pointer-events none
   transform translate(-50%)
+  box-shadow 1px 1px 2px 0 rgba(0,0,0,0.2)
 
-svg
+svg.chart
   display block
   margin 0 auto
-  font-size 1rem
+  font-size 1.1rem
+  font-weight 300
   text
     fill black
-  .range-node
-    text
-      font-size 0.7rem
+    font-family Georgia, serif
+    // font-weight 300
+  svg
+    overflow visible !important
   .legend
     text
       font-size 0.7rem
+  .axis
+    text
+      font-size 0.7rem
+
+.bar-chart
   .bar-group
     &.bar-group--hidden
       .bar
@@ -26,5 +34,12 @@ svg
       cursor pointer
       &.active
         fill #40d689
-  svg
-    overflow visible !important
+
+.range-chart
+  .range-node
+    text
+      font-size 0.7rem
+  .axis
+    .tick
+      text
+        font-size 0.8rem

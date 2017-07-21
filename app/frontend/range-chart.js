@@ -1,12 +1,17 @@
 import {DISTRICTS, DISTRICT_NAMES} from './common'
+import * as util from './util'
 import * as d3 from 'd3'
 import * as _ from 'lodash'
 
-export default class TestGraph {
-  constructor({allData, selSvg}) {
+export default class RangeChart {
+  constructor({allData, selSvg, getGraphData, xLabel, colors}) {
     this.allData = allData
+    this.getGraphData = getGraphData
+    this.xLabel = xLabel
+    this.colors = colors
 
     const elSvg = document.querySelector(selSvg)
+    elSvg.classList.add('chart', 'range-chart')
     const elSvgDims = elSvg.getBoundingClientRect()
     const svg = d3.select(selSvg)
     const margins = {
@@ -24,40 +29,28 @@ export default class TestGraph {
       .attr('transform', `translate(${margins.left}, ${margins.right})`)
 
     this.x = d3.scaleLinear().range([0, this.width])
+    this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
 
     this.graphData = []
 
-    this.setGraphData(this.makeGraphData())
+    this.makeGraphData()
     this.draw()
   }
 
   makeGraphData() {
-    const year = '2016'
-    let graphData = DISTRICTS.map((district) => ({
-      district: district,
-      // Ausländeranteil
-      value:
-        this.allData[district]['Bevölkerung: Ausländer'][year] / (
-          this.allData[district]['Bevölkerung: Ausländer'][year] +
-          this.allData[district]['Bevölkerung: Schweizer'][year]
-        ),
-    }))
     // NOTE: It is very important that data is sorted, for `fixCollisions()`
     // to work.
-    graphData = _.sortBy(graphData, (d) => d.value)
-    return graphData
-  }
-
-  setGraphData(graphData) {
-    this.graphData = graphData
+    this.graphData = _.sortBy(this.getGraphData(), (d) => d.value)
     this.updateAxes()
   }
 
   updateAxes() {
-    const min = d3.min(this.graphData.map((d) => d.value))
-    const max = d3.max(this.graphData.map((d) => d.value))
+    let graphDataValues = this.graphData.map((d) => d.value)
+    const min = d3.min(graphDataValues)
+    const max = d3.max(graphDataValues)
     const padding = (max - min) / 12
     this.x.domain([min - padding, max + padding])
+    this.color.domain(util.sampleEvenly(graphDataValues, this.colors.length))
   }
 
   fixCollisions(nodes) {
@@ -90,7 +83,7 @@ export default class TestGraph {
       .attr('x', this.width)
       .attr('dy', '-0.6rem')
       .attr('text-anchor', 'end')
-      .text('Ausländeranteil')
+      .text(this.xLabel)
 
     let nodes = this.g
       .selectAll('.range-node')
@@ -108,6 +101,7 @@ export default class TestGraph {
       .append('circle')
       .attr('class', 'circle')
       .attr('r', 10)
+      .attr('fill', (d) => this.color(d.value))
     nodes
       .append('text')
       .text((d) => DISTRICT_NAMES[d.district])

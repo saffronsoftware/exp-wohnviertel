@@ -3,6 +3,7 @@ import {
   getCitizenshipData, getCitizenshipKeys,
   getReligionData, getReligionKeys, getReligionDefaultSort,
   getAgeData, getAgeKeys, getAgeDefaultSort,
+  getForeignerData,
 } from './data-getters'
 import Hero from './hero'
 import BarChart from './bar-chart'
@@ -24,6 +25,9 @@ data.getData((err, allData) => {
   let rangeChart = new RangeChart({
     allData,
     selSvg: '#test-graph-2',
+    getGraphData: getForeignerData(allData),
+    xLabel: 'Ausländeranteil',
+    colors: colors.GRAPHIQ3_12_LOWER,
   })
 
   let citizenshipChart = new StackChart({

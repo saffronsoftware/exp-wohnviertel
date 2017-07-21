@@ -1,11 +1,12 @@
 import {AGE_GROUPS, AGE_GROUPS_PREFIX} from './common'
 import * as d3 from 'd3'
 
-export default class TestGraph {
+export default class BarChart {
   constructor({allData, selSvg}) {
     this.allData = allData
 
     const elSvg = document.querySelector(selSvg)
+    elSvg.classList.add('chart', 'bar-chart')
     const elSvgDims = elSvg.getBoundingClientRect()
     const svg = d3.select(selSvg)
     const margins = {

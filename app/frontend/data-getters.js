@@ -85,7 +85,7 @@ export function getReligionDefaultSort() {
 
 export function getAgeData(allData) {
   return function() {
-    let year = '2016'
+    const year = '2016'
     const getKey = (item) => AGE_GROUPS_PREFIX + item
 
     return DISTRICTS.map((district) => {
@@ -116,4 +116,19 @@ export function getAgeKeys() {
 
 export function getAgeDefaultSort() {
   return AGE_GROUPS_DEFAULT_SORT
+}
+
+export function getForeignerData(allData) {
+  return function() {
+    const year = '2016'
+    let graphData = DISTRICTS.map((district) => ({
+      district: district,
+      value:
+        this.allData[district]['Bevölkerung: Ausländer'][year] / (
+          this.allData[district]['Bevölkerung: Ausländer'][year] +
+          this.allData[district]['Bevölkerung: Schweizer'][year]
+        ),
+    }))
+    return graphData
+  }
 }

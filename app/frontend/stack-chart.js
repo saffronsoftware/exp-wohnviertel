@@ -2,7 +2,7 @@ import {bindContext} from './util'
 import * as _ from 'lodash'
 import * as d3 from 'd3'
 
-export default class TestGraph {
+export default class RangeChart {
   constructor({
     allData, selSvg, getKeys, getGraphData, xLabel, yLabel, colors, defaultSort
   }) {
@@ -15,13 +15,14 @@ export default class TestGraph {
     this.defaultSort = defaultSort || 'district'
 
     const elSvg = document.querySelector(selSvg)
+    elSvg.classList.add('chart', 'stack-chart')
     const elSvgDims = elSvg.getBoundingClientRect()
     const svg = d3.select(selSvg)
     const margins = {
       top: 50,
       right: 50,
       bottom: 70,
-      left: 100,
+      left: 150,
       legend: 200,
     }
 
