@@ -132,3 +132,14 @@ export function getForeignerData(allData) {
     return graphData
   }
 }
+
+export function getWelfareData(allData) {
+  return function() {
+    const year = '2016'
+    let graphData = DISTRICTS.map((district) => ({
+      district: district,
+      value: this.allData[district]['Sozialhilfequote'][year] / 100
+    }))
+    return graphData
+  }
+}

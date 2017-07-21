@@ -4,6 +4,7 @@ import {
   getReligionData, getReligionKeys, getReligionDefaultSort,
   getAgeData, getAgeKeys, getAgeDefaultSort,
   getForeignerData,
+  getWelfareData,
 } from './data-getters'
 import Hero from './hero'
 import BarChart from './bar-chart'
@@ -22,11 +23,19 @@ data.getData((err, allData) => {
     selSvg: '#test-graph-1',
   })
 
-  let rangeChart = new RangeChart({
+  let foreignersChart = new RangeChart({
     allData,
-    selSvg: '#test-graph-2',
+    selSvg: '#foreigners-chart',
     getGraphData: getForeignerData(allData),
     xLabel: 'Ausländeranteil',
+    colors: colors.GRAPHIQ3_12_LOWER,
+  })
+
+  let welfareChart = new RangeChart({
+    allData,
+    selSvg: '#welfare-chart',
+    getGraphData: getWelfareData(allData),
+    xLabel: 'Sozialhilfequote',
     colors: colors.GRAPHIQ3_12_LOWER,
   })
 

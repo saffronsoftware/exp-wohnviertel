@@ -46,10 +46,16 @@ export default class RangeChart {
 
   updateAxes() {
     let graphDataValues = this.graphData.map((d) => d.value)
+    const PADDING_FACTOR = 10
+    const PADDING_MIN_FACTOR = 0.5
+    const PADDING_MAX_FACTOR = 1.5
     const min = d3.min(graphDataValues)
     const max = d3.max(graphDataValues)
-    const padding = (max - min) / 12
-    this.x.domain([min - padding, max + padding])
+    const padding = (max - min) / PADDING_FACTOR
+    this.x.domain([
+      min - (padding * PADDING_MIN_FACTOR),
+      max + (padding * PADDING_MAX_FACTOR),
+    ])
     this.color.domain(util.sampleEvenly(graphDataValues, this.colors.length))
   }
 
