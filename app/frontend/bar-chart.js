@@ -53,8 +53,6 @@ export default class BarChart {
     this.x.domain(this.graphData.map((d) => d.district))
     this.y.domain([0, d3.max(graphDataValues)])
     this.color.domain(util.sampleEvenly(graphDataValues, this.colors.length))
-    console.log(util.sampleEvenly(graphDataValues, this.colors.length))
-    console.log(this.colors)
   }
 
   draw() {

@@ -4,32 +4,14 @@ block meta
   +page-title('Home')
   +page-description('TODO')
 
-block stylesheets
-  link(rel='stylesheet' href='/stylesheets/compiled/home.css')
-
 block content
-  .hero-container
-    #hero.hero
-    .hero-text
-      .grid-container.grid-container--1200
-        .hero-heading
-          h1
-            div
-              span Lorem Ipsum
-            div
-              span Dolor Sit Amet
-        // .hero-body
-        //   p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed risus leo, efficitur sed dolor quis, tempor cursus mi.
-        //   p Quisque porttitor nunc eget mi molestie laoreet. Nulla ultrices, massa at vulputate bibendum, elit ligula venenatis mi, ultricies aliquam leo nunc vitae justo.
-  svg#foreigners-chart(width='1400', height='200')
-  svg#welfare-chart(width='1400', height='200')
-  svg#median-wealth-chart(width='1400', height='300')
-  svg#average-wealth-chart(width='1400', height='300')
-  svg#median-income-chart(width='1400', height='300')
-  svg#average-income-chart(width='1400', height='300')
-  svg#citizenship-chart(width='1400', height='800')
-  svg#religion-chart(width='1400', height='800')
-  svg#age-chart(width='1400', height='800')
+  page
 
 block scripts
+  script#component-template--hero(type='text/x-template')
+    include /components/hero
+  script#component-template--charts(type='text/x-template')
+    include /components/charts
+  script#component-template--page(type='text/x-template')
+    include /components/page
   script(src='/javascripts/build/home.js')

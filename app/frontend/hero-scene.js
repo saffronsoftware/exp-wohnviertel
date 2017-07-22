@@ -1,10 +1,10 @@
-import {bindContext} from './util'
 import * as THREE from 'three'
 import * as _ from 'lodash'
+import {bindContext} from './util'
 import * as colors from './colors'
 
 
-export default class Hero {
+export default class HeroScene {
   constructor({selContainer}) {
     this.elContainer = document.querySelector(selContainer)
 
@@ -188,7 +188,7 @@ export default class Hero {
     this.width = this.elContainer.offsetWidth
     this.height = this.elContainer.offsetHeight
     this.aspectRatio = this.width / this.height
-    this.cameraFov = 100
+    this.cameraFov = 80
     this.cameraZ = 80
     this.cameraAngle = 0 * Math.PI / 180
   }
