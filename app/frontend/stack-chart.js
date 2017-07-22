@@ -4,7 +4,7 @@ import {bindContext} from './util'
 
 export default class RangeChart {
   constructor({
-    allData, selSvg, getKeys, getGraphData, xLabel, yLabel, colors, defaultSort
+    allData, selContainer, getKeys, getGraphData, xLabel, yLabel, colors, defaultSort
   }) {
     this.allData = allData
     this.getKeys = getKeys
@@ -13,16 +13,17 @@ export default class RangeChart {
     this.yLabel = yLabel
     this.colors = colors
     this.defaultSort = defaultSort || 'district'
+    this.elContainer = document.querySelector(selContainer)
 
-    const elSvg = document.querySelector(selSvg)
+    const elSvg = this.elContainer.querySelector('svg')
     elSvg.classList.add('chart', 'stack-chart')
     const elSvgDims = elSvg.getBoundingClientRect()
-    const svg = d3.select(selSvg)
+    const svg = d3.select(elSvg)
     const margins = {
-      top: 50,
-      right: 50,
-      bottom: 70,
-      left: 150,
+      top: 30,
+      right: 5,
+      bottom: 40,
+      left: 130,
       legend: 200,
     }
 
@@ -205,7 +206,7 @@ export default class RangeChart {
   }
 
   drawTooltip() {
-    this.tooltip = d3.select('body')
+    this.tooltip = d3.select(this.elContainer)
       .append('div')
       .attr('class', 'graph-tooltip')
       .style('opacity', 0)

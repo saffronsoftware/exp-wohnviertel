@@ -22,7 +22,7 @@ Vue.component('charts', {
     data.getData((err, allData) => {
       let foreignersChart = new RangeChart({
         allData,
-        selSvg: '#foreigners-chart',
+        selContainer: '#foreigners-chart',
         getGraphData: dataGetters.getForeignerData(allData),
         xLabel: 'Ausländeranteil',
         isPercent: true,
@@ -31,7 +31,7 @@ Vue.component('charts', {
 
       let welfareChart = new RangeChart({
         allData,
-        selSvg: '#welfare-chart',
+        selContainer: '#welfare-chart',
         getGraphData: dataGetters.getWelfareData(allData),
         xLabel: 'Sozialhilfequote',
         isPercent: true,
@@ -40,7 +40,7 @@ Vue.component('charts', {
 
       let medianWealthChart = new BarChart({
         allData,
-        selSvg: '#median-wealth-chart',
+        selContainer: '#median-wealth-chart',
         getGraphData: dataGetters.getMedianWealthData(allData),
         xLabel: 'Reinvermögen Median',
         colors: colors.GRAPHIQ3_12_LOWER,
@@ -50,7 +50,7 @@ Vue.component('charts', {
 
       let averageWealthChart = new BarChart({
         allData,
-        selSvg: '#average-wealth-chart',
+        selContainer: '#average-wealth-chart',
         getGraphData: dataGetters.getAverageWealthData(allData),
         xLabel: 'Reinvermögen Mittelwert',
         colors: colors.GRAPHIQ3_12_LOWER,
@@ -60,7 +60,7 @@ Vue.component('charts', {
 
       let medianIncomeChart = new BarChart({
         allData,
-        selSvg: '#median-income-chart',
+        selContainer: '#median-income-chart',
         getGraphData: dataGetters.getMedianIncomeData(allData),
         xLabel: 'Reineinkommen Median',
         colors: colors.GRAPHIQ3_12_LOWER,
@@ -70,7 +70,7 @@ Vue.component('charts', {
 
       let averageIncomeChart = new BarChart({
         allData,
-        selSvg: '#average-income-chart',
+        selContainer: '#average-income-chart',
         getGraphData: dataGetters.getAverageIncomeData(allData),
         xLabel: 'Reineinkommen Mittelwert',
         colors: colors.GRAPHIQ3_12_LOWER,
@@ -80,7 +80,7 @@ Vue.component('charts', {
 
       let citizenshipChart = new StackChart({
         allData,
-        selSvg: '#citizenship-chart',
+        selContainer: '#citizenship-chart',
         getKeys: dataGetters.getCitizenshipKeys,
         getGraphData: dataGetters.getCitizenshipData(allData),
         xLabel: 'Teil',
@@ -90,7 +90,7 @@ Vue.component('charts', {
 
       let religionChart = new StackChart({
         allData,
-        selSvg: '#religion-chart',
+        selContainer: '#religion-chart',
         getKeys: dataGetters.getReligionKeys,
         getGraphData: dataGetters.getReligionData(allData),
         xLabel: 'Teil',
@@ -111,7 +111,7 @@ Vue.component('charts', {
 
       let ageChart = new StackChart({
         allData,
-        selSvg: '#age-chart',
+        selContainer: '#age-chart',
         getKeys: dataGetters.getAgeKeys,
         getGraphData: dataGetters.getAgeData(allData),
         xLabel: 'Teil',

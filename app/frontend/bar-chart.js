@@ -4,7 +4,7 @@ import * as util from './util'
 
 export default class BarChart {
   constructor({
-    allData, selSvg, getGraphData, xLabel, yLabel, colors, xTickFormat, yTickFormat
+    allData, selContainer, getGraphData, xLabel, yLabel, colors, xTickFormat, yTickFormat
   }) {
     this.allData = allData
     this.getGraphData = getGraphData
@@ -13,16 +13,17 @@ export default class BarChart {
     this.colors = colors
     this.xTickFormat = xTickFormat
     this.yTickFormat = yTickFormat
+    this.elContainer = document.querySelector(selContainer)
 
-    const elSvg = document.querySelector(selSvg)
+    const elSvg = this.elContainer.querySelector('svg')
     elSvg.classList.add('chart', 'bar-chart')
     const elSvgDims = elSvg.getBoundingClientRect()
-    const svg = d3.select(selSvg)
+    const svg = d3.select(elSvg)
     const margins = {
-      top: 50,
-      right: 50,
+      top: 20,
+      right: 25,
       bottom: 80,
-      left: 100,
+      left: 70,
     }
 
     this.width = elSvgDims.width - margins.left - margins.right

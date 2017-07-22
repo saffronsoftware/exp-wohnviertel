@@ -1,45 +1,55 @@
-.graph-tooltip
-  position absolute
-  padding 0.2rem 0.4rem
-  margin-top -1.5rem
-  background white
-  pointer-events none
-  transform translate(-50%)
-  box-shadow 1px 1px 2px 0 rgba(0,0,0,0.2)
+.charts
+  padding 8rem 0
+  .graph-tooltip
+    position absolute
+    padding 0.2rem 0.4rem
+    margin-top -1.5rem
+    background white
+    pointer-events none
+    transform translate(-50%)
+    box-shadow 1px 1px 2px 0 rgba(0,0,0,0.2)
 
-svg.chart
-  display block
-  margin 0 auto
-  font-size 1.1rem
-  font-weight 300
-  text
-    fill black
-    font-family Georgia, serif
-    // font-weight 300
-  svg
-    overflow visible !important
-  .legend
-    text
-      font-size 0.7rem
-  .axis
-    text
-      font-size 0.7rem
+  .chart-group
+    margin-bottom 8rem
+    .chart-group__description
+      h2
+        margin-bottom 1rem
+    .chart-group__chart
+      margin-top 4rem
 
-.bar-chart
-  .bar-group
-    &.bar-group--hidden
-      .bar
-        cursor default
-    .bar
-      cursor pointer
-      &.active
-        fill #40d689
-
-.range-chart
-  .range-node
+  svg.chart
+    display block
+    margin 0 auto
+    font-size 1.1rem
+    font-weight 300
     text
-      font-size 0.7rem
-  .axis
-    .tick
+      fill black
+      font-family Georgia, serif
+      // font-weight 300
+    svg
+      overflow visible !important
+    .legend
       text
-        font-size 0.8rem
+        font-size 0.7rem
+    .axis
+      text
+        font-size 0.7rem
+
+  .bar-chart
+    .bar-group
+      &.bar-group--hidden
+        .bar
+          cursor default
+      .bar
+        cursor pointer
+        &.active
+          fill #40d689
+
+  .range-chart
+    .range-node
+      text
+        font-size 0.7rem
+    .axis
+      .tick
+        text
+          font-size 0.8rem

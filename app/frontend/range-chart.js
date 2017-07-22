@@ -4,23 +4,24 @@ import {DISTRICTS, DISTRICT_NAMES} from './common'
 import * as util from './util'
 
 export default class RangeChart {
-  constructor({allData, selSvg, getGraphData, xLabel, colors, isPercent, tickFormat}) {
+  constructor({allData, selContainer, getGraphData, xLabel, colors, isPercent, tickFormat}) {
     this.allData = allData
     this.getGraphData = getGraphData
     this.xLabel = xLabel
     this.colors = colors
     this.isPercent = isPercent
     this.tickFormat = tickFormat
+    this.elContainer = document.querySelector(selContainer)
 
-    const elSvg = document.querySelector(selSvg)
+    const elSvg = this.elContainer.querySelector('svg')
     elSvg.classList.add('chart', 'range-chart')
     const elSvgDims = elSvg.getBoundingClientRect()
-    const svg = d3.select(selSvg)
+    const svg = d3.select(elSvg)
     const margins = {
-      top: 50,
-      right: 50,
-      bottom: 50,
-      left: 50,
+      top: 0,
+      right: 5,
+      bottom: 30,
+      left: 5,
     }
 
     this.width = elSvgDims.width - margins.left - margins.right
