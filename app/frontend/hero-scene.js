@@ -16,7 +16,7 @@ export default class HeroScene {
     this.objectSpeed = 0.03
     this.objectDirectionChangeChance = 0
     this.objectMinZ = this.objectDefaultZ
-    this.objectZDiff = 3
+    this.objectZDiff = 4
     this.objectMaxZ = this.objectMinZ + this.objectZDiff
     this.mouseRotationDampenX = 70000
     this.mouseRotationDampenY = 20000
@@ -121,7 +121,7 @@ export default class HeroScene {
 
   makeObject(x, y) {
     let colorSet = colors.GRAPHIQ3_12_HIGHS
-    let colorIndex = _.random(3, colorSet.length - 4)
+    let colorIndex = 2
     let colorCode = colorSet[colorIndex]
     let color = parseInt(colorCode.slice(1), 16)
 
@@ -175,13 +175,17 @@ export default class HeroScene {
   }
 
   makeLights() {
-    let ambientLight = new THREE.AmbientLight(0xd6ffff, 1.2)
+    let ambientLight = new THREE.AmbientLight(0xffffff, 1.0)
     this.scene.add(ambientLight)
 
-    let dirLight = new THREE.DirectionalLight(0xffffff, 0.3)
+    let dirLight = new THREE.DirectionalLight(0xffffff, 0.15)
     dirLight.position.set(200, 150, 80)
     // this.setLightShadow(dirLight)
     this.scene.add(dirLight)
+
+    let spotLight = new THREE.SpotLight(0xffffff, 0.2)
+    spotLight.position.set(100, 100, 150)
+    this.scene.add(spotLight)
   }
 
   updateDimensions() {
