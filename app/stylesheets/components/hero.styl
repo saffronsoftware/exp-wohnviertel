@@ -9,7 +9,7 @@
     left 0
     right 0
     bottom 0
-    padding 8rem 0
+    padding 6rem 0
     background rgba(255,255,255,0.5)
     pointer-events none // Allow events to pass to scene underneath
     text-align center
@@ -27,9 +27,29 @@
           background color-dark-purple
           color white
     .hero-body
-      max-width 40rem
-      margin-top 3rem
+      max-width 35rem
+      margin 0 auto
       p
+        margin-top 2rem
+        margin-bottom 0
         color color-dark-purple
         font-size 1.6rem
         text-shadow 0px 0px 2px white
+  .hero-hint
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    .hero-hint__circle
+      display flex
+      justify-content center
+      align-items center
+      width 3rem
+      height 3rem
+      margin 0 auto
+      margin-bottom 3rem
+      background transparent
+      border 1px solid color-dark-purple
+      color color-dark-purple
+      border-radius 100%
+      font-size 1.5rem
