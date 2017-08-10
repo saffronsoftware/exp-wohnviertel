@@ -1,3 +1,134 @@
 .page
-  hero(v-bind:locale='locale')
-  charts(v-bind:locale='locale')
+  hero
+
+
+  .charts(v-if='allData')
+    .grid-container.grid-container--1200
+
+      .chart-group
+        .chart-group__description
+        .chart-group__chart
+          #test-chart
+            include ../../../public/wohnviertel.svg
+            //- svg(width='1200', height='800')
+
+      .chart-group
+        .chart-group__description
+          h2 Foreigners
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
+          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+        .chart-group__chart
+          range-chart(
+            xLabel='Ausländeranteil',
+            :allData='allData',
+            :getGraphData='foreignersChart.getData',
+            :isPercent='true',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
+
+      .chart-group
+        .chart-group__description
+          h2 Welfare
+          p Mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
+          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+        .chart-group__chart
+          range-chart(
+            xLabel='Sozialhilfequote',
+            :allData='allData',
+            :getGraphData='welfareChart.getData',
+            :isPercent='true',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
+
+      .chart-group
+        .chart-group__description
+          h2 Wealth and Income
+          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+          p Mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
+        .chart-group__chart
+          bar-chart(
+            xLabel='Reinvermögen Median',
+            yLabel='',
+            :allData='allData',
+            :getGraphData='medianWealthChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+            :xTickFormat='medianWealthChart.xTickFormat',
+            :yTickFormat='medianWealthChart.yTickFormat',
+          )
+        .chart-group__chart
+          bar-chart(
+            xLabel='Reinvermögen Mittelwert',
+            yLabel='',
+            :allData='allData',
+            :getGraphData='averageWealthChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+            :xTickFormat='averageWealthChart.xTickFormat',
+            :yTickFormat='averageWealthChart.yTickFormat',
+          )
+        .chart-group__chart
+          bar-chart(
+            xLabel='Reineinkommen Median',
+            yLabel='',
+            :allData='allData',
+            :getGraphData='medianIncomeChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+            :xTickFormat='medianIncomeChart.xTickFormat',
+            :yTickFormat='medianIncomeChart.yTickFormat',
+          )
+        .chart-group__chart
+          bar-chart(
+            xLabel='Reineinkommen Mittelwert',
+            yLabel='',
+            :allData='allData',
+            :getGraphData='averageIncomeChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+            :xTickFormat='averageIncomeChart.xTickFormat',
+            :yTickFormat='averageIncomeChart.yTickFormat',
+          )
+
+      .chart-group
+        .chart-group__description
+          h2 Citizenship
+          p Nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
+        .chart-group__chart
+          stack-chart(
+            xLabel='Teil',
+            yLabel='Wohnviertel',
+            :allData='allData',
+            :getGraphData='citizenshipChart.getData',
+            :getKeys='citizenshipChart.getKeys',
+            :colors='citizenshipChart.colors',
+          )
+
+      .chart-group
+        .chart-group__description
+          h2 Religion
+          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
+          p Nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+        .chart-group__chart
+          stack-chart(
+            xLabel='Teil',
+            yLabel='Wohnviertel',
+            :allData='allData',
+            :getGraphData='religionChart.getData',
+            :getKeys='religionChart.getKeys',
+            :colors='religionChart.colors',
+            :defaultSort='religionChart.defaultSort',
+          )
+
+      .chart-group
+        .chart-group__description
+          h2 Age
+          p Turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
+          p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+        .chart-group__chart
+          stack-chart(
+            xLabel='Teil',
+            yLabel='Wohnviertel',
+            :allData='allData',
+            :getGraphData='ageChart.getData',
+            :getKeys='ageChart.getKeys',
+            :colors='ageChart.colors',
+            :defaultSort='ageChart.defaultSort',
+          )

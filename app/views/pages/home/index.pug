@@ -10,8 +10,12 @@ block content
 block scripts
   script#component-template--hero(type='text/x-template')
     include /components/hero
-  script#component-template--charts(type='text/x-template')
-    include /components/charts
+  script#component-template--range-chart(type='text/x-template')
+    include /components/range-chart
+  script#component-template--bar-chart(type='text/x-template')
+    include /components/bar-chart
+  script#component-template--stack-chart(type='text/x-template')
+    include /components/stack-chart
   script#component-template--page(type='text/x-template')
     include /components/page
   script(src='/javascripts/build/home.js')
