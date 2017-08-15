@@ -8,9 +8,11 @@
       .chart-group
         .chart-group__description
         .chart-group__chart
-          #test-chart
-            include ../../../public/wohnviertel.svg
-            //- svg(width='1200', height='800')
+          map-chart(
+            :allData='allData',
+            :getGraphData='foreignersChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
 
       .chart-group
         .chart-group__description

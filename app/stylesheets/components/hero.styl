@@ -1,55 +1,66 @@
 .hero
   position relative
   .hero-scene
-    width 100%
-    height 100vh
-  .hero-text
     position absolute
     top 0
     left 0
     right 0
     bottom 0
-    padding 6rem 0
-    background rgba(255,255,255,0.5)
-    pointer-events none // Allow events to pass to scene underneath
-    text-align center
-    h1
-      margin 0
-      margin-bottom 1rem
-      font-size 5rem
-      line-height 0
-      div
-        span
-          display inline-block
-          margin-bottom 1rem
-          padding 0.5rem 1.5rem 1.0rem 1.5rem
-          line-height 1
-          background color-dark-purple
-          color white
-    .hero-body
-      max-width 35rem
-      margin 0 auto
-      p
-        margin-top 2rem
-        margin-bottom 0
-        color color-dark-purple
-        font-size 1.6rem
-        text-shadow 0px 0px 2px white
-  .hero-hint
+    z-index 1
+  .hero-cover
     position absolute
+    top 0
     left 0
     right 0
     bottom 0
-    .hero-hint__circle
-      display flex
-      justify-content center
-      align-items center
-      width 3rem
+    z-index 2
+    background rgba(255,255,255,0.5)
+  .hero-main
+    display flex
+    flex-direction column
+    justify-content space-between
+    min-height 100vh
+    position relative
+    z-index 3
+    padding 6rem 0
+    pointer-events none // Allow events to pass to scene underneath
+    text-align center
+    .hero-text
+      h1
+        margin 0
+        margin-bottom 1rem
+        font-size 5rem
+        line-height 0
+        div
+          span
+            display inline-block
+            margin-bottom 1rem
+            padding 0.5rem 1.5rem 1.0rem 1.5rem
+            line-height 1
+            background color-dark-purple
+            color white
+      .hero-body
+        max-width 35rem
+        margin 0 auto
+        p
+          margin-top 2rem
+          margin-bottom 0
+          color color-dark-purple
+          font-size 1.6rem
+          text-shadow 0px 0px 2px white
+    .hero-hint
       height 3rem
-      margin 0 auto
-      margin-bottom 3rem
-      background transparent
-      border 1px solid color-dark-purple
-      color color-dark-purple
-      border-radius 100%
-      font-size 1.5rem
+      .hero-hint__circle
+        display flex
+        justify-content center
+        align-items center
+        width 3rem
+        height 3rem
+        margin 0 auto
+        margin-top 3rem
+        margin-bottom 3rem
+        background transparent
+        border 1px solid color-dark-purple
+        color color-dark-purple
+        border-radius 100%
+        font-size 1.5rem
