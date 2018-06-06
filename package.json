@@ -19,5 +19,9 @@
     "pugjs-brunch": "^2.10.2",
     "stylus-brunch": "^2.10.0",
     "uglify-js-brunch": "^2.10.0"
+  },
+  "scripts": {
+    "start": "brunch watch --server",
+    "build": "brunch build --production"
   }
 }
