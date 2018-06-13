@@ -1,8 +1,7 @@
 node_modules/
-/config.js
 
-public/javascripts/build/**/*.js
-public/javascripts/views/**/*.js
-
-public/stylesheets/build/**/*.css
-public/stylesheets/compiled/**/*.css
+public/*.js
+public/*.js.map
+public/*.css
+public/*.css.map
+public/*.html
