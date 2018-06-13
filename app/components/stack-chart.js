@@ -38,7 +38,7 @@ Vue.component('stack-chart', {
 
     this.g = svg
       .append('g')
-      .attr('transform', `translate(${margins.left}, ${margins.right})`)
+      .attr('transform', `translate(${margins.left}, ${margins.top})`)
     this.graphData = []
 
     this.x = d3.scaleLinear().rangeRound([0, this.graphWidth])

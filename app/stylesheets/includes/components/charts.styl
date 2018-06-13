@@ -20,6 +20,7 @@
 
   svg.chart, .chart svg
     display block
+    max-width 100%
     margin 0 auto
     font-size 1.1rem
     font-weight 300
@@ -56,7 +57,13 @@
           font-size 0.8rem
 
   .map-chart
+    display flex
+    justify-content center
     svg
       height 30rem
+      margin 0
       [data-name='rhein'] polygon
         fill rgba(0, 138, 195, 0.5)
+    .legend
+      margin-left 4rem
+      width 5.5rem

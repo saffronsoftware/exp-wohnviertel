@@ -34,7 +34,7 @@ Vue.component('range-chart', {
 
     this.g = svg
       .append('g')
-      .attr('transform', `translate(${margins.left}, ${margins.right})`)
+      .attr('transform', `translate(${margins.left}, ${margins.top})`)
 
     this.x = d3.scaleLinear().range([0, this.width])
     this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)

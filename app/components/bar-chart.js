@@ -33,7 +33,7 @@ Vue.component('bar-chart', {
 
     this.g = svg
       .append('g')
-      .attr('transform', `translate(${margins.left}, ${margins.right})`)
+      .attr('transform', `translate(${margins.left}, ${margins.top})`)
 
     this.x = d3.scaleBand().rangeRound([0, this.width]).padding(0.1)
     this.y = d3.scaleLinear().rangeRound([this.height, 0])

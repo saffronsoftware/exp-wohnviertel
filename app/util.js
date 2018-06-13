@@ -81,3 +81,19 @@ export function sampleEvenly(data, count) {
 
   return [].concat([firstElement], middleElements, [lastElement])
 }
+
+export function linspace(start, end, n) {
+  const delta = (end - start) / (n - 1)
+  const values = [...Array(n).keys()].map((idx) => {
+    return start + (idx * delta)
+  })
+  return values
+}
+
+export function makeChartId(length) {
+  // Weird base36 thing I don't totally understand but OK.
+  // https://stackoverflow.com/a/10727155
+  length = length || 8
+  const number = (Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))
+  return Math.round(number).toString(36).slice(1)
+}
