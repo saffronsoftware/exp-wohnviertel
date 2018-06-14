@@ -1,3 +1,7 @@
+v0.3.0
+- [bug] Fix range chart node collisions for very tight data.
+- [bug] Give range chart enough padding for longer axis labels to show.
+
 v0.2.0
 - [bug] Fix chart spacing.
 - [bug] Fix header overflow.

@@ -11,7 +11,8 @@ Vue.component('range-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--range-chart',
   props: [
-    'allData', 'getGraphData', 'xLabel', 'colors', 'isPercent', 'tickFormat'
+    'allData', 'getGraphData', 'xLabel', 'colors', 'isPercent', 'tickFormat',
+    'radius', 'minDist',
   ],
   data: function() {
     return {
@@ -28,6 +29,10 @@ Vue.component('range-chart', {
       bottom: 30,
       left: 5,
     }
+
+    // Vue property shadowing, meeh.
+    this.nodeRadius = this.radius || 10
+    this.nodeMinDist = this.minDist || 22 // px
 
     this.width = elSvgDims.width - margins.left - margins.right
     this.height = elSvgDims.height - margins.top - margins.bottom
@@ -55,7 +60,7 @@ Vue.component('range-chart', {
 
     updateAxes() {
       let graphDataValues = this.graphData.map((d) => d.value)
-      const PADDING_FACTOR = 10
+      const PADDING_FACTOR = 7
       const PADDING_MIN_FACTOR = 0.5
       const PADDING_MAX_FACTOR = 1.5
       const min = d3.min(graphDataValues)
@@ -69,8 +74,8 @@ Vue.component('range-chart', {
     },
 
     fixCollisions(nodes) {
+      const MIN_DIST = this.nodeMinDist
       const NR_ITERATIONS = 200
-      const MIN_DIST = 22 // px
       const FORCE_FACTOR = 10
       const FORCE = MIN_DIST / FORCE_FACTOR
       function doFixCollisions(d) {
@@ -85,6 +90,10 @@ Vue.component('range-chart', {
       _.times(NR_ITERATIONS, () => {
         nodes.each(doFixCollisions)
       })
+    },
+
+    getNodeMargin() {
+      return Math.max(this.nodeRadius * 2, 15)
     },
 
     draw() {
@@ -119,11 +128,11 @@ Vue.component('range-chart', {
         .append('svg')
         .attr('class', 'range-node')
         .attr('x', (d) => this.x(d.value))
-        .attr('y', this.height - 20)
+        .attr('y', this.height - this.getNodeMargin())
       nodes
         .append('circle')
         .attr('class', 'circle')
-        .attr('r', 10)
+        .attr('r', this.nodeRadius)
         .attr('fill', (d) => this.color(d.value))
       nodes
         .append('text')
