@@ -187,3 +187,17 @@ export function getAverageIncomeData(allData) {
     return graphData
   }
 }
+
+export function getPopulationChangeData(allData) {
+  return function() {
+    const year = '2015'
+    const graphData = DISTRICTS.map((district) => ({
+      district: district,
+      value: this.allData[district]['Wanderungen Saldo: Schweizer'][year] +
+        this.allData[district]['Umzüge Saldo: Schweizer'][year] +
+        this.allData[district]['Wanderungen Saldo: Ausländer'][year] +
+        this.allData[district]['Umzüge Saldo: Ausländer'][year],
+    }))
+    return graphData
+  }
+}

@@ -11,7 +11,7 @@ Vue.component('map-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--map-chart',
   props: [
-    'allData', 'getGraphData', 'colors',
+    'allData', 'getGraphData', 'colors', 'isPercent',
   ],
   data: function() {
     return {
@@ -28,6 +28,7 @@ Vue.component('map-chart', {
   methods: {
     initMap() {
       this.mapSvg = d3.select(this.$el.querySelector('svg.map'))
+
       this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
 
       this.tooltip = d3.select(this.$el.querySelector('.graph-tooltip'))
@@ -62,6 +63,14 @@ Vue.component('map-chart', {
       this.updateAxes()
     },
 
+    formatValue(val) {
+      if (this.isPercent) {
+        return d3.format('.0%')(val)
+      } else {
+        return d3.format(',.0f')(val)
+      }
+    },
+
     showTooltip(el, d) {
       let rect = el.getBoundingClientRect()
       let left = rect.left + window.scrollX + ((rect.right - rect.left) / 2)
@@ -71,7 +80,7 @@ Vue.component('map-chart', {
         .duration(200)
         .style('opacity', 1)
       this.tooltip
-        .html(DISTRICT_NAMES[d.district])
+        .html(DISTRICT_NAMES[d.district] + ' — ' + this.formatValue(d.value))
         .style('left', left + 'px')
         .style('top', top + 'px')
       d3.select(el).classed('active', true)
@@ -87,7 +96,12 @@ Vue.component('map-chart', {
 
     updateAxes() {
       const graphDataValues = this.graphData.map((d) => d.value)
-      this.color.domain(util.sampleEvenly(graphDataValues, this.colors.length))
+      const domain = util.linspace(
+        d3.min(graphDataValues),
+        d3.max(graphDataValues),
+        this.colors.length
+      )
+      this.color.domain(domain)
       this.legendY.domain([d3.min(graphDataValues), d3.max(graphDataValues)])
     },
 
@@ -114,7 +128,7 @@ Vue.component('map-chart', {
         .append('g')
         .attr('class', 'axis axis--y')
         .attr('transform', `translate(${this.legendWidth + 2}, 0)`)
-        .call(d3.axisRight(this.legendY))
+        .call(d3.axisRight(this.legendY).tickFormat(this.formatValue))
 
       this.legendG.selectAll('defs').remove()
       const gradient = this.legendG

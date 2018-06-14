@@ -190,7 +190,6 @@ export default class HeroScene {
 
   updateDimensions() {
     this.width = this.elContainer.offsetWidth
-    console.log('New width', this.width)
     this.height = this.elContainer.offsetHeight
     this.aspectRatio = this.width / this.height
     this.cameraFov = 80

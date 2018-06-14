@@ -67,6 +67,9 @@ Vue.component('page', {
         defaultSort: dataGetters.getAgeDefaultSort(),
         colors: colors.GRAPHIQ3_12_LOWER.concat(['#cccccc'])
       },
+      populationChangeChart: {
+        getData: null,
+      },
     }
   },
 
@@ -82,6 +85,7 @@ Vue.component('page', {
       this.citizenshipChart.getData = dataGetters.getCitizenshipData(allData)
       this.religionChart.getData = dataGetters.getReligionData(allData)
       this.ageChart.getData = dataGetters.getAgeData(allData)
+      this.populationChangeChart.getData = dataGetters.getPopulationChangeData(allData)
     })
   },
 
