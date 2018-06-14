@@ -1,3 +1,4 @@
 * [improvement] Specify what years data is from for each chart
 * [bug] Fix range chart overflow
 * [bug] Hero scene is super CPU-intensive and makes everything run slowly
+* [improvement] Check statistics to make sure they make sense, for example population change
