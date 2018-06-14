@@ -7,15 +7,6 @@
 
       .chart-group
         .chart-group__description
-        .chart-group__chart
-          map-chart(
-            :allData='allData',
-            :getGraphData='foreignersChart.getData',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-          )
-
-      .chart-group
-        .chart-group__description
           h2 Foreigners
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
@@ -25,6 +16,12 @@
             :allData='allData',
             :getGraphData='foreignersChart.getData',
             :isPercent='true',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
+        .chart-group__chart
+          map-chart(
+            :allData='allData',
+            :getGraphData='foreignersChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
 

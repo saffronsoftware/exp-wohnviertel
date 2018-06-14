@@ -1,0 +1,8 @@
+v0.2.0
+- [bug] Fix chart spacing.
+- [bug] Fix header overflow.
+- [improvement] Add legend to map.
+- [improvement] Add tooltips to map.
+
+v0.1.0
+- Initial version.

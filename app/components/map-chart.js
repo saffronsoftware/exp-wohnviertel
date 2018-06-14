@@ -29,6 +29,9 @@ Vue.component('map-chart', {
     initMap() {
       this.mapSvg = d3.select(this.$el.querySelector('svg.map'))
       this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
+
+      this.tooltip = d3.select(this.$el.querySelector('.graph-tooltip'))
+
       this.makeGraphData()
     },
 
@@ -59,6 +62,29 @@ Vue.component('map-chart', {
       this.updateAxes()
     },
 
+    showTooltip(el, d) {
+      let rect = el.getBoundingClientRect()
+      let left = rect.left + window.scrollX + ((rect.right - rect.left) / 2)
+      let top = rect.top + window.scrollY + ((rect.bottom - rect.top) / 2)
+      this.tooltip
+        .transition()
+        .duration(200)
+        .style('opacity', 1)
+      this.tooltip
+        .html(DISTRICT_NAMES[d.district])
+        .style('left', left + 'px')
+        .style('top', top + 'px')
+      d3.select(el).classed('active', true)
+    },
+
+    hideTooltip(el, d) {
+      this.tooltip
+        .transition()
+        .duration(200)
+        .style('opacity', 0)
+      d3.select(el).classed('active', false)
+    },
+
     updateAxes() {
       const graphDataValues = this.graphData.map((d) => d.value)
       this.color.domain(util.sampleEvenly(graphDataValues, this.colors.length))
@@ -78,6 +104,8 @@ Vue.component('map-chart', {
         .selectAll('[data-name="wohnviertel"] polygon')
         .data(this.graphData, makeKey)
         .attr('fill', (d) => this.color(d.value))
+        .on('mouseover', util.bindContext(this, this.showTooltip))
+        .on('mouseout', util.bindContext(this, this.hideTooltip))
     },
 
     drawLegend() {

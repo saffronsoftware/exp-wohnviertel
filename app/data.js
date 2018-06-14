@@ -28,7 +28,6 @@ function transformRow(row) {
 
 
 function getDistrict(allData, district, done) {
-  // TODO: Fix hack.
   d3.csv(SETTINGS.csvPath + district + '.csv', transformRow, (districtData) => {
     allData[district] = transformDistrictData(districtData)
     done(null, allData)

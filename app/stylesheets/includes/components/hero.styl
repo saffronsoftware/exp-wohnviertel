@@ -9,6 +9,10 @@
     right 0
     bottom 0
     z-index 1
+    // Sometimes the canvas will be wider than the actual screen because
+    // the width is calculated before the scrollbar pops up. It's easiest
+    // to just fix it here, even if it's a bit of a hack.
+    overflow hidden
   .hero-cover
     position absolute
     top 0
