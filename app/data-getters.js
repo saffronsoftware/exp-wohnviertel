@@ -201,3 +201,14 @@ export function getPopulationChangeData(allData) {
     return graphData
   }
 }
+
+export function getEmployeeData(allData) {
+  return function() {
+    const year = '2014'
+    const graphData = DISTRICTS.map((district) => ({
+      district: district,
+      value: this.allData[district]['Vollzeitäquivalente'][year],
+    }))
+    return graphData
+  }
+}

@@ -44,7 +44,7 @@ Vue.component('map-chart', {
       this.legendBarWidth = 30
       const legendMargins = {
         top: 0,
-        right: 35,
+        right: 50,
         bottom: 1,
         left: 0,
       }

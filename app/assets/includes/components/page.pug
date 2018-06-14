@@ -153,3 +153,24 @@
             :isPercent='false',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
+
+      .chart-group
+        .chart-group__description
+          h2 Full-time Employee Equivalents
+          p Turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
+          p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+        .chart-group__chart
+          range-chart(
+            xLabel='Vollzeitäquivalente',
+            :allData='allData',
+            :getGraphData='employeeChart.getData',
+            :isPercent='false',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
+        .chart-group__chart
+          map-chart(
+            :allData='allData',
+            :getGraphData='employeeChart.getData',
+            :isPercent='false',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )

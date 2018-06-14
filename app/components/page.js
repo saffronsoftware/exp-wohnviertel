@@ -70,6 +70,9 @@ Vue.component('page', {
       populationChangeChart: {
         getData: null,
       },
+      employeeChart: {
+        getData: null,
+      },
     }
   },
 
@@ -86,6 +89,7 @@ Vue.component('page', {
       this.religionChart.getData = dataGetters.getReligionData(allData)
       this.ageChart.getData = dataGetters.getAgeData(allData)
       this.populationChangeChart.getData = dataGetters.getPopulationChangeData(allData)
+      this.employeeChart.getData = dataGetters.getEmployeeData(allData)
     })
   },
 

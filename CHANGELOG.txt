@@ -5,7 +5,9 @@ v0.2.0
 - [improvement] Add legend to map.
 - [improvement] Add tooltips to map.
 - [feature] Add population change range chart.
-- [feature] Add population change bar chart.
+- [feature] Add population change map chart.
+- [feature] Add full-time employee equivalents range chart.
+- [feature] Add full-time employee equivalents map chart.
 
 v0.1.0
 - Initial version.

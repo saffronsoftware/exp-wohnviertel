@@ -1,1 +1,2 @@
-* Specify what years data is from for each chart
+* [improvement] Specify what years data is from for each chart
+* [bug] Fix range chart overflow
