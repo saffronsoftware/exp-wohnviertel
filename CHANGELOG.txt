@@ -1,6 +1,7 @@
 v0.2.0
 - [bug] Fix chart spacing.
 - [bug] Fix header overflow.
+- [bug] Fix color range in map.
 - [improvement] Add legend to map.
 - [improvement] Add tooltips to map.
 - [feature] Add population change range chart.
