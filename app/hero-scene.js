@@ -8,15 +8,16 @@ export default class HeroScene {
   constructor({selContainer}) {
     this.elContainer = document.querySelector(selContainer)
 
+    this.framerate = 30
     this.objectSize = 10
     this.objectDepth = 200
     this.objectDefaultZ = 0 - (this.objectDepth / 2)
-    this.objectCountX = 21
-    this.objectCountY = 20
-    this.objectSpeed = 0.03
+    this.objectCountX = 20
+    this.objectCountY = 10
+    this.objectSpeed = 0.03 * 3
     this.objectDirectionChangeChance = 0
     this.objectMinZ = this.objectDefaultZ
-    this.objectZDiff = 4
+    this.objectZDiff = 7
     this.objectMaxZ = this.objectMinZ + this.objectZDiff
     this.mouseRotationDampenX = 70000
     this.mouseRotationDampenY = 20000
@@ -83,7 +84,9 @@ export default class HeroScene {
   render() {
     this.animate()
     this.renderer.render(this.scene, this.camera)
-    requestAnimationFrame(() => this.render())
+    setTimeout(() => {
+      requestAnimationFrame(() => this.render())
+    }, 1000 / this.framerate)
   }
 
   makeScene() {
