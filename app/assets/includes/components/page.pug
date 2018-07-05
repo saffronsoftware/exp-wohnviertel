@@ -3,7 +3,10 @@
 
 
   .grid-container
-    profile(v-if='allData')
+    profile(
+      v-if='allData',
+      :allData='allData'
+    )
 
 
   .charts(v-if='allData')

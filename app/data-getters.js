@@ -8,6 +8,18 @@ import {
 } from './common'
 import * as _ from 'lodash'
 
+export function valueForDistrict(data, district) {
+  return data.find((d) => d.district == district).value
+}
+
+export function rankForDistrict(data, district) {
+  const sortedData = _.sortBy(data, (d) => d.value)
+  return {
+    rank: sortedData.findIndex((d) => d.district == district) + 1,
+    outOf: data.length,
+  }
+}
+
 export function getCitizenshipData(allData) {
   return function() {
     let year = '2016'
@@ -124,9 +136,9 @@ export function getForeignerData(allData) {
     let graphData = DISTRICTS.map((district) => ({
       district: district,
       value:
-        this.allData[district]['Bevölkerung: Ausländer'][year] / (
-          this.allData[district]['Bevölkerung: Ausländer'][year] +
-          this.allData[district]['Bevölkerung: Schweizer'][year]
+        allData[district]['Bevölkerung: Ausländer'][year] / (
+          allData[district]['Bevölkerung: Ausländer'][year] +
+          allData[district]['Bevölkerung: Schweizer'][year]
         ),
     }))
     return graphData
@@ -138,7 +150,7 @@ export function getWelfareData(allData) {
     const year = '2016'
     let graphData = DISTRICTS.map((district) => ({
       district: district,
-      value: this.allData[district]['Sozialhilfequote'][year] / 100
+      value: allData[district]['Sozialhilfequote'][year] / 100
     }))
     return graphData
   }
@@ -149,7 +161,7 @@ export function getMedianWealthData(allData) {
     const year = '2014'
     let graphData = DISTRICTS.map((district) => ({
       district: district,
-      value: this.allData[district]['Geld: Reinvermögen Median'][year]
+      value: allData[district]['Geld: Reinvermögen Median'][year]
     }))
     return graphData
   }
@@ -160,7 +172,7 @@ export function getAverageWealthData(allData) {
     const year = '2014'
     let graphData = DISTRICTS.map((district) => ({
       district: district,
-      value: this.allData[district]['Geld: Reinvermögen Mittelwert'][year]
+      value: allData[district]['Geld: Reinvermögen Mittelwert'][year]
     }))
     return graphData
   }
@@ -171,7 +183,7 @@ export function getMedianIncomeData(allData) {
     const year = '2014'
     let graphData = DISTRICTS.map((district) => ({
       district: district,
-      value: this.allData[district]['Geld: Reineinkommen Median'][year]
+      value: allData[district]['Geld: Reineinkommen Median'][year]
     }))
     return graphData
   }
@@ -182,7 +194,7 @@ export function getAverageIncomeData(allData) {
     const year = '2014'
     let graphData = DISTRICTS.map((district) => ({
       district: district,
-      value: this.allData[district]['Geld: Reineinkommen Mittelwert'][year]
+      value: allData[district]['Geld: Reineinkommen Mittelwert'][year]
     }))
     return graphData
   }
@@ -193,10 +205,10 @@ export function getPopulationChangeData(allData) {
     const year = '2015'
     const graphData = DISTRICTS.map((district) => ({
       district: district,
-      value: this.allData[district]['Wanderungen Saldo: Schweizer'][year] +
-        this.allData[district]['Umzüge Saldo: Schweizer'][year] +
-        this.allData[district]['Wanderungen Saldo: Ausländer'][year] +
-        this.allData[district]['Umzüge Saldo: Ausländer'][year],
+      value: allData[district]['Wanderungen Saldo: Schweizer'][year] +
+        allData[district]['Umzüge Saldo: Schweizer'][year] +
+        allData[district]['Wanderungen Saldo: Ausländer'][year] +
+        allData[district]['Umzüge Saldo: Ausländer'][year],
     }))
     return graphData
   }
@@ -207,7 +219,7 @@ export function getEmployeeData(allData) {
     const year = '2014'
     const graphData = DISTRICTS.map((district) => ({
       district: district,
-      value: this.allData[district]['Vollzeitäquivalente'][year],
+      value: allData[district]['Vollzeitäquivalente'][year],
     }))
     return graphData
   }
