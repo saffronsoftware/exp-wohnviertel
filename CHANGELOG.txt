@@ -3,6 +3,8 @@ v0.3.0
 - [bug] Give range chart enough padding for longer axis labels to show.
 - [bug] Optimise header scene performance.
 - [improvement] Make header scene movement more visible.
+- [feature] Add district profile with basic data
+- [feature] Add district profile selection
 
 v0.2.0
 - [bug] Fix chart spacing.
