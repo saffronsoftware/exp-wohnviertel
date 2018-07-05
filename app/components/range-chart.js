@@ -113,7 +113,7 @@ Vue.component('range-chart', {
         .call(bottomAxis)
         .append('text')
         .attr('x', this.width)
-        .attr('dy', '-0.6rem')
+        .attr('dy', '9px')
         .attr('text-anchor', 'end')
         .text(this.xLabel)
 
@@ -137,8 +137,8 @@ Vue.component('range-chart', {
       nodes
         .append('text')
         .text((d) => DISTRICT_NAMES[d.district])
-        .attr('dx', '1.0rem')
-        .attr('dy', '0.2rem')
+        .attr('dx', '15px')
+        .attr('dy', '3px')
         .attr('text-anchor', 'left')
         .attr('transform', 'rotate(-60)')
 

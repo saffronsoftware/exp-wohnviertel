@@ -84,7 +84,7 @@ Vue.component('stack-chart', {
         .append('text')
         .attr('transform', `translate(${this.graphWidth})`)
         .attr('dx', '0')
-        .attr('dy', '2.2rem')
+        .attr('dy', '33px')
         .attr('text-anchor', 'end')
         .text(this.xLabel)
 
@@ -94,8 +94,8 @@ Vue.component('stack-chart', {
         .attr('class', 'axis axis--y')
         .call(d3.axisLeft(this.y))
         .append('text')
-        .attr('dx', '0rem')
-        .attr('dy', '-0.8rem')
+        .attr('dx', '0px')
+        .attr('dy', '12px')
         .attr('text-anchor', 'end')
         .text(this.yLabel)
     },
@@ -123,7 +123,7 @@ Vue.component('stack-chart', {
       legend
         .append('text')
         .attr('y', 10)
-        .attr('dy', '0.35rem')
+        .attr('dy', '6px')
         .attr('transform', `translate(${this.width - 33}) rotate(-30)`)
         .attr('text-anchor', 'end')
         .text((d) => d)
