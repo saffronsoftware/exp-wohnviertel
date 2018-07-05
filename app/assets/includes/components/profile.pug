@@ -1,4 +1,12 @@
 .profile
-  h2 ${districtName}
-  p Foreigners
-  p ${JSON.stringify(this.foreignerData)}
+  .profile-selector
+    h2 Select your district
+    model-select(v-model='district', :options='districtOptions')
+  .profile-profile
+    h2 ${districtName}
+    .datum
+      .datum__name
+        h4 Foreigners
+      .datum__info
+        p ${Math.round(this.foreignerData.value * 100, 2)}%
+        p Rank ${this.foreignerData.rankInfo.rank} out of ${this.foreignerData.rankInfo.outOf}

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
+import {ModelSelect} from 'vue-search-select'
 import * as d3 from 'd3'
 import * as _ from 'lodash'
 import * as dataGetters from '../data-getters'
@@ -17,11 +18,20 @@ Vue.component('profile', {
   data: function() {
     return {
       district: 'st-alban',
+      districts: DISTRICTS,
     }
   },
   computed: {
     districtName() {
       return DISTRICT_NAMES[this.district]
+    },
+    districtOptions() {
+      return DISTRICTS.map((district) => {
+        return {
+          value: district,
+          text: DISTRICT_NAMES[district],
+        }
+      })
     },
     foreignerData() {
       const data = dataGetters.getForeignerData(this.allData)()
@@ -37,4 +47,6 @@ Vue.component('profile', {
 
   methods: {
   },
+
+  components: {ModelSelect},
 })
