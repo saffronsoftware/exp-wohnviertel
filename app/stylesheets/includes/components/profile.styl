@@ -1,12 +1,14 @@
 .profile
-  display flex
   padding 8rem 0
-  .profile-selector
-    flex 1 0 50%
-    padding-right 2rem
+  .profile-controls
+    display flex
+    .profile-selector
+      flex 1 0 calc(50% - 2rem)
+      padding-right 2rem
+    .profile-map
+      flex 1 0 calc(50% - 2rem)
+      padding-left 2rem
   .profile-profile
-    flex 1 0 50%
-    padding-left 2rem
     .datum
       display flex
       .datum__name

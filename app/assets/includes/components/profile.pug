@@ -1,7 +1,15 @@
 .profile
-  .profile-selector
-    h2 Select your district
-    model-select(v-model='district', :options='districtOptions')
+  .profile-controls
+    .profile-selector
+      h2 Select your district
+      model-select(v-model='district', :options='districtOptions')
+    .profile-map
+      map-chart(
+        :allData='allData',
+        :highlightDistrict='district'
+        :shouldHideLegend='true',
+        :colors='colors.GRAPHIQ3_12_LOWER',
+      )
   .profile-profile
     h2 ${districtName}
     .datum

@@ -11,14 +11,21 @@ Vue.component('map-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--map-chart',
   props: [
-    'allData', 'getGraphData', 'colors', 'isPercent',
+    'allData', 'getGraphData', 'colors', 'isPercent', 'shouldHideLegend',
+    'highlightDistrict',
   ],
-  data: function() {
+  data: () => {
     return {
     }
   },
+  watch: {
+    highlightDistrict: function() {
+      this.drawMap()
+    },
+  },
 
   mounted() {
+    this.inactiveColor = '#c1c1c1'
     this.chartId = util.makeChartId()
     this.initLegend()
     this.initMap()
@@ -28,11 +35,8 @@ Vue.component('map-chart', {
   methods: {
     initMap() {
       this.mapSvg = d3.select(this.$el.querySelector('svg.map'))
-
       this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
-
       this.tooltip = d3.select(this.$el.querySelector('.graph-tooltip'))
-
       this.makeGraphData()
     },
 
@@ -59,8 +63,12 @@ Vue.component('map-chart', {
     },
 
     makeGraphData() {
-      this.graphData = _.sortBy(this.getGraphData(), (d) => d.value)
-      this.updateAxes()
+      if (this.getGraphData) {
+        this.graphData = _.sortBy(this.getGraphData(), (d) => d.value)
+        this.updateAxes()
+      } else {
+        this.graphData = DISTRICTS.map((d) => ({district: d}))
+      }
     },
 
     formatValue(val) {
@@ -105,6 +113,18 @@ Vue.component('map-chart', {
       this.legendY.domain([d3.min(graphDataValues), d3.max(graphDataValues)])
     },
 
+    getColorForData(d) {
+      if (this.highlightDistrict) {
+        if (d.district == this.highlightDistrict) {
+          return this.colors[this.colors.length - 1]
+        } else {
+          return this.inactiveColor
+        }
+      } else {
+        return this.color(d.value)
+      }
+    },
+
     drawMap() {
       const makeKey = function(d) {
         if (d) {
@@ -117,7 +137,7 @@ Vue.component('map-chart', {
       this.mapSvg
         .selectAll('[data-name="wohnviertel"] polygon')
         .data(this.graphData, makeKey)
-        .attr('fill', (d) => this.color(d.value))
+        .attr('fill', (d) => this.getColorForData(d))
         .on('mouseover', util.bindContext(this, this.showTooltip))
         .on('mouseout', util.bindContext(this, this.hideTooltip))
     },
@@ -163,7 +183,9 @@ Vue.component('map-chart', {
     },
 
     draw() {
-      this.drawLegend()
+      if (!this.shouldHideLegend) {
+        this.drawLegend()
+      }
       this.drawMap()
     }
   },

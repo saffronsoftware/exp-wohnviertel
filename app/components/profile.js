@@ -5,6 +5,7 @@ import {ModelSelect} from 'vue-search-select'
 import * as d3 from 'd3'
 import * as _ from 'lodash'
 import * as dataGetters from '../data-getters'
+import * as colors from '../colors'
 import {DISTRICTS, DISTRICT_NAMES} from '../common'
 import * as util from '../util'
 
@@ -17,6 +18,7 @@ Vue.component('profile', {
   ],
   data: function() {
     return {
+      colors: colors,
       district: 'st-alban',
       districts: DISTRICTS,
     }
@@ -42,10 +44,10 @@ Vue.component('profile', {
     }
   },
 
-  mounted() {
+  methods: {
   },
 
-  methods: {
+  mounted() {
   },
 
   components: {ModelSelect},
