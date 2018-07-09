@@ -45,6 +45,9 @@ Vue.component('profile', {
   },
 
   methods: {
+    changeDistrict(newDistrict) {
+      this.district = newDistrict
+    },
   },
 
   mounted() {

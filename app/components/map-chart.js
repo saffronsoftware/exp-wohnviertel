@@ -12,7 +12,7 @@ Vue.component('map-chart', {
   template: '#component-template--map-chart',
   props: [
     'allData', 'getGraphData', 'colors', 'isPercent', 'isLegendDisabled',
-    'isTooltipDisabled', 'highlightDistrict',
+    'isTooltipDisabled', 'highlightDistrict', 'onClick',
   ],
   data: () => {
     return {
@@ -38,6 +38,21 @@ Vue.component('map-chart', {
       this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
       this.tooltip = d3.select(this.$el.querySelector('.graph-tooltip'))
       this.makeGraphData()
+
+      const makeKey = function(d) {
+        if (d) {
+          return d.district
+        } else {
+          return this.getAttribute('data-name')
+        }
+      }
+
+      this.mapSvg
+        .selectAll('[data-name="wohnviertel"] polygon')
+        .data(this.graphData, makeKey)
+        .on('mouseover', util.bindContext(this, this.showTooltip))
+        .on('mouseout', util.bindContext(this, this.hideTooltip))
+        .on('click', util.bindContext(this, this.handleClick))
     },
 
     initLegend() {
@@ -77,6 +92,10 @@ Vue.component('map-chart', {
       } else {
         return d3.format(',.0f')(val)
       }
+    },
+
+    handleClick(el, d) {
+      this.onClick(d.district)
     },
 
     showTooltip(el, d) {
@@ -129,20 +148,9 @@ Vue.component('map-chart', {
     },
 
     drawMap() {
-      const makeKey = function(d) {
-        if (d) {
-          return d.district
-        } else {
-          return this.getAttribute('data-name')
-        }
-      }
-
       this.mapSvg
         .selectAll('[data-name="wohnviertel"] polygon')
-        .data(this.graphData, makeKey)
         .attr('fill', (d) => this.getColorForData(d))
-        .on('mouseover', util.bindContext(this, this.showTooltip))
-        .on('mouseout', util.bindContext(this, this.hideTooltip))
     },
 
     drawLegend() {
