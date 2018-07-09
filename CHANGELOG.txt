@@ -1,5 +1,6 @@
 v0.4.0
 - [feature] Add map to district selection.
+- [feature] Add district selection by clicking on map.
 
 v0.3.0
 - [bug] Fix range chart node collisions for very tight data.
