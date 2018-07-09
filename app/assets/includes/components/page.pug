@@ -53,6 +53,13 @@
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
           p Mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
         .chart-group__chart
+          range-chart(
+            xLabel='Reinvermögen Gini',
+            :allData='allData',
+            :getGraphData='wealthGiniChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
+        .chart-group__chart
           bar-chart(
             xLabel='Reinvermögen Median',
             yLabel='',
@@ -62,7 +69,7 @@
             :xTickFormat='medianWealthChart.xTickFormat',
             :yTickFormat='medianWealthChart.yTickFormat',
           )
-        .chart-group__chart
+        .chart-group__chart.lolno
           bar-chart(
             xLabel='Reinvermögen Mittelwert',
             yLabel='',
@@ -71,6 +78,13 @@
             :colors='colors.GRAPHIQ3_12_LOWER',
             :xTickFormat='averageWealthChart.xTickFormat',
             :yTickFormat='averageWealthChart.yTickFormat',
+          )
+        .chart-group__chart
+          range-chart(
+            xLabel='Reineinkommen Gini',
+            :allData='allData',
+            :getGraphData='incomeGiniChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__chart
           bar-chart(
@@ -82,7 +96,7 @@
             :xTickFormat='medianIncomeChart.xTickFormat',
             :yTickFormat='medianIncomeChart.yTickFormat',
           )
-        .chart-group__chart
+        .chart-group__chart.lolno
           bar-chart(
             xLabel='Reineinkommen Mittelwert',
             yLabel='',

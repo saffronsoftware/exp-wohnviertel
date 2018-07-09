@@ -15,7 +15,7 @@ export function valueForDistrict(data, district) {
 export function rankForDistrict(data, district) {
   const sortedData = _.sortBy(data, (d) => d.value)
   return {
-    rank: sortedData.findIndex((d) => d.district == district) + 1,
+    rank: data.length - sortedData.findIndex((d) => d.district == district),
     outOf: data.length,
   }
 }
@@ -156,6 +156,16 @@ export function getWelfareData(allData) {
   }
 }
 
+export function getWealthGini(allData) {
+  return function() {
+    const year = '2014'
+    let graphData = DISTRICTS.map((district) => ({
+      district: district,
+      value: allData[district]['Geld: Reinvermögen Gini'][year]
+    }))
+    return graphData
+  }
+}
 export function getMedianWealthData(allData) {
   return function() {
     const year = '2014'
@@ -173,6 +183,17 @@ export function getAverageWealthData(allData) {
     let graphData = DISTRICTS.map((district) => ({
       district: district,
       value: allData[district]['Geld: Reinvermögen Mittelwert'][year]
+    }))
+    return graphData
+  }
+}
+
+export function getIncomeGini(allData) {
+  return function() {
+    const year = '2014'
+    let graphData = DISTRICTS.map((district) => ({
+      district: district,
+      value: allData[district]['Geld: Reineinkommen Gini'][year]
     }))
     return graphData
   }

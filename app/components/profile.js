@@ -36,17 +36,38 @@ Vue.component('profile', {
       })
     },
     foreignerData() {
-      const data = dataGetters.getForeignerData(this.allData)()
-      return {
-        value: dataGetters.valueForDistrict(data, this.district),
-        rankInfo: dataGetters.rankForDistrict(data, this.district),
-      }
-    }
+      return this.getDataByFunction(dataGetters.getForeignerData)
+    },
+    welfareData() {
+      return this.getDataByFunction(dataGetters.getWelfareData)
+    },
+    medianWealthData() {
+      return this.getDataByFunction(dataGetters.getMedianWealthData)
+    },
+    averageWealthData() {
+      return this.getDataByFunction(dataGetters.getAverageWealthData)
+    },
+    medianIncomeData() {
+      return this.getDataByFunction(dataGetters.getMedianIncomeData)
+    },
+    averageIncomeData() {
+      return this.getDataByFunction(dataGetters.getAverageIncomeData)
+    },
   },
 
   methods: {
     changeDistrict(newDistrict) {
       this.district = newDistrict
+    },
+    getDataByFunction(fn) {
+      const data = fn(this.allData)()
+      return {
+        value: dataGetters.valueForDistrict(data, this.district),
+        rankInfo: dataGetters.rankForDistrict(data, this.district),
+      }
+    },
+    formatChf(n) {
+      return util.formatChf(n)
     },
   },
 

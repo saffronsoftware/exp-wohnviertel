@@ -6,6 +6,7 @@ import * as data from '../data'
 import {DISTRICT_NAMES} from '../common'
 import * as dataGetters from '../data-getters'
 import * as colors from '../colors'
+import * as util from '../util'
 
 Vue.component('page', {
   delimiters: ['${', '}'],
@@ -20,25 +21,31 @@ Vue.component('page', {
       welfareChart: {
         getData: null,
       },
+      wealthGiniChart: {
+        getData: null,
+      },
       medianWealthChart: {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
-        yTickFormat: (d) => d3.format(',.0s')(d) + ' CHF',
+        yTickFormat: util.formatChf,
       },
       averageWealthChart: {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
-        yTickFormat: (d) => d3.format(',.0s')(d) + ' CHF',
+        yTickFormat: util.formatChf,
+      },
+      incomeGiniChart: {
+        getData: null,
       },
       medianIncomeChart: {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
-        yTickFormat: (d) => d3.format(',.0s')(d) + ' CHF',
+        yTickFormat: util.formatChf,
       },
       averageIncomeChart: {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
-        yTickFormat: (d) => d3.format(',.0s')(d) + ' CHF',
+        yTickFormat: util.formatChf,
       },
       citizenshipChart: {
         getData: null,
@@ -81,8 +88,10 @@ Vue.component('page', {
       this.allData = allData
       this.foreignersChart.getData = dataGetters.getForeignerData(allData)
       this.welfareChart.getData = dataGetters.getWelfareData(allData)
+      this.wealthGiniChart.getData = dataGetters.getWealthGini(allData)
       this.medianWealthChart.getData = dataGetters.getMedianWealthData(allData)
       this.averageWealthChart.getData = dataGetters.getAverageWealthData(allData)
+      this.incomeGiniChart.getData = dataGetters.getIncomeGini(allData)
       this.medianIncomeChart.getData = dataGetters.getMedianIncomeData(allData)
       this.averageIncomeChart.getData = dataGetters.getAverageIncomeData(allData)
       this.citizenshipChart.getData = dataGetters.getCitizenshipData(allData)

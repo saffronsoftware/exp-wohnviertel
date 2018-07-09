@@ -1,3 +1,5 @@
+import * as d3 from 'd3'
+
 export function bindContext(ctx, fn) {
   /*
   For a context `ctx` and a function `fn`, returns a function `fn0`, that:
@@ -96,4 +98,8 @@ export function makeChartId(length) {
   length = length || 8
   const number = (Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))
   return Math.round(number).toString(36).slice(1)
+}
+
+export function formatChf(n) {
+  return d3.format(',.0s')(n) + ' CHF'
 }
