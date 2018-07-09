@@ -11,8 +11,8 @@ Vue.component('map-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--map-chart',
   props: [
-    'allData', 'getGraphData', 'colors', 'isPercent', 'shouldHideLegend',
-    'highlightDistrict',
+    'allData', 'getGraphData', 'colors', 'isPercent', 'isLegendDisabled',
+    'isTooltipDisabled', 'highlightDistrict',
   ],
   data: () => {
     return {
@@ -80,6 +80,9 @@ Vue.component('map-chart', {
     },
 
     showTooltip(el, d) {
+      if (this.isTooltipDisabled) {
+        return
+      }
       let rect = el.getBoundingClientRect()
       let left = rect.left + window.scrollX + ((rect.right - rect.left) / 2)
       let top = rect.top + window.scrollY + ((rect.bottom - rect.top) / 2)
@@ -183,7 +186,7 @@ Vue.component('map-chart', {
     },
 
     draw() {
-      if (!this.shouldHideLegend) {
+      if (!this.isLegendDisabled) {
         this.drawLegend()
       }
       this.drawMap()
