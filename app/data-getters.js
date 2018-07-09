@@ -166,6 +166,29 @@ export function getWealthGini(allData) {
     return graphData
   }
 }
+
+/*
+SOURCE:
+https://en.wikipedia.org/wiki/List_of_countries_by_distribution_of_wealth
+2010
+*/
+export function getAugmentedWealthGini(allData) {
+  return function() {
+    const standardData = getWealthGini(allData)()
+    const extraData = [
+      {isFake: true, name: 'Welt', value: 0.804},
+      {isFake: true, name: 'Schweiz', value: 0.803},
+      {isFake: true, name: 'Deutschland', value: 0.667},
+      {isFake: true, name: 'Frankreich', value: 0.730},
+      {isFake: true, name: 'Österreich', value: 0.646},
+      {isFake: true, name: 'Japan', value: 0.547},
+      {isFake: true, name: 'Schweden', value: 0.742},
+      {isFake: true, name: 'Italien', value: 0.609},
+    ]
+    return standardData.concat(extraData)
+  }
+}
+
 export function getMedianWealthData(allData) {
   return function() {
     const year = '2014'
@@ -196,6 +219,32 @@ export function getIncomeGini(allData) {
       value: allData[district]['Geld: Reineinkommen Gini'][year]
     }))
     return graphData
+  }
+}
+
+/*
+SOURCE:
+https://www.gut-leben-in-deutschland.de/static/LB/indicators/income/gini-coefficient-income/
+2014
+*/
+export function getAugmentedIncomeGini(allData) {
+  return function() {
+    const standardData = getIncomeGini(allData)()
+    const extraData = [
+      {isFake: true, name: 'Island', value: 0.25},
+      {isFake: true, name: 'Schweden', value: 0.27},
+      {isFake: true, name: 'Österreich', value: 0.27},
+      {isFake: true, name: 'Deutschland', value: 0.29},
+      {isFake: true, name: 'Frankreich', value: 0.30},
+      {isFake: true, name: 'Schweiz', value: 0.30},
+      {isFake: true, name: 'Italien', value: 0.33},
+      {isFake: true, name: 'UK', value: 0.36},
+      {isFake: true, name: 'USA', value: 0.39},
+      {isFake: true, name: 'Türkei', value: 0.40},
+      {isFake: true, name: 'Mexiko', value: 0.46},
+      {isFake: true, name: 'Costa Rica', value: 0.49},
+    ]
+    return standardData.concat(extraData)
   }
 }
 

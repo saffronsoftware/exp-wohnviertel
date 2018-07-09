@@ -94,8 +94,8 @@ Vue.component('stack-chart', {
         .attr('class', 'axis axis--y')
         .call(d3.axisLeft(this.y))
         .append('text')
-        .attr('dx', '0px')
-        .attr('dy', '12px')
+        .attr('dx', '-9px')
+        .attr('dy', '-2px')
         .attr('text-anchor', 'end')
         .text(this.yLabel)
     },

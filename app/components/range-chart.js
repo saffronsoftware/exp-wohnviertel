@@ -5,6 +5,7 @@ import * as d3 from 'd3'
 import * as _ from 'lodash'
 import {DISTRICTS, DISTRICT_NAMES} from '../common'
 import * as util from '../util'
+import * as colors from '../colors'
 
 
 Vue.component('range-chart', {
@@ -32,7 +33,7 @@ Vue.component('range-chart', {
 
     // Vue property shadowing, meeh.
     this.nodeRadius = this.radius || 10
-    this.nodeMinDist = this.minDist || 22 // px
+    this.nodeMinDist = this.minDist || 25 // px
 
     this.width = elSvgDims.width - margins.left - margins.right
     this.height = elSvgDims.height - margins.top - margins.bottom
@@ -113,7 +114,7 @@ Vue.component('range-chart', {
         .call(bottomAxis)
         .append('text')
         .attr('x', this.width)
-        .attr('dy', '9px')
+        .attr('dy', '-9px')
         .attr('text-anchor', 'end')
         .text(this.xLabel)
 
@@ -133,12 +134,12 @@ Vue.component('range-chart', {
         .append('circle')
         .attr('class', 'circle')
         .attr('r', this.nodeRadius)
-        .attr('fill', (d) => this.color(d.value))
+        .attr('fill', (d) => d.isFake ? colors.INACTIVE : this.color(d.value))
       nodes
         .append('text')
-        .text((d) => DISTRICT_NAMES[d.district])
-        .attr('dx', '15px')
-        .attr('dy', '3px')
+        .text((d) => d.isFake ? d.name : DISTRICT_NAMES[d.district])
+        .attr('dx', '17px')
+        .attr('dy', '2px')
         .attr('text-anchor', 'left')
         .attr('transform', 'rotate(-60)')
 

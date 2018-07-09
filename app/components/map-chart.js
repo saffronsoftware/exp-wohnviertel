@@ -5,6 +5,7 @@ import * as d3 from 'd3'
 import * as _ from 'lodash'
 import {DISTRICTS, DISTRICT_NAMES} from '../common'
 import * as util from '../util'
+import * as colors from '../colors'
 
 
 Vue.component('map-chart', {
@@ -25,7 +26,6 @@ Vue.component('map-chart', {
   },
 
   mounted() {
-    this.inactiveColor = '#c1c1c1'
     this.chartId = util.makeChartId()
     this.initLegend()
     this.initMap()
@@ -63,7 +63,7 @@ Vue.component('map-chart', {
       this.legendBarWidth = 30
       const legendMargins = {
         top: 0,
-        right: 50,
+        right: 60,
         bottom: 1,
         left: 0,
       }
@@ -140,7 +140,7 @@ Vue.component('map-chart', {
         if (d.district == this.highlightDistrict) {
           return this.colors[this.colors.length - 1]
         } else {
-          return this.inactiveColor
+          return colors.INACTIVE
         }
       } else {
         return this.color(d.value)

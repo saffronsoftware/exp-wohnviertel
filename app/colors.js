@@ -12,3 +12,5 @@ export const GRAPHIQ3_12_HIGHS = [
   '#fdcda4', '#fdc2a0', '#fdbc9e', '#fdb99d', '#fcb19b', '#fca998',
   '#fca597', '#fb9d95', '#fa9593',
 ]
+
+export const INACTIVE = '#c1c1c1'

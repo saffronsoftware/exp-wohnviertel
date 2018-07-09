@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
+import VueSlideUpDown from 'vue-slide-up-down'
 import * as d3 from 'd3'
 import * as data from '../data'
 import {DISTRICT_NAMES} from '../common'
@@ -34,6 +35,7 @@ Vue.component('page', {
         xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: util.formatChf,
       },
+      areWealthDetailsVisible: false,
       incomeGiniChart: {
         getData: null,
       },
@@ -47,6 +49,7 @@ Vue.component('page', {
         xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: util.formatChf,
       },
+      areIncomeDetailsVisible: false,
       citizenshipChart: {
         getData: null,
         getKeys: dataGetters.getCitizenshipKeys,
@@ -88,10 +91,10 @@ Vue.component('page', {
       this.allData = allData
       this.foreignersChart.getData = dataGetters.getForeignerData(allData)
       this.welfareChart.getData = dataGetters.getWelfareData(allData)
-      this.wealthGiniChart.getData = dataGetters.getWealthGini(allData)
+      this.wealthGiniChart.getData = dataGetters.getAugmentedWealthGini(allData)
       this.medianWealthChart.getData = dataGetters.getMedianWealthData(allData)
       this.averageWealthChart.getData = dataGetters.getAverageWealthData(allData)
-      this.incomeGiniChart.getData = dataGetters.getIncomeGini(allData)
+      this.incomeGiniChart.getData = dataGetters.getAugmentedIncomeGini(allData)
       this.medianIncomeChart.getData = dataGetters.getMedianIncomeData(allData)
       this.averageIncomeChart.getData = dataGetters.getAverageIncomeData(allData)
       this.citizenshipChart.getData = dataGetters.getCitizenshipData(allData)
@@ -104,4 +107,6 @@ Vue.component('page', {
 
   methods: {
   },
+
+  components: {VueSlideUpDown},
 })
