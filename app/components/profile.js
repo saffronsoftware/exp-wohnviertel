@@ -35,24 +35,82 @@ Vue.component('profile', {
         }
       })
     },
-    foreignerData() {
-      return this.getDataByFunction(dataGetters.getForeignerData)
-    },
-    welfareData() {
-      return this.getDataByFunction(dataGetters.getWelfareData)
-    },
-    medianWealthData() {
-      return this.getDataByFunction(dataGetters.getMedianWealthData)
-    },
-    averageWealthData() {
-      return this.getDataByFunction(dataGetters.getAverageWealthData)
-    },
-    medianIncomeData() {
-      return this.getDataByFunction(dataGetters.getMedianIncomeData)
-    },
-    averageIncomeData() {
-      return this.getDataByFunction(dataGetters.getAverageIncomeData)
-    },
+    metrics() {
+      return {
+        foreigners: {
+          name: 'Foreigners',
+          formatValue: (d) => Math.round(d * 100, 2) + '%',
+          rankFormats: [
+            'Among the highest in Basel',
+            'High for Basel',
+            'Average for Basel',
+            'Low for Basel',
+            'Among the lowest in Basel',
+          ],
+          data: this.getDataByFunction(dataGetters.getForeignerData),
+        },
+        welfare: {
+          name: 'Welfare',
+          formatValue: (d) => Math.round(d * 100, 2) + '%',
+          rankFormats: [
+            'Among the highest in Basel',
+            'High for Basel',
+            'Average for Basel',
+            'Low for Basel',
+            'Among the lowest in Basel',
+          ],
+          data: this.getDataByFunction(dataGetters.getWelfareData),
+        },
+        wealthGini: {
+          name: 'Wealth Inequality',
+          formatValue: (d) => d,
+          rankFormats: [
+            'Among the highest in Basel',
+            'High for Basel',
+            'Average for Basel',
+            'Low for Basel',
+            'Among the lowest in Basel',
+          ],
+          data: this.getDataByFunction(dataGetters.getAugmentedWealthGiniData),
+        },
+        medianWealth: {
+          name: 'Median Wealth',
+          formatValue: (d) => util.formatChf(d),
+          rankFormats: [
+            'Among the highest in Basel',
+            'High for Basel',
+            'Average for Basel',
+            'Low for Basel',
+            'Among the lowest in Basel',
+          ],
+          data: this.getDataByFunction(dataGetters.getMedianWealthData),
+        },
+        incomeGini: {
+          name: 'Income Inequality',
+          formatValue: (d) => d,
+          rankFormats: [
+            'Among the highest in Basel',
+            'High for Basel',
+            'Average for Basel',
+            'Low for Basel',
+            'Among the lowest in Basel',
+          ],
+          data: this.getDataByFunction(dataGetters.getAugmentedIncomeGiniData),
+        },
+        medianIncome: {
+          name: 'Median Income',
+          formatValue: (d) => util.formatChf(d),
+          rankFormats: [
+            'Among the highest in Basel',
+            'High for Basel',
+            'Average for Basel',
+            'Low for Basel',
+            'Among the lowest in Basel',
+          ],
+          data: this.getDataByFunction(dataGetters.getMedianIncomeData),
+        },
+      }
+    }
   },
 
   methods: {
@@ -66,9 +124,9 @@ Vue.component('profile', {
         rankInfo: dataGetters.rankForDistrict(data, this.district),
       }
     },
-    formatChf(n) {
-      return util.formatChf(n)
-    },
+    formatRank(rankInfo, formats) {
+      return formats[rankInfo.rankForPartitions(formats.length) - 1]
+    }
   },
 
   mounted() {

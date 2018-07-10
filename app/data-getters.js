@@ -14,9 +14,12 @@ export function valueForDistrict(data, district) {
 
 export function rankForDistrict(data, district) {
   const sortedData = _.sortBy(data, (d) => d.value)
+  const rank = data.length - sortedData.findIndex((d) => d.district == district)
   return {
-    rank: data.length - sortedData.findIndex((d) => d.district == district),
+    rank: rank,
     outOf: data.length,
+    rawRank: rank / data.length,
+    rankForPartitions: (n) => Math.ceil(rank / data.length * n),
   }
 }
 
@@ -156,7 +159,7 @@ export function getWelfareData(allData) {
   }
 }
 
-export function getWealthGini(allData) {
+export function getWealthGiniData(allData) {
   return function() {
     const year = '2014'
     let graphData = DISTRICTS.map((district) => ({
@@ -172,9 +175,9 @@ SOURCE:
 https://en.wikipedia.org/wiki/List_of_countries_by_distribution_of_wealth
 2010
 */
-export function getAugmentedWealthGini(allData) {
+export function getAugmentedWealthGiniData(allData) {
   return function() {
-    const standardData = getWealthGini(allData)()
+    const standardData = getWealthGiniData(allData)()
     const extraData = [
       {isFake: true, name: 'Welt', value: 0.804},
       {isFake: true, name: 'Schweiz', value: 0.803},
@@ -211,7 +214,7 @@ export function getAverageWealthData(allData) {
   }
 }
 
-export function getIncomeGini(allData) {
+export function getIncomeGiniData(allData) {
   return function() {
     const year = '2014'
     let graphData = DISTRICTS.map((district) => ({
@@ -227,9 +230,9 @@ SOURCE:
 https://www.gut-leben-in-deutschland.de/static/LB/indicators/income/gini-coefficient-income/
 2014
 */
-export function getAugmentedIncomeGini(allData) {
+export function getAugmentedIncomeGiniData(allData) {
   return function() {
-    const standardData = getIncomeGini(allData)()
+    const standardData = getIncomeGiniData(allData)()
     const extraData = [
       {isFake: true, name: 'Island', value: 0.25},
       {isFake: true, name: 'Schweden', value: 0.27},

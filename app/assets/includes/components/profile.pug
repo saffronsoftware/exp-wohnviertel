@@ -14,39 +14,9 @@
       )
   .profile-profile
     h2 ${districtName}
-    .datum
-      .datum__name
-        h4 Foreigners
-      .datum__info
-        p ${Math.round(this.foreignerData.value * 100, 2)}%
-        p #${this.foreignerData.rankInfo.rank}/${this.foreignerData.rankInfo.outOf}
-    .datum
-      .datum__name
-        h4 Welfare
-      .datum__info
-        p ${Math.round(this.welfareData.value * 100, 2)}%
-        p #${this.welfareData.rankInfo.rank}/${this.welfareData.rankInfo.outOf}
-    .datum
-      .datum__name
-        h4 Median Wealth
-      .datum__info
-        p ${formatChf(this.medianWealthData.value)}
-        p #${this.medianWealthData.rankInfo.rank}/${this.medianWealthData.rankInfo.outOf}
-    .datum
-      .datum__name
-        h4 Average Wealth
-      .datum__info
-        p ${formatChf(this.averageWealthData.value)}
-        p #${this.averageWealthData.rankInfo.rank}/${this.averageWealthData.rankInfo.outOf}
-    .datum
-      .datum__name
-        h4 Median Income
-      .datum__info
-        p ${formatChf(this.medianIncomeData.value)}
-        p #${this.medianIncomeData.rankInfo.rank}/${this.medianIncomeData.rankInfo.outOf}
-    .datum
-      .datum__name
-        h4 Average Income
-      .datum__info
-        p ${formatChf(this.averageIncomeData.value)}
-        p #${this.averageIncomeData.rankInfo.rank}/${this.averageIncomeData.rankInfo.outOf}
+    .metric(v-for='(metric, key) in metrics')
+      .metric__name
+        h4 ${metric.name}
+      .metric__info
+        p ${metric.formatValue(metric.data.value)}
+        p ${formatRank(metric.data.rankInfo, metric.rankFormats)} (#${metric.data.rankInfo.rank}/${metric.data.rankInfo.outOf})

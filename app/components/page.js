@@ -91,10 +91,10 @@ Vue.component('page', {
       this.allData = allData
       this.foreignersChart.getData = dataGetters.getForeignerData(allData)
       this.welfareChart.getData = dataGetters.getWelfareData(allData)
-      this.wealthGiniChart.getData = dataGetters.getAugmentedWealthGini(allData)
+      this.wealthGiniChart.getData = dataGetters.getAugmentedWealthGiniData(allData)
       this.medianWealthChart.getData = dataGetters.getMedianWealthData(allData)
       this.averageWealthChart.getData = dataGetters.getAverageWealthData(allData)
-      this.incomeGiniChart.getData = dataGetters.getAugmentedIncomeGini(allData)
+      this.incomeGiniChart.getData = dataGetters.getAugmentedIncomeGiniData(allData)
       this.medianIncomeChart.getData = dataGetters.getMedianIncomeData(allData)
       this.averageIncomeChart.getData = dataGetters.getAverageIncomeData(allData)
       this.citizenshipChart.getData = dataGetters.getCitizenshipData(allData)
