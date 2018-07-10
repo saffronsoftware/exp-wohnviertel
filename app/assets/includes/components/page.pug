@@ -69,20 +69,23 @@
             :xTickFormat='medianWealthChart.xTickFormat',
             :yTickFormat='medianWealthChart.yTickFormat',
           )
-        .extra-details
+        .extra-details-trigger
           button.button.button--shrink(v-on:click='areWealthDetailsVisible = !areWealthDetailsVisible')
             | ${areWealthDetailsVisible ? 'Hide extra information' : 'Show extra information'}
         vue-slide-up-down(:active='areWealthDetailsVisible')
-          .chart-group__chart
-            bar-chart(
-              xLabel='Reinvermögen Mittelwert',
-              yLabel='',
-              :allData='allData',
-              :getGraphData='averageWealthChart.getData',
-              :colors='colors.GRAPHIQ3_12_LOWER',
-              :xTickFormat='averageWealthChart.xTickFormat',
-              :yTickFormat='averageWealthChart.yTickFormat',
-            )
+          .extra-details
+            .chart-group__description
+              p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+            .chart-group__chart
+              bar-chart(
+                xLabel='Reinvermögen Mittelwert',
+                yLabel='',
+                :allData='allData',
+                :getGraphData='averageWealthChart.getData',
+                :colors='colors.GRAPHIQ3_12_LOWER',
+                :xTickFormat='averageWealthChart.xTickFormat',
+                :yTickFormat='averageWealthChart.yTickFormat',
+              )
         .chart-group__chart
           range-chart(
             xLabel='Reineinkommen Gini',
@@ -100,20 +103,23 @@
             :xTickFormat='medianIncomeChart.xTickFormat',
             :yTickFormat='medianIncomeChart.yTickFormat',
           )
-        .extra-details
+        .extra-details-trigger
           button.button.button--shrink(v-on:click='areIncomeDetailsVisible = !areIncomeDetailsVisible')
             | ${areIncomeDetailsVisible ? 'Hide extra information' : 'Show extra information'}
         vue-slide-up-down(:active='areIncomeDetailsVisible')
-          .chart-group__chart
-            bar-chart(
-              xLabel='Reineinkommen Mittelwert',
-              yLabel='',
-              :allData='allData',
-              :getGraphData='averageIncomeChart.getData',
-              :colors='colors.GRAPHIQ3_12_LOWER',
-              :xTickFormat='averageIncomeChart.xTickFormat',
-              :yTickFormat='averageIncomeChart.yTickFormat',
-            )
+          .extra-details
+            .chart-group__description
+              p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+            .chart-group__chart
+              bar-chart(
+                xLabel='Reineinkommen Mittelwert',
+                yLabel='',
+                :allData='allData',
+                :getGraphData='averageIncomeChart.getData',
+                :colors='colors.GRAPHIQ3_12_LOWER',
+                :xTickFormat='averageIncomeChart.xTickFormat',
+                :yTickFormat='averageIncomeChart.yTickFormat',
+              )
 
       .chart-group
         .chart-group__description
