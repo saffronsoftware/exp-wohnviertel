@@ -46,6 +46,13 @@
             :isPercent='true',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
+        .chart-group__chart
+          map-chart(
+            :allData='allData',
+            :getGraphData='welfareChart.getData',
+            :isPercent='true',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
 
       .chart-group
         .chart-group__description
@@ -60,6 +67,12 @@
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__chart
+          map-chart(
+            :allData='allData',
+            :getGraphData='wealthGiniChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
+        .chart-group__chart
           bar-chart(
             xLabel='Reinvermögen Median',
             yLabel='',
@@ -68,6 +81,11 @@
             :colors='colors.GRAPHIQ3_12_LOWER',
             :xTickFormat='medianWealthChart.xTickFormat',
             :yTickFormat='medianWealthChart.yTickFormat',
+          )
+          map-chart(
+            :allData='allData',
+            :getGraphData='medianWealthChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .extra-details-trigger
           button.button.button--shrink(v-on:click='areWealthDetailsVisible = !areWealthDetailsVisible')
@@ -93,6 +111,11 @@
             :getGraphData='incomeGiniChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
+          map-chart(
+            :allData='allData',
+            :getGraphData='incomeGiniChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
         .chart-group__chart
           bar-chart(
             xLabel='Reineinkommen Median',
@@ -102,6 +125,11 @@
             :colors='colors.GRAPHIQ3_12_LOWER',
             :xTickFormat='medianIncomeChart.xTickFormat',
             :yTickFormat='medianIncomeChart.yTickFormat',
+          )
+          map-chart(
+            :allData='allData',
+            :getGraphData='medianIncomeChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .extra-details-trigger
           button.button.button--shrink(v-on:click='areIncomeDetailsVisible = !areIncomeDetailsVisible')
