@@ -52,19 +52,19 @@ Vue.component('profile', {
       return {
         foreigners: {
           name: 'Foreigners',
-          formatValue: (d) => Math.round(d * 100, 2) + '%',
+          formatValue: (d) => Math.round(d * 100, 2) + '% foreigners',
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getForeignerData),
         },
         welfare: {
           name: 'Welfare',
-          formatValue: (d) => Math.round(d * 100, 2) + '%',
+          formatValue: (d) => Math.round(d * 100, 2) + '% on welfare',
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getWelfareData),
         },
         wealthGini: {
           name: 'Wealth Inequality',
-          formatValue: (d) => d,
+          formatValue: (d) => d + '/1',
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getAugmentedWealthGiniData),
         },
@@ -76,7 +76,7 @@ Vue.component('profile', {
         },
         incomeGini: {
           name: 'Income Inequality',
-          formatValue: (d) => d,
+          formatValue: (d) => d + '/1',
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getAugmentedIncomeGiniData),
         },
@@ -88,7 +88,7 @@ Vue.component('profile', {
         },
         employees: {
           name: 'Full-time Employee Equivalents',
-          formatValue: (d) => d,
+          formatValue: (d) => d3.format(',.0r')(d),
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getEmployeeData),
         },
