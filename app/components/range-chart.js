@@ -32,8 +32,8 @@ Vue.component('range-chart', {
     }
 
     // Vue property shadowing, meeh.
-    this.nodeRadius = this.radius || 10
-    this.nodeMinDist = this.minDist || 25 // px
+    this.nodeRadius = this.radius || 8
+    this.nodeMinDist = this.minDist || 23 // px
 
     this.width = elSvgDims.width - margins.left - margins.right
     this.height = elSvgDims.height - margins.top - margins.bottom
@@ -76,7 +76,7 @@ Vue.component('range-chart', {
 
     fixCollisions(nodes) {
       const MIN_DIST = this.nodeMinDist
-      const NR_ITERATIONS = 200
+      const NR_ITERATIONS = 100
       const FORCE_FACTOR = 10
       const FORCE = MIN_DIST / FORCE_FACTOR
       function doFixCollisions(d) {
@@ -138,10 +138,10 @@ Vue.component('range-chart', {
       nodes
         .append('text')
         .text((d) => d.isFake ? d.name : DISTRICT_NAMES[d.district])
-        .attr('dx', '17px')
-        .attr('dy', '2px')
+        .attr('dx', '14px')
+        .attr('dy', '1px')
         .attr('text-anchor', 'left')
-        .attr('transform', 'rotate(-60)')
+        .attr('transform', 'rotate(-50)')
 
       this.fixCollisions(nodes)
     },
