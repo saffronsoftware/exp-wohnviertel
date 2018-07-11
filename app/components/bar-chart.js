@@ -83,7 +83,7 @@ Vue.component('bar-chart', {
         .attr('text-anchor', 'end')
         .text(this.xLabel)
 
-      let leftAxis = d3.axisLeft(this.y).ticks(10)
+      let leftAxis = d3.axisLeft(this.y).ticks(6)
       if (this.yTickFormat) {
         leftAxis = leftAxis.tickFormat(this.yTickFormat)
       }

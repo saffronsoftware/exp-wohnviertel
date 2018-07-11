@@ -88,7 +88,7 @@ Vue.component('profile', {
         },
         employees: {
           name: 'Full-time Employee Equivalents',
-          formatValue: (d) => d3.format(',.0r')(d),
+          formatValue: (d) => d3.format(',d')(d),
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getEmployeeData),
         },

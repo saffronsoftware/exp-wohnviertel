@@ -101,7 +101,7 @@ export function makeChartId(length) {
 }
 
 export function formatChf(n) {
-  return d3.format(',.0r')(n) + ' CHF'
+  return d3.format(',d')(n) + ' CHF'
 }
 
 export function formatChfShort(n) {
