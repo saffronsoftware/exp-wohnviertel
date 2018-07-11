@@ -1,7 +1,7 @@
 .profile
   .profile-controls
     .profile-selector
-      h2 Select your district
+      h3 Select your district
       model-select(v-model='district', :options='districtOptions')
     .profile-map
       map-chart(
@@ -13,7 +13,7 @@
         :on-click='changeDistrict',
       )
   .profile-profile
-    h2 ${districtName}
+    h3 ${districtName}
     .metric(v-for='(metric, key) in metrics')
       .metric__name
         h4 ${metric.name}

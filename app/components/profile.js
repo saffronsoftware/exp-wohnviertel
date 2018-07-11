@@ -86,6 +86,12 @@ Vue.component('profile', {
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getMedianIncomeData),
         },
+        employees: {
+          name: 'Full-time Employee Equivalents',
+          formatValue: (d) => d,
+          rankFormat: STANDARD_RANK_FORMAT,
+          data: this.getDataByFunction(dataGetters.getEmployeeData),
+        },
       }
     }
   },

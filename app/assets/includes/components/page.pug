@@ -1,20 +1,20 @@
 .page
   hero
 
-
   .grid-container
+    h2 Your district's profile
     profile(
       v-if='allData',
       :allData='allData'
     )
 
-
   .charts(v-if='allData')
     .grid-container
+      h2 At a glance
 
       .chart-group
         .chart-group__description
-          h2 Foreigners
+          h3 Foreigners
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
@@ -35,7 +35,7 @@
 
       .chart-group
         .chart-group__description
-          h2 Welfare
+          h3 Welfare
           p Mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
@@ -49,7 +49,7 @@
 
       .chart-group
         .chart-group__description
-          h2 Wealth and Income
+          h3 Wealth and Income
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
           p Mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
         .chart-group__chart
@@ -123,54 +123,30 @@
 
       .chart-group
         .chart-group__description
-          h2 Citizenship
-          p Nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
-          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
-        .chart-group__chart
-          stack-chart(
-            xLabel='Teil',
-            yLabel='Wohnviertel',
-            :allData='allData',
-            :getGraphData='citizenshipChart.getData',
-            :getKeys='citizenshipChart.getKeys',
-            :colors='citizenshipChart.colors',
-          )
-
-      .chart-group
-        .chart-group__description
-          h2 Religion
-          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
-          p Nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
-        .chart-group__chart
-          stack-chart(
-            xLabel='Teil',
-            yLabel='Wohnviertel',
-            :allData='allData',
-            :getGraphData='religionChart.getData',
-            :getKeys='religionChart.getKeys',
-            :colors='religionChart.colors',
-            :defaultSort='religionChart.defaultSort',
-          )
-
-      .chart-group
-        .chart-group__description
-          h2 Age
+          h3 Full-time Employee Equivalents
           p Turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
           p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
-          stack-chart(
-            xLabel='Teil',
-            yLabel='Wohnviertel',
+          range-chart(
+            xLabel='Vollzeitäquivalente',
             :allData='allData',
-            :getGraphData='ageChart.getData',
-            :getKeys='ageChart.getKeys',
-            :colors='ageChart.colors',
-            :defaultSort='ageChart.defaultSort',
+            :getGraphData='employeeChart.getData',
+            :isPercent='false',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+            :radius='5',
+            :minDist='17',
+          )
+        .chart-group__chart
+          map-chart(
+            :allData='allData',
+            :getGraphData='employeeChart.getData',
+            :isPercent='false',
+            :colors='colors.GRAPHIQ3_12_LOWER',
           )
 
-      .chart-group
+      .chart-group.kind-of-hidden
         .chart-group__description
-          h2 Population change
+          h3 Population change
           p Turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
           p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
@@ -191,25 +167,51 @@
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
 
+      h2 In depth
+
       .chart-group
         .chart-group__description
-          h2 Full-time Employee Equivalents
+          h3 Citizenship
+          p Nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
+        .chart-group__chart
+          stack-chart(
+            xLabel='Teil',
+            yLabel='Wohnviertel',
+            :allData='allData',
+            :getGraphData='citizenshipChart.getData',
+            :getKeys='citizenshipChart.getKeys',
+            :colors='citizenshipChart.colors',
+          )
+
+      .chart-group
+        .chart-group__description
+          h3 Religion
+          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
+          p Nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+        .chart-group__chart
+          stack-chart(
+            xLabel='Teil',
+            yLabel='Wohnviertel',
+            :allData='allData',
+            :getGraphData='religionChart.getData',
+            :getKeys='religionChart.getKeys',
+            :colors='religionChart.colors',
+            :defaultSort='religionChart.defaultSort',
+          )
+
+      .chart-group
+        .chart-group__description
+          h3 Age
           p Turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
           p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
-          range-chart(
-            xLabel='Vollzeitäquivalente',
+          stack-chart(
+            xLabel='Teil',
+            yLabel='Wohnviertel',
             :allData='allData',
-            :getGraphData='employeeChart.getData',
-            :isPercent='false',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-            :radius='5',
-            :minDist='17',
-          )
-        .chart-group__chart
-          map-chart(
-            :allData='allData',
-            :getGraphData='employeeChart.getData',
-            :isPercent='false',
-            :colors='colors.GRAPHIQ3_12_LOWER',
+            :getGraphData='ageChart.getData',
+            :getKeys='ageChart.getKeys',
+            :colors='ageChart.colors',
+            :defaultSort='ageChart.defaultSort',
           )
