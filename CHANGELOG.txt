@@ -3,10 +3,13 @@ v0.4.0
 - [feature] Add district selection by clicking on map.
 - [feature] Add Gini charts for wealth and income.
 - [feature] Add additional data from other countries for Gini.
+- [feature] Add maps for relevant charts.
 - [improvement] Add metrics to district profile data.
 - [improvement] Add detailed rankings to district profile data.
 - [improvement] Collapse mean values into “additional info” section.
 - [improvement] Improve text size and spacing on charts.
+- [improvement] Improve page structure.
+- [improvement] Improve number formatting.
 
 v0.3.0
 - [bug] Fix range chart node collisions for very tight data.
