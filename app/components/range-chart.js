@@ -12,7 +12,7 @@ Vue.component('range-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--range-chart',
   props: [
-    'allData', 'getGraphData', 'xLabel', 'colors', 'isPercent', 'tickFormat',
+    'allData', 'getGraphData', 'axisLabel', 'colors', 'isPercent', 'tickFormat',
     'radius', 'minDist',
   ],
   data: function() {
@@ -117,7 +117,7 @@ Vue.component('range-chart', {
         .attr('x', this.width)
         .attr('dy', '-9px')
         .attr('text-anchor', 'end')
-        .text(this.xLabel)
+        .text(this.axisLabel)
 
       let nodes = this.g
         .selectAll('.range-node')

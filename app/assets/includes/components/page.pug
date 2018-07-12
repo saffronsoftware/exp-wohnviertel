@@ -19,7 +19,7 @@
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
           range-chart(
-            xLabel='Ausländeranteil',
+            axisLabel='Ausländeranteil',
             :allData='allData',
             :getGraphData='foreignersChart.getData',
             :isPercent='true',
@@ -27,9 +27,10 @@
           )
         .chart-group__chart
           map-chart(
+            axisLabel='Ausländeranteil',
+            valueFormat='.0%',
             :allData='allData',
             :getGraphData='foreignersChart.getData',
-            valueFormat='.0%',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
 
@@ -40,7 +41,7 @@
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
           range-chart(
-            xLabel='Sozialhilfequote',
+            axisLabel='Sozialhilfequote',
             :allData='allData',
             :getGraphData='welfareChart.getData',
             :isPercent='true',
@@ -48,10 +49,11 @@
           )
         .chart-group__chart
           map-chart(
-            :allData='allData',
-            :getGraphData='welfareChart.getData',
+            axisLabel='Sozialhilfequote',
             valueFormat='.0%',
             :colors='colors.GRAPHIQ3_12_LOWER',
+            :allData='allData',
+            :getGraphData='welfareChart.getData',
           )
 
       .chart-group
@@ -61,16 +63,17 @@
           p Mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
         .chart-group__chart
           range-chart(
-            xLabel='Reinvermögen Gini',
+            axisLabel='Reinvermögen Gini',
             :allData='allData',
             :getGraphData='augmentedWealthGiniChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__chart
           map-chart(
+            axisLabel='Reinvermögen Gini',
+            valueFormat='.2f',
             :allData='allData',
             :getGraphData='wealthGiniChart.getData',
-            valueFormat='.2f',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__chart
@@ -84,6 +87,7 @@
             :yTickFormat='medianWealthChart.yTickFormat',
           )
           map-chart(
+            axisLabel='Reinvermögen Median',
             :allData='allData',
             :getGraphData='medianWealthChart.getData',
             :isChf='true',
@@ -108,15 +112,16 @@
               )
         .chart-group__chart
           range-chart(
-            xLabel='Reineinkommen Gini',
+            axisLabel='Reineinkommen Gini',
             :allData='allData',
             :getGraphData='augmentedIncomeGiniChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
           map-chart(
+            axisLabel='Reineinkommen Gini',
+            valueFormat='.2f',
             :allData='allData',
             :getGraphData='incomeGiniChart.getData',
-            valueFormat='.2f',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__chart
@@ -130,6 +135,7 @@
             :yTickFormat='medianIncomeChart.yTickFormat',
           )
           map-chart(
+            axisLabel='Reineinkommen Median',
             :allData='allData',
             :getGraphData='medianIncomeChart.getData',
             :isChf='true',
@@ -160,7 +166,7 @@
           p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
           range-chart(
-            xLabel='Vollzeitäquivalente',
+            axisLabel='Vollzeitäquivalente',
             :allData='allData',
             :getGraphData='employeeChart.getData',
             :isPercent='false',
@@ -170,9 +176,10 @@
           )
         .chart-group__chart
           map-chart(
+            axisLabel='Vollzeitäquivalente',
+            valueFormat='d',
             :allData='allData',
             :getGraphData='employeeChart.getData',
-            valueFormat='d',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
 
@@ -183,7 +190,7 @@
           p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
           range-chart(
-            xLabel='Umzüge + Wanderungen Saldo',
+            axisLabel='Umzüge + Wanderungen Saldo',
             :allData='allData',
             :getGraphData='populationChangeChart.getData',
             :isPercent='false',
@@ -193,9 +200,10 @@
           )
         .chart-group__chart
           map-chart(
+            axisLabel='Umzüge + Wanderungen Saldo',
+            valueFormat='d',
             :allData='allData',
             :getGraphData='populationChangeChart.getData',
-            valueFormat='d',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
 

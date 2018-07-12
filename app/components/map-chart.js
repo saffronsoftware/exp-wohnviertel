@@ -12,7 +12,7 @@ Vue.component('map-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--map-chart',
   props: [
-    'allData', 'getGraphData', 'colors', 'valueFormat', 'isChf',
+    'allData', 'getGraphData', 'colors', 'valueFormat', 'isChf', 'axisLabel',
     'isLegendDisabled', 'isTooltipDisabled', 'highlightDistrict', 'onClick',
   ],
   data: () => {
@@ -62,10 +62,10 @@ Vue.component('map-chart', {
 
       this.legendBarWidth = 30
       const legendMargins = {
-        top: 10,
+        top: 35,
         right: 75,
         bottom: 10,
-        left: 0,
+        left: 30,
       }
       this.legendWidth = legendSvgDims.width - legendMargins.left - legendMargins.right
       this.legendHeight = legendSvgDims.height - legendMargins.top - legendMargins.bottom
@@ -162,6 +162,17 @@ Vue.component('map-chart', {
         .attr('class', 'axis axis--y')
         .attr('transform', `translate(${this.legendWidth + 2}, 0)`)
         .call(d3.axisRight(this.legendY).tickFormat(this.formatValue))
+      this.legendYAxis
+        .append('text')
+        .attr('class', 'axis-label')
+        .attr(
+          'transform',
+          `translate(-${this.legendBarWidth}, ${this.legendHeight}) rotate(-90)`
+        )
+        .attr('dx', '3px')
+        .attr('dy', '-12px')
+        .attr('text-anchor', 'start')
+        .text(this.axisLabel)
 
       this.legendG.selectAll('defs').remove()
       const gradient = this.legendG
