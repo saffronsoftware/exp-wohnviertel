@@ -113,6 +113,7 @@ Vue.component('range-chart', {
         .attr('transform', `translate(0, ${this.height})`)
         .call(bottomAxis)
         .append('text')
+        .attr('class', 'axis-label')
         .attr('x', this.width)
         .attr('dy', '-9px')
         .attr('text-anchor', 'end')

@@ -82,6 +82,7 @@ Vue.component('stack-chart', {
         .attr('text-anchor', 'start')
       xAxis
         .append('text')
+        .attr('class', 'axis-label')
         .attr('transform', `translate(${this.graphWidth})`)
         .attr('dx', '0')
         .attr('dy', '33px')
@@ -94,6 +95,7 @@ Vue.component('stack-chart', {
         .attr('class', 'axis axis--y')
         .call(d3.axisLeft(this.y))
         .append('text')
+        .attr('class', 'axis-label')
         .attr('dx', '-9px')
         .attr('dy', '-2px')
         .attr('text-anchor', 'end')

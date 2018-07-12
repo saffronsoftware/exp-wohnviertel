@@ -78,6 +78,7 @@ Vue.component('bar-chart', {
         .attr('text-anchor', 'start')
       xAxis
         .append('text')
+        .attr('class', 'axis-label')
         .attr('transform', `translate(${this.width}) rotate(90)`)
         .attr('dy', '-12px')
         .attr('text-anchor', 'end')
@@ -94,6 +95,7 @@ Vue.component('bar-chart', {
         .attr('class', 'axis axis--y')
         .call(leftAxis)
         .append('text')
+        .attr('class', 'axis-label')
         .attr('transform', 'rotate(90)')
         .attr('dx', '5px')
         .attr('dy', '-9px')
