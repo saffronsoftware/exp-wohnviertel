@@ -12,6 +12,7 @@ v0.4.0
 - [improvement] Improve number formatting.
 - [improvement] Improve map chart format handling.
 - [improvement] Make axis labels look better.
+- [improvement] Add axis label to map chart.
 
 v0.3.0
 - [bug] Fix range chart node collisions for very tight data.
