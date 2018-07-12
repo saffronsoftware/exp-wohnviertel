@@ -177,7 +177,7 @@
         .chart-group__chart
           map-chart(
             axisLabel='Vollzeitäquivalente',
-            valueFormat='d',
+            valueFormat=',d',
             :allData='allData',
             :getGraphData='employeeChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
@@ -201,7 +201,7 @@
         .chart-group__chart
           map-chart(
             axisLabel='Umzüge + Wanderungen Saldo',
-            valueFormat='d',
+            valueFormat=',d',
             :allData='allData',
             :getGraphData='populationChangeChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
