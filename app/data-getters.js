@@ -172,21 +172,26 @@ export function getWealthGiniData(allData) {
 
 /*
 SOURCE:
-https://en.wikipedia.org/wiki/List_of_countries_by_distribution_of_wealth
-2010
+https://www.credit-suisse.com/corporate/en/research/research-institute/global-wealth-report.html
+2017
 */
 export function getAugmentedWealthGiniData(allData) {
   return function() {
     const standardData = getWealthGiniData(allData)()
     const extraData = [
-      {isFake: true, name: 'Welt', value: 0.804},
-      {isFake: true, name: 'Schweiz', value: 0.803},
-      {isFake: true, name: 'Deutschland', value: 0.667},
-      {isFake: true, name: 'Frankreich', value: 0.730},
-      {isFake: true, name: 'Österreich', value: 0.646},
-      {isFake: true, name: 'Japan', value: 0.547},
-      {isFake: true, name: 'Schweden', value: 0.742},
-      {isFake: true, name: 'Italien', value: 0.609},
+      {isFake: true, name: 'Deutschland', value: 0.771},
+      {isFake: true, name: 'Frankreich', value: 0.697},
+      {isFake: true, name: 'Island', value: 0.684},
+      {isFake: true, name: 'Italien', value: 0.661},
+      {isFake: true, name: 'Japan', value: 0.634},
+      {isFake: true, name: 'Schweden', value: 0.794},
+      {isFake: true, name: 'Schweiz', value: 0.802},
+      {isFake: true, name: 'UK', value: 0.682},
+      {isFake: true, name: 'USA', value: 0.846},
+      {isFake: true, name: 'Ukraine', value: 0.919},
+      {isFake: true, name: 'Welt', value: 0.911},
+      {isFake: true, name: 'Ägypten', value: 0.807},
+      {isFake: true, name: 'Österreich', value: 0.779},
     ]
     return standardData.concat(extraData)
   }

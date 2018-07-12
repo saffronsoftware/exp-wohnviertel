@@ -33,7 +33,7 @@ Vue.component('range-chart', {
 
     // Vue property shadowing, meeh.
     this.nodeRadius = this.radius || 8
-    this.nodeMinDist = this.minDist || 23 // px
+    this.nodeMinDist = this.minDist || 21 // px
 
     this.width = elSvgDims.width - margins.left - margins.right
     this.height = elSvgDims.height - margins.top - margins.bottom
@@ -61,7 +61,7 @@ Vue.component('range-chart', {
 
     updateAxes() {
       let graphDataValues = this.graphData.map((d) => d.value)
-      const PADDING_FACTOR = 7
+      const PADDING_FACTOR = 10
       const PADDING_MIN_FACTOR = 0.5
       const PADDING_MAX_FACTOR = 1.5
       const min = d3.min(graphDataValues)
@@ -76,7 +76,7 @@ Vue.component('range-chart', {
 
     fixCollisions(nodes) {
       const MIN_DIST = this.nodeMinDist
-      const NR_ITERATIONS = 100
+      const NR_ITERATIONS = 150
       const FORCE_FACTOR = 10
       const FORCE = MIN_DIST / FORCE_FACTOR
       function doFixCollisions(d) {

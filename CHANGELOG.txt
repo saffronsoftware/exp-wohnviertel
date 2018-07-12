@@ -4,6 +4,8 @@ v0.4.0
 - [feature] Add Gini charts for wealth and income.
 - [feature] Add additional data from other countries for Gini.
 - [feature] Add maps for remaining relevant charts.
+- [feature] Add source notes to each chart.
+- [feature] Specify what year data is from for each chart.
 - [improvement] Add metrics to district profile data.
 - [improvement] Add detailed rankings to district profile data.
 - [improvement] Collapse mean financial values into “additional info” section.

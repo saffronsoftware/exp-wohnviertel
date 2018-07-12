@@ -33,6 +33,8 @@
             :getGraphData='foreignersChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
+        .chart-group__sources
+          | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/1-bevoelkerung/bestand-struktur.html') T01.1.04], 2016.
 
       .chart-group
         .chart-group__description
@@ -55,6 +57,8 @@
             :allData='allData',
             :getGraphData='welfareChart.getData',
           )
+        .chart-group__sources
+          | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/13-soziale-sicherheit/sozialhilfe.html') T13.4.03], 2016.
 
       .chart-group
         .chart-group__description
@@ -158,6 +162,12 @@
                 :xTickFormat='averageIncomeChart.xTickFormat',
                 :yTickFormat='averageIncomeChart.yTickFormat',
               )
+        .chart-group__sources
+          | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/18-oeffentliche-finanzen/steuern.html') T18.2.03], 2014.
+          br
+          | International Gini coefficients for income from #[a(href='https://www.gut-leben-in-deutschland.de/static/LB/indicators/income/gini-coefficient-income/') “Gini-Koeffizient der Einkommen”, Bundesregierung Deutschland, 2014].
+          br
+          | International Gini coefficients for wealth from #[a(href='https://www.credit-suisse.com/corporate/en/research/research-institute/global-wealth-report.html') Credit Suisse Global Wealth Report, 2014].
 
       .chart-group
         .chart-group__description
@@ -182,30 +192,8 @@
             :getGraphData='employeeChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
-
-      .chart-group.kind-of-hidden
-        .chart-group__description
-          h3 Population change
-          p Turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
-          p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
-        .chart-group__chart
-          range-chart(
-            axisLabel='Umzüge + Wanderungen Saldo',
-            :allData='allData',
-            :getGraphData='populationChangeChart.getData',
-            :isPercent='false',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-            :radius='5',
-            :minDist='17',
-          )
-        .chart-group__chart
-          map-chart(
-            axisLabel='Umzüge + Wanderungen Saldo',
-            valueFormat=',d',
-            :allData='allData',
-            :getGraphData='populationChangeChart.getData',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-          )
+        .chart-group__sources
+          | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/3-erwerbsleben/beschaeftigte.html') T03.2.02], 2014.
 
       h2 In depth
 
@@ -223,6 +211,8 @@
             :getKeys='citizenshipChart.getKeys',
             :colors='citizenshipChart.colors',
           )
+        .chart-group__sources
+          | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/1-bevoelkerung/bestand-struktur.html') T01.1.23], 2016.
 
       .chart-group
         .chart-group__description
@@ -239,6 +229,8 @@
             :colors='religionChart.colors',
             :defaultSort='religionChart.defaultSort',
           )
+        .chart-group__sources
+          | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/1-bevoelkerung/religionszugehoerigkeit.html') T01.6.01], 2013.
 
       .chart-group
         .chart-group__description
@@ -255,3 +247,5 @@
             :colors='ageChart.colors',
             :defaultSort='ageChart.defaultSort',
           )
+        .chart-group__sources
+          | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/1-bevoelkerung/bestand-struktur.html') T01.1.22], 2016.
