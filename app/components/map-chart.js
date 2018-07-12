@@ -12,8 +12,8 @@ Vue.component('map-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--map-chart',
   props: [
-    'allData', 'getGraphData', 'colors', 'isPercent', 'isLegendDisabled',
-    'isTooltipDisabled', 'highlightDistrict', 'onClick',
+    'allData', 'getGraphData', 'colors', 'valueFormat', 'isChf',
+    'isLegendDisabled', 'isTooltipDisabled', 'highlightDistrict', 'onClick',
   ],
   data: () => {
     return {
@@ -62,9 +62,9 @@ Vue.component('map-chart', {
 
       this.legendBarWidth = 30
       const legendMargins = {
-        top: 0,
-        right: 60,
-        bottom: 1,
+        top: 10,
+        right: 75,
+        bottom: 10,
         left: 0,
       }
       this.legendWidth = legendSvgDims.width - legendMargins.left - legendMargins.right
@@ -87,10 +87,12 @@ Vue.component('map-chart', {
     },
 
     formatValue(val) {
-      if (this.isPercent) {
-        return d3.format('.0%')(val)
+      if (this.isChf) {
+        return util.formatChfShort(val)
+      } else if (this.valueFormat) {
+        return d3.format(this.valueFormat)(val)
       } else {
-        return d3.format(',.0f')(val)
+        return d3.format(',.2f')(val)
       }
     },
 

@@ -22,6 +22,9 @@ Vue.component('page', {
       welfareChart: {
         getData: null,
       },
+      augmentedWealthGiniChart: {
+        getData: null,
+      },
       wealthGiniChart: {
         getData: null,
       },
@@ -36,6 +39,9 @@ Vue.component('page', {
         yTickFormat: util.formatChfShort,
       },
       areWealthDetailsVisible: false,
+      augmentedIncomeGiniChart: {
+        getData: null,
+      },
       incomeGiniChart: {
         getData: null,
       },
@@ -89,19 +95,25 @@ Vue.component('page', {
   mounted() {
     data.getData((err, allData) => {
       this.allData = allData
+
       this.foreignersChart.getData = dataGetters.getForeignerData(allData)
       this.welfareChart.getData = dataGetters.getWelfareData(allData)
-      this.wealthGiniChart.getData = dataGetters.getAugmentedWealthGiniData(allData)
+      this.populationChangeChart.getData = dataGetters.getPopulationChangeData(allData)
+      this.employeeChart.getData = dataGetters.getEmployeeData(allData)
+
+      this.augmentedWealthGiniChart.getData = dataGetters.getAugmentedWealthGiniData(allData)
+      this.wealthGiniChart.getData = dataGetters.getWealthGiniData(allData)
       this.medianWealthChart.getData = dataGetters.getMedianWealthData(allData)
       this.averageWealthChart.getData = dataGetters.getAverageWealthData(allData)
-      this.incomeGiniChart.getData = dataGetters.getAugmentedIncomeGiniData(allData)
+
+      this.augmentedIncomeGiniChart.getData = dataGetters.getAugmentedIncomeGiniData(allData)
+      this.incomeGiniChart.getData = dataGetters.getIncomeGiniData(allData)
       this.medianIncomeChart.getData = dataGetters.getMedianIncomeData(allData)
       this.averageIncomeChart.getData = dataGetters.getAverageIncomeData(allData)
+
       this.citizenshipChart.getData = dataGetters.getCitizenshipData(allData)
       this.religionChart.getData = dataGetters.getReligionData(allData)
       this.ageChart.getData = dataGetters.getAgeData(allData)
-      this.populationChangeChart.getData = dataGetters.getPopulationChangeData(allData)
-      this.employeeChart.getData = dataGetters.getEmployeeData(allData)
     })
   },
 

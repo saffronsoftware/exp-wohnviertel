@@ -29,7 +29,7 @@
           map-chart(
             :allData='allData',
             :getGraphData='foreignersChart.getData',
-            :isPercent='true',
+            valueFormat='.0%',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
 
@@ -50,7 +50,7 @@
           map-chart(
             :allData='allData',
             :getGraphData='welfareChart.getData',
-            :isPercent='true',
+            valueFormat='.0%',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
 
@@ -63,13 +63,14 @@
           range-chart(
             xLabel='Reinvermögen Gini',
             :allData='allData',
-            :getGraphData='wealthGiniChart.getData',
+            :getGraphData='augmentedWealthGiniChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__chart
           map-chart(
             :allData='allData',
             :getGraphData='wealthGiniChart.getData',
+            valueFormat='.2f',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__chart
@@ -85,6 +86,7 @@
           map-chart(
             :allData='allData',
             :getGraphData='medianWealthChart.getData',
+            :isChf='true',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .extra-details-trigger
@@ -108,12 +110,13 @@
           range-chart(
             xLabel='Reineinkommen Gini',
             :allData='allData',
-            :getGraphData='incomeGiniChart.getData',
+            :getGraphData='augmentedIncomeGiniChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
           map-chart(
             :allData='allData',
             :getGraphData='incomeGiniChart.getData',
+            valueFormat='.2f',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__chart
@@ -129,6 +132,7 @@
           map-chart(
             :allData='allData',
             :getGraphData='medianIncomeChart.getData',
+            :isChf='true',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .extra-details-trigger
@@ -168,7 +172,7 @@
           map-chart(
             :allData='allData',
             :getGraphData='employeeChart.getData',
-            :isPercent='false',
+            valueFormat='d',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
 
@@ -191,7 +195,7 @@
           map-chart(
             :allData='allData',
             :getGraphData='populationChangeChart.getData',
-            :isPercent='false',
+            valueFormat='d',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
 

@@ -105,5 +105,5 @@ export function formatChf(n) {
 }
 
 export function formatChfShort(n) {
-  return d3.format(',.0s')(n) + ' CHF'
+  return d3.format(',.2s')(n) + ' CHF'
 }

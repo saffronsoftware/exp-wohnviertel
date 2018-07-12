@@ -2,8 +2,6 @@
 * [improvement] Specify sources for data from Statistisches Amt
 * [improvement] Specify sources for data from other places than Statistisches Amt
 * [improvement] Check statistics to make sure they make sense, for example population change
-* [improvement] Fix map for Gini and income/wealth.
-* [feature] Add map to welfare, wealth
 * [feature] Add branding
 * [feature] Add i18n
 * [feature] Add analytics
