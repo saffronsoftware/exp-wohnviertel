@@ -182,12 +182,13 @@
             :isPercent='false',
             :colors='colors.GRAPHIQ3_12_LOWER',
             :radius='5',
-            :minDist='17',
+            :minDist='15',
+            :minPadding='1.0',
           )
         .chart-group__chart
           map-chart(
             axisLabel='Vollzeitäquivalente',
-            valueFormat=',d',
+            valueFormat=',.2f',
             :allData='allData',
             :getGraphData='employeeChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',

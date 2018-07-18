@@ -297,7 +297,11 @@ export function getEmployeeData(allData) {
     const year = '2014'
     const graphData = DISTRICTS.map((district) => ({
       district: district,
-      value: allData[district]['Vollzeitäquivalente'][year],
+      value: allData[district]['Vollzeitäquivalente'][year] /
+        (
+          allData[district]['Bevölkerung: Ausländer'][year] +
+          allData[district]['Bevölkerung: Schweizer'][year]
+        )
     }))
     return graphData
   }

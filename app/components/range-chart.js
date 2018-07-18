@@ -13,7 +13,7 @@ Vue.component('range-chart', {
   template: '#component-template--range-chart',
   props: [
     'allData', 'getGraphData', 'axisLabel', 'colors', 'isPercent', 'tickFormat',
-    'radius', 'minDist',
+    'radius', 'minDist', 'minPadding',
   ],
   data: function() {
     return {
@@ -62,7 +62,7 @@ Vue.component('range-chart', {
     updateAxes() {
       let graphDataValues = this.graphData.map((d) => d.value)
       const PADDING_FACTOR = 10
-      const PADDING_MIN_FACTOR = 0.5
+      const PADDING_MIN_FACTOR = this.minPadding || 0.5
       const PADDING_MAX_FACTOR = 1.5
       const min = d3.min(graphDataValues)
       const max = d3.max(graphDataValues)
