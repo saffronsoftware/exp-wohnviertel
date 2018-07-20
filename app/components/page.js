@@ -88,6 +88,8 @@ Vue.component('page', {
       },
       employeeChart: {
         getData: null,
+        xTickFormat: (d) => DISTRICT_NAMES[d],
+        yTickFormat: d3.format('.2f'),
       },
     }
   },

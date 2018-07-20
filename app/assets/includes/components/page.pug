@@ -61,12 +61,11 @@
 
       .chart-group
         .chart-group__description
-          h3 Wealth and Income
+          h3 Wealth Inequality
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
-          p Mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
         .chart-group__chart
           map-chart(
-            axisLabel='Reinvermögen Gini',
+            axisLabel='Net Worth Gini',
             valueFormat='.2f',
             :allData='allData',
             :getGraphData='wealthGiniChart.getData',
@@ -74,14 +73,31 @@
           )
         .chart-group__chart
           range-chart(
-            axisLabel='Reinvermögen Gini',
+            axisLabel='Net Worth Gini',
             :allData='allData',
             :getGraphData='augmentedWealthGiniChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
+        .chart-group__sources
+          | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/18-oeffentliche-finanzen/steuern.html') T18.2.03], 2014.
+          br
+          | International Gini coefficients for wealth from #[a(href='https://www.credit-suisse.com/corporate/en/research/research-institute/global-wealth-report.html') Credit Suisse Global Wealth Report, 2014].
+
+      .chart-group
+        .chart-group__description
+          h3 Average Net Worth
+          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+        .chart-group__chart
+          map-chart(
+            axisLabel='Average Net Worth',
+            :allData='allData',
+            :getGraphData='medianWealthChart.getData',
+            :isChf='true',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
         .chart-group__chart
           bar-chart(
-            xLabel='Reinvermögen Median',
+            xLabel='Average Net Worth',
             yLabel='',
             :allData='allData',
             :getGraphData='medianWealthChart.getData',
@@ -89,14 +105,13 @@
             :xTickFormat='medianWealthChart.xTickFormat',
             :yTickFormat='medianWealthChart.yTickFormat',
           )
-        .chart-group__chart
-          map-chart(
-            axisLabel='Reinvermögen Median',
-            :allData='allData',
-            :getGraphData='medianWealthChart.getData',
-            :isChf='true',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-          )
+          // range-chart(
+          //   axisLabel='Average Net Worth',
+          //   :allData='allData',
+          //   :getGraphData='medianWealthChart.getData',
+          //   :colors='colors.GRAPHIQ3_12_LOWER',
+          //   :isChf='true',
+          // )
         .extra-details-trigger
           button.button.button--shrink(v-on:click='areWealthDetailsVisible = !areWealthDetailsVisible')
             | ${areWealthDetailsVisible ? 'Hide extra information' : 'Show extra information'}
@@ -106,7 +121,7 @@
               p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
             .chart-group__chart
               bar-chart(
-                xLabel='Reinvermögen Mittelwert',
+                xLabel='Mean Net Worth',
                 yLabel='',
                 :allData='allData',
                 :getGraphData='averageWealthChart.getData',
@@ -114,9 +129,18 @@
                 :xTickFormat='averageWealthChart.xTickFormat',
                 :yTickFormat='averageWealthChart.yTickFormat',
               )
+        .chart-group__sources
+          | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/18-oeffentliche-finanzen/steuern.html') T18.2.03], 2014.
+          br
+          | The median (and not the mean) is used for average financial values to avoid skewing.
+
+      .chart-group
+        .chart-group__description
+          h3 Income Inequality
+          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
           map-chart(
-            axisLabel='Reineinkommen Gini',
+            axisLabel='Net Income Gini',
             valueFormat='.2f',
             :allData='allData',
             :getGraphData='incomeGiniChart.getData',
@@ -124,14 +148,31 @@
           )
         .chart-group__chart
           range-chart(
-            axisLabel='Reineinkommen Gini',
+            axisLabel='Net Income Gini',
             :allData='allData',
             :getGraphData='augmentedIncomeGiniChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
+        .chart-group__sources
+          | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/18-oeffentliche-finanzen/steuern.html') T18.2.03], 2014.
+          br
+          | International Gini coefficients for income from #[a(href='https://www.gut-leben-in-deutschland.de/static/LB/indicators/income/gini-coefficient-income/') “Gini-Koeffizient der Einkommen”, Bundesregierung Deutschland, 2014].
+
+      .chart-group
+        .chart-group__description
+          h3 Average Net Income
+          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+        .chart-group__chart
+          map-chart(
+            axisLabel='Average Net Income',
+            :allData='allData',
+            :getGraphData='medianIncomeChart.getData',
+            :isChf='true',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
         .chart-group__chart
           bar-chart(
-            xLabel='Reineinkommen Median',
+            xLabel='Average Net Income',
             yLabel='',
             :allData='allData',
             :getGraphData='medianIncomeChart.getData',
@@ -139,14 +180,13 @@
             :xTickFormat='medianIncomeChart.xTickFormat',
             :yTickFormat='medianIncomeChart.yTickFormat',
           )
-        .chart-group__chart
-          map-chart(
-            axisLabel='Reineinkommen Median',
-            :allData='allData',
-            :getGraphData='medianIncomeChart.getData',
-            :isChf='true',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-          )
+          // range-chart(
+          //   axisLabel='Average Net Income',
+          //   :allData='allData',
+          //   :getGraphData='medianIncomeChart.getData',
+          //   :colors='colors.GRAPHIQ3_12_LOWER',
+          //   :isChf='true',
+          // )
         .extra-details-trigger
           button.button.button--shrink(v-on:click='areIncomeDetailsVisible = !areIncomeDetailsVisible')
             | ${areIncomeDetailsVisible ? 'Hide extra information' : 'Show extra information'}
@@ -156,7 +196,7 @@
               p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
             .chart-group__chart
               bar-chart(
-                xLabel='Reineinkommen Mittelwert',
+                xLabel='Mean Net Income',
                 yLabel='',
                 :allData='allData',
                 :getGraphData='averageIncomeChart.getData',
@@ -167,9 +207,7 @@
         .chart-group__sources
           | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/18-oeffentliche-finanzen/steuern.html') T18.2.03], 2014.
           br
-          | International Gini coefficients for income from #[a(href='https://www.gut-leben-in-deutschland.de/static/LB/indicators/income/gini-coefficient-income/') “Gini-Koeffizient der Einkommen”, Bundesregierung Deutschland, 2014].
-          br
-          | International Gini coefficients for wealth from #[a(href='https://www.credit-suisse.com/corporate/en/research/research-institute/global-wealth-report.html') Credit Suisse Global Wealth Report, 2014].
+          | The median (and not the mean) is used for average financial values to avoid skewing.
 
       .chart-group
         .chart-group__description
@@ -177,23 +215,32 @@
           p Turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
           p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
-          range-chart(
-            axisLabel='Vollzeitäquivalente',
-            :allData='allData',
-            :getGraphData='employeeChart.getData',
-            :isPercent='false',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-            :radius='5',
-            :minDist='15',
-            :minPadding='1.0',
-          )
-        .chart-group__chart
           map-chart(
             axisLabel='Vollzeitäquivalente',
             valueFormat=',.2f',
             :allData='allData',
             :getGraphData='employeeChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
+          )
+        .chart-group__chart
+          // range-chart(
+          //   axisLabel='Vollzeitäquivalente',
+          //   :allData='allData',
+          //   :getGraphData='employeeChart.getData',
+          //   :isPercent='false',
+          //   :colors='colors.GRAPHIQ3_12_LOWER',
+          //   :radius='5',
+          //   :minDist='15',
+          //   :minPadding='1.0',
+          // )
+          bar-chart(
+            xLabel='Vollzeitäquivalente',
+            yLabel='',
+            :allData='allData',
+            :getGraphData='employeeChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+            :xTickFormat='employeeChart.xTickFormat',
+            :yTickFormat='employeeChart.yTickFormat',
           )
         .chart-group__sources
           | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/3-erwerbsleben/beschaeftigte.html') T03.2.02], 2014.

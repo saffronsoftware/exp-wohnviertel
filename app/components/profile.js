@@ -70,7 +70,7 @@ Vue.component('profile', {
           data: this.getDataByFunction(dataGetters.getAugmentedWealthGiniData),
         },
         medianWealth: {
-          name: 'Median Wealth',
+          name: 'Average Net Worth',
           formatValue: (d) => util.formatChf(d),
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getMedianWealthData),
@@ -82,7 +82,7 @@ Vue.component('profile', {
           data: this.getDataByFunction(dataGetters.getAugmentedIncomeGiniData),
         },
         medianIncome: {
-          name: 'Median Income',
+          name: 'Average Net Income',
           formatValue: (d) => util.formatChf(d),
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getMedianIncomeData),

@@ -13,7 +13,7 @@ Vue.component('range-chart', {
   template: '#component-template--range-chart',
   props: [
     'allData', 'getGraphData', 'axisLabel', 'colors', 'isPercent', 'tickFormat',
-    'radius', 'minDist', 'minPadding',
+    'isChf', 'radius', 'minDist', 'minPadding',
   ],
   data: function() {
     return {
@@ -103,7 +103,9 @@ Vue.component('range-chart', {
       let bottomAxis = d3.axisBottom(this.x)
         .ticks(10, this.isPercent ? '%' : undefined)
 
-      if (this.tickFormat) {
+      if (this.isChf) {
+        bottomAxis = bottomAxis.tickFormat(util.formatChfShort)
+      } else if (this.tickFormat) {
         bottomAxis = bottomAxis.tickFormat(this.tickFormat)
       }
 

@@ -23,7 +23,7 @@ Vue.component('bar-chart', {
     const svg = d3.select(elSvg)
     const margins = {
       top: 20,
-      right: 25,
+      right: 55,
       bottom: 80,
       left: 70,
     }
