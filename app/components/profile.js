@@ -121,7 +121,7 @@ Vue.component('profile', {
 
   mounted() {
     this.scrollReveal = ScrollReveal()
-    this.scrollReveal.reveal('.profile .profile-metrics .metric', 150)
+    this.scrollReveal.reveal('.profile .profile-metrics .metric', 100)
   },
 
   components: {ModelSelect},
