@@ -2,7 +2,6 @@
   hero
 
   .grid-container
-    h2 Your district's profile
     profile(
       v-if='allData',
       :allData='allData'
@@ -18,19 +17,19 @@
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
-          range-chart(
-            axisLabel='Ausländeranteil',
-            :allData='allData',
-            :getGraphData='foreignersChart.getData',
-            :isPercent='true',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-          )
-        .chart-group__chart
           map-chart(
             axisLabel='Ausländeranteil',
             valueFormat='.0%',
             :allData='allData',
             :getGraphData='foreignersChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
+        .chart-group__chart
+          range-chart(
+            axisLabel='Ausländeranteil',
+            :allData='allData',
+            :getGraphData='foreignersChart.getData',
+            :isPercent='true',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__sources
@@ -42,20 +41,20 @@
           p Mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
-          range-chart(
-            axisLabel='Sozialhilfequote',
-            :allData='allData',
-            :getGraphData='welfareChart.getData',
-            :isPercent='true',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-          )
-        .chart-group__chart
           map-chart(
             axisLabel='Sozialhilfequote',
             valueFormat='.0%',
             :colors='colors.GRAPHIQ3_12_LOWER',
             :allData='allData',
             :getGraphData='welfareChart.getData',
+          )
+        .chart-group__chart
+          range-chart(
+            axisLabel='Sozialhilfequote',
+            :allData='allData',
+            :getGraphData='welfareChart.getData',
+            :isPercent='true',
+            :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__sources
           | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/13-soziale-sicherheit/sozialhilfe.html') T13.4.03], 2016.
@@ -66,18 +65,18 @@
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
           p Mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
         .chart-group__chart
-          range-chart(
-            axisLabel='Reinvermögen Gini',
-            :allData='allData',
-            :getGraphData='augmentedWealthGiniChart.getData',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-          )
-        .chart-group__chart
           map-chart(
             axisLabel='Reinvermögen Gini',
             valueFormat='.2f',
             :allData='allData',
             :getGraphData='wealthGiniChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
+        .chart-group__chart
+          range-chart(
+            axisLabel='Reinvermögen Gini',
+            :allData='allData',
+            :getGraphData='augmentedWealthGiniChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__chart
@@ -90,6 +89,7 @@
             :xTickFormat='medianWealthChart.xTickFormat',
             :yTickFormat='medianWealthChart.yTickFormat',
           )
+        .chart-group__chart
           map-chart(
             axisLabel='Reinvermögen Median',
             :allData='allData',
@@ -115,17 +115,18 @@
                 :yTickFormat='averageWealthChart.yTickFormat',
               )
         .chart-group__chart
-          range-chart(
-            axisLabel='Reineinkommen Gini',
-            :allData='allData',
-            :getGraphData='augmentedIncomeGiniChart.getData',
-            :colors='colors.GRAPHIQ3_12_LOWER',
-          )
           map-chart(
             axisLabel='Reineinkommen Gini',
             valueFormat='.2f',
             :allData='allData',
             :getGraphData='incomeGiniChart.getData',
+            :colors='colors.GRAPHIQ3_12_LOWER',
+          )
+        .chart-group__chart
+          range-chart(
+            axisLabel='Reineinkommen Gini',
+            :allData='allData',
+            :getGraphData='augmentedIncomeGiniChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
           )
         .chart-group__chart
@@ -138,6 +139,7 @@
             :xTickFormat='medianIncomeChart.xTickFormat',
             :yTickFormat='medianIncomeChart.yTickFormat',
           )
+        .chart-group__chart
           map-chart(
             axisLabel='Reineinkommen Median',
             :allData='allData',

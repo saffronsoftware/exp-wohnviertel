@@ -1,8 +1,9 @@
 .profile
-  .profile-controls
-    .profile-selector
-      h3 Select your district
+  .profile-header
+    h2 Your district's profile
+    .profile-dropdown
       model-select(v-model='district', :options='districtOptions')
+  .grid
     .profile-map
       map-chart(
         :allData='allData',
@@ -12,11 +13,10 @@
         :colors='colors.GRAPHIQ3_12_LOWER',
         :on-click='changeDistrict',
       )
-  .profile-profile
-    h3 ${districtName}
-    .metric(v-for='(metric, key) in metrics')
-      .metric__name
-        h4 ${metric.name}
-      .metric__info
-        p ${metric.formatValue(metric.data.value)}
-        p ${formatRank(metric.data.rankInfo, metric.rankFormat)} (#${metric.data.rankInfo.rank}/${metric.data.rankInfo.outOf})
+    .profile-metrics
+      .metric(v-for='(metric, key) in metrics')
+        .metric__name
+          h4 ${metric.name}
+        .metric__info
+          p ${metric.formatValue(metric.data.value)}
+          p ${formatRank(metric.data.rankInfo, metric.rankFormat)} (#${metric.data.rankInfo.rank}/${metric.data.rankInfo.outOf})

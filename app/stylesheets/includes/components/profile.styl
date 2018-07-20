@@ -1,16 +1,20 @@
 .profile
-  display flex
   margin-bottom 8rem
-  .profile-controls
-    flex 1 0 calc(50% - 2rem)
-    padding-right 2rem
-    .profile-selector
-      margin-bottom 2rem
-    .profile-map
-      dummy yes
-  .profile-profile
-    flex 1 0 calc(50% - 2rem)
-    padding-left 2rem
+
+  .profile-header
+    display flex
+    align-items center
+    justify-content center
+    flex-direction column
+    padding 6rem 0
+    h2
+      padding 0
+      margin-bottom 1rem
+    .profile-dropdown
+      min-width 25rem
+      font-size 1.5rem
+
+  .profile-metrics
     .metric
       display flex
       margin-bottom 1rem

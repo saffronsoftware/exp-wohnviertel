@@ -87,7 +87,7 @@ Vue.component('profile', {
           data: this.getDataByFunction(dataGetters.getMedianIncomeData),
         },
         employees: {
-          name: 'Full-time Employee Equivalents',
+          name: 'Workers Per Capita',
           formatValue: (d) => d3.format(',d')(d),
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getEmployeeData),
