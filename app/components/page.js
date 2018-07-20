@@ -89,6 +89,11 @@ Vue.component('page', {
       employeeChart: {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
+        yTickFormat: d3.format(',d'),
+      },
+      employeePerCapitaChart: {
+        getData: null,
+        xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: d3.format('.2f'),
       },
     }
@@ -102,6 +107,7 @@ Vue.component('page', {
       this.welfareChart.getData = dataGetters.getWelfareData(allData)
       this.populationChangeChart.getData = dataGetters.getPopulationChangeData(allData)
       this.employeeChart.getData = dataGetters.getEmployeeData(allData)
+      this.employeePerCapitaChart.getData = dataGetters.getEmployeePerCapitaData(allData)
 
       this.augmentedWealthGiniChart.getData = dataGetters.getAugmentedWealthGiniData(allData)
       this.wealthGiniChart.getData = dataGetters.getWealthGiniData(allData)

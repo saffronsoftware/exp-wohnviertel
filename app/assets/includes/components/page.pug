@@ -13,9 +13,9 @@
 
       .chart-group
         .chart-group__description
-          h3 Foreigners
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
-          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+          h3 Foreigner Proportion
+          p This proportion represents the percentage of a district's population that has non-Swiss citizenship.
+          p Basel traditionally has a very high proportion of foreigners. It is nevertheless particularly interesting that three of the districts have a foreigner population of more than 50%. Most districts are made up of 35% foreigners or more.
         .chart-group__chart
           map-chart(
             axisLabel='Foreigner Proportion',
@@ -37,9 +37,9 @@
 
       .chart-group
         .chart-group__description
-          h3 Welfare
-          p Mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae
-          p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+          h3 Social Welfare Quota
+          p The social welfare quota represents the percentage of people that rely on #[a(href='http://www.sozialhilfe.bs.ch/') social welfare], which is financial support provided by the city.
+          p The northern parts of Basel and Gundeldingen have the highest social welfare quotas. Unsurprisingly, these are also districts with low average net incomes.
         .chart-group__chart
           map-chart(
             axisLabel='Social Welfare Quota',
@@ -211,13 +211,13 @@
 
       .chart-group
         .chart-group__description
-          h3 Full-time Employee Equivalents
-          p Turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
-          p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+          h3 Workers
+          p Shown here is the number of people working in each district. Since part-time work is common in Switzerland, this statistic considers the equivalent number of full-time workers for each district.
+          p An interesting observation is that many people work in Altstadt Grossbasel and Vorstädte, which are districts with a lower than average population. This implies that many people work in the city centre but live somewhere else.
         .chart-group__chart
           map-chart(
-            axisLabel='Full-time Employee Equivalents',
-            valueFormat=',.2f',
+            axisLabel='Workers',
+            valueFormat=',d',
             :allData='allData',
             :getGraphData='employeeChart.getData',
             :colors='colors.GRAPHIQ3_12_LOWER',
@@ -234,7 +234,7 @@
           //   :minPadding='1.0',
           // )
           bar-chart(
-            xLabel='Full-time Employee Equivalents',
+            xLabel='Workers',
             yLabel='',
             :allData='allData',
             :getGraphData='employeeChart.getData',
@@ -242,6 +242,35 @@
             :xTickFormat='employeeChart.xTickFormat',
             :yTickFormat='employeeChart.yTickFormat',
           )
+        // hr
+        // .chart-group__chart
+        //   map-chart(
+        //     axisLabel='Workers Per Capita',
+        //     valueFormat=',.2f',
+        //     :allData='allData',
+        //     :getGraphData='employeePerCapitaChart.getData',
+        //     :colors='colors.GRAPHIQ3_12_LOWER',
+        //   )
+        // .chart-group__chart
+        //   // range-chart(
+        //   //   axisLabel='Full-time Employee Equivalents',
+        //   //   :allData='allData',
+        //   //   :getGraphData='employeeChart.getData',
+        //   //   :isPercent='false',
+        //   //   :colors='colors.GRAPHIQ3_12_LOWER',
+        //   //   :radius='5',
+        //   //   :minDist='15',
+        //   //   :minPadding='1.0',
+        //   // )
+        //   bar-chart(
+        //     xLabel='Workers Per Capita',
+        //     yLabel='',
+        //     :allData='allData',
+        //     :getGraphData='employeePerCapitaChart.getData',
+        //     :colors='colors.GRAPHIQ3_12_LOWER',
+        //     :xTickFormat='employeeChart.xTickFormat',
+        //     :yTickFormat='employeeChart.yTickFormat',
+        //   )
         .chart-group__sources
           | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/3-erwerbsleben/beschaeftigte.html') T03.2.02], 2014.
 
