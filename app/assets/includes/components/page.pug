@@ -18,7 +18,7 @@
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
           map-chart(
-            axisLabel='Ausländeranteil',
+            axisLabel='Foreigner Percentage',
             valueFormat='.0%',
             :allData='allData',
             :getGraphData='foreignersChart.getData',
@@ -26,7 +26,7 @@
           )
         .chart-group__chart
           range-chart(
-            axisLabel='Ausländeranteil',
+            axisLabel='Foreigner Percentage',
             :allData='allData',
             :getGraphData='foreignersChart.getData',
             :isPercent='true',
@@ -42,7 +42,7 @@
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
           map-chart(
-            axisLabel='Sozialhilfequote',
+            axisLabel='Social Welfare Quota',
             valueFormat='.0%',
             :colors='colors.GRAPHIQ3_12_LOWER',
             :allData='allData',
@@ -50,7 +50,7 @@
           )
         .chart-group__chart
           range-chart(
-            axisLabel='Sozialhilfequote',
+            axisLabel='Social Welfare Quota',
             :allData='allData',
             :getGraphData='welfareChart.getData',
             :isPercent='true',
@@ -216,7 +216,7 @@
           p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
           map-chart(
-            axisLabel='Vollzeitäquivalente',
+            axisLabel='Full-time Employee Equivalents',
             valueFormat=',.2f',
             :allData='allData',
             :getGraphData='employeeChart.getData',
@@ -224,7 +224,7 @@
           )
         .chart-group__chart
           // range-chart(
-          //   axisLabel='Vollzeitäquivalente',
+          //   axisLabel='Full-time Employee Equivalents',
           //   :allData='allData',
           //   :getGraphData='employeeChart.getData',
           //   :isPercent='false',
@@ -234,7 +234,7 @@
           //   :minPadding='1.0',
           // )
           bar-chart(
-            xLabel='Vollzeitäquivalente',
+            xLabel='Full-time Employee Equivalents',
             yLabel='',
             :allData='allData',
             :getGraphData='employeeChart.getData',

@@ -3,6 +3,9 @@ v0.5.0
 - [improvement] Improve range chart to support employee data.
 - [improvement] Improve district profile design.
 - [improvement] Add district profile animations.
+- [improvement] Use range charts where data is closer together and bar charts where it is more spread out.
+- [improvement] Change page text to English.
+- [improvement] Improve arrangement of financial data.
 
 v0.4.0
 - [feature] Add map to district selection.
