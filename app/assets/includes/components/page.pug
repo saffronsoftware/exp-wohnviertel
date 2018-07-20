@@ -18,7 +18,7 @@
           p Vivamus pellentesque, turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
         .chart-group__chart
           map-chart(
-            axisLabel='Foreigner Percentage',
+            axisLabel='Foreigner Proportion',
             valueFormat='.0%',
             :allData='allData',
             :getGraphData='foreignersChart.getData',
@@ -26,7 +26,7 @@
           )
         .chart-group__chart
           range-chart(
-            axisLabel='Foreigner Percentage',
+            axisLabel='Foreigner Proportion',
             :allData='allData',
             :getGraphData='foreignersChart.getData',
             :isPercent='true',
