@@ -8,18 +8,19 @@ import * as dataGetters from '../data-getters'
 import * as colors from '../colors'
 import {DISTRICTS, DISTRICT_NAMES} from '../common'
 import * as util from '../util'
+const ScrollReveal = require('scrollreveal') // oof.mp3
 
 
 const STANDARD_RANK_FORMAT = {
   levels: [
-    'Among the highest in Basel',
-    'High for Basel',
-    'Average for Basel',
-    'Low for Basel',
-    'Among the lowest in Basel',
+    'among the highest in Basel',
+    'high for Basel',
+    'average for Basel',
+    'low for Basel',
+    'among the lowest in Basel',
   ],
-  highest: 'The highest in Basel',
-  lowest: 'The lowest in Basel'
+  highest: 'the highest in Basel',
+  lowest: 'the lowest in Basel'
 }
 
 
@@ -52,19 +53,19 @@ Vue.component('profile', {
       return {
         foreigners: {
           name: 'Foreigners',
-          formatValue: (d) => Math.round(d * 100, 2) + '% foreigners',
+          formatValue: (d) => Math.round(d * 100, 2) + '% of residents',
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getForeignerData),
         },
         welfare: {
           name: 'Welfare',
-          formatValue: (d) => Math.round(d * 100, 2) + '% on welfare',
+          formatValue: (d) => Math.round(d * 100, 2) + '% of residents',
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getWelfareData),
         },
         wealthGini: {
           name: 'Wealth Inequality',
-          formatValue: (d) => d + '/1',
+          formatValue: (d) => d3.format('.2f')(d) + '/1.00',
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getAugmentedWealthGiniData),
         },
@@ -76,7 +77,7 @@ Vue.component('profile', {
         },
         incomeGini: {
           name: 'Income Inequality',
-          formatValue: (d) => d + '/1',
+          formatValue: (d) => d3.format('.2f')(d) + '/1.00',
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getAugmentedIncomeGiniData),
         },
@@ -88,7 +89,7 @@ Vue.component('profile', {
         },
         employees: {
           name: 'Workers Per Capita',
-          formatValue: (d) => d3.format(',d')(d),
+          formatValue: (d) => d3.format(',.2f')(d),
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getEmployeeData),
         },
@@ -119,6 +120,8 @@ Vue.component('profile', {
   },
 
   mounted() {
+    this.scrollReveal = ScrollReveal()
+    this.scrollReveal.reveal('.profile .profile-metrics .metric', 150)
   },
 
   components: {ModelSelect},

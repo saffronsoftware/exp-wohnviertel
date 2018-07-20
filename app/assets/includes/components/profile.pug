@@ -13,10 +13,12 @@
         :colors='colors.GRAPHIQ3_12_LOWER',
         :on-click='changeDistrict',
       )
-    .profile-metrics
+    .profile-metrics.grid.grid--tight
       .metric(v-for='(metric, key) in metrics')
         .metric__name
           h4 ${metric.name}
         .metric__info
-          p ${metric.formatValue(metric.data.value)}
-          p ${formatRank(metric.data.rankInfo, metric.rankFormat)} (#${metric.data.rankInfo.rank}/${metric.data.rankInfo.outOf})
+          p.value ${metric.formatValue(metric.data.value)}
+          .rankinfo
+            p.rank rank #${metric.data.rankInfo.rank}/${metric.data.rankInfo.outOf}
+            p.ranktext ${formatRank(metric.data.rankInfo, metric.rankFormat)}
