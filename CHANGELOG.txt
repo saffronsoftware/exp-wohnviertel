@@ -4,6 +4,7 @@ v0.6.0
 - [feature] Add tooltips to range chart.
 - [feature] Add description to income data.
 - [feature] Add description to additional income data.
+- [feature] Add header content.
 
 v0.5.0
 - [feature] Add initial content for a couple of sections.
