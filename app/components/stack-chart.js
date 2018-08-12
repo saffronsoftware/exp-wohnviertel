@@ -15,6 +15,7 @@ Vue.component('stack-chart', {
   data: function() {
     return {
       factoryDefaultSort: 'district',
+      isFocused: false,
     }
   },
 
@@ -45,7 +46,6 @@ Vue.component('stack-chart', {
     this.y = d3.scaleBand().rangeRound([0, this.height]).padding(0.1)
     this.z = d3.scaleOrdinal().range(this.colors)
 
-    this.isFocused = false
     this.sortingProperty = this.defaultSort || this.factoryDefaultSort
     this.tooltipsEnabled = true
 
@@ -230,9 +230,11 @@ Vue.component('stack-chart', {
         .duration(200)
         .style('opacity', 1)
       this.tooltip
-        .html(parentDatum.key + ', ' + (d.data[parentDatum.key] * 100).toFixed(2) + '%')
         .style('left', left + 'px')
         .style('top', top + 'px')
+      this.tooltip
+        .select('.content')
+        .html(parentDatum.key + ', ' + (d.data[parentDatum.key] * 100).toFixed(2) + '%')
       d3.select(el).classed('active', true)
     },
 

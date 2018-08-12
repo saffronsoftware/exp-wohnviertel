@@ -1,3 +1,6 @@
 .chart.stack-chart
   .graph-tooltip
+    .content
+    small(v-if='isFocused') (click to return)
+    small(v-else) (click to focus)
   svg(width='1200', height='800')

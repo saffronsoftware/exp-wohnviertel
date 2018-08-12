@@ -2,6 +2,7 @@ v0.6.0
 - [improvement] Improve design.
 - [improvement] Improve hero appearance.
 - [improvement] Optimise header scene slightly.
+- [improvement] Add stacked bar chart focusing tips.
 - [feature] Add tooltips to bar chart.
 - [feature] Add tooltips to range chart.
 - [feature] Add description to income data.
