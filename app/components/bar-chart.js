@@ -4,13 +4,15 @@ Vue.use(VueResource)
 import * as d3 from 'd3'
 import * as _ from 'lodash'
 import * as util from '../util'
+import {DISTRICT_NAMES} from '../common'
 
 
 Vue.component('bar-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--bar-chart',
   props: [
-    'allData', 'getGraphData', 'xLabel', 'yLabel', 'colors', 'xTickFormat', 'yTickFormat'
+    'allData', 'getGraphData', 'xLabel', 'yLabel', 'colors', 'xTickFormat', 'yTickFormat',
+    'isTooltipDisabled',
   ],
   data: function() {
     return {
@@ -31,6 +33,7 @@ Vue.component('bar-chart', {
     this.width = elSvgDims.width - margins.left - margins.right
     this.height = elSvgDims.height - margins.top - margins.bottom
 
+    this.tooltip = d3.select(this.$el.querySelector('.graph-tooltip'))
     this.g = svg
       .append('g')
       .attr('transform', `translate(${margins.left}, ${margins.top})`)
@@ -57,6 +60,48 @@ Vue.component('bar-chart', {
       this.x.domain(this.graphData.map((d) => d.district))
       this.y.domain([0, d3.max(graphDataValues)])
       this.color.domain(util.sampleEvenly(graphDataValues, this.colors.length))
+    },
+
+    formatValue(val) {
+      if (this.yTickFormat) {
+        return this.yTickFormat(val)
+      } else {
+        return d3.format(',.2f')(val)
+      }
+    },
+
+    showTooltip(el, d) {
+      if (this.isTooltipDisabled) {
+        return
+      }
+      const rect = el.getBoundingClientRect()
+      const left = rect.left + window.scrollX + ((rect.right - rect.left) / 2)
+      const top = rect.top + window.scrollY + ((rect.bottom - rect.top) / 2)
+      this.tooltip
+        .transition()
+        .duration(200)
+        .style('opacity', 1)
+      this.tooltip
+        .html(DISTRICT_NAMES[d.district] + ' — ' + this.formatValue(d.value))
+        .style('left', left + 'px')
+        .style('top', top + 'px')
+      d3.select(el).classed('active', true)
+    },
+
+    hideTooltip(el, d) {
+      this.tooltip
+        .transition()
+        .duration(200)
+        .style('opacity', 0)
+      d3.select(el).classed('active', false)
+    },
+
+    hideTooltip(el, d) {
+      this.tooltip
+        .transition()
+        .duration(200)
+        .style('opacity', 0)
+      d3.select(el).classed('active', false)
     },
 
     draw() {
@@ -117,6 +162,8 @@ Vue.component('bar-chart', {
         .attr('width', this.x.bandwidth())
         .attr('height', (d) => this.height - this.y(d.value))
         .attr('fill', (d) => this.color(d.value))
+        .on('mouseover', util.bindContext(this, this.showTooltip))
+        .on('mouseout', util.bindContext(this, this.hideTooltip))
     },
   },
 })

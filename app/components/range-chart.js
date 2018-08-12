@@ -13,7 +13,7 @@ Vue.component('range-chart', {
   template: '#component-template--range-chart',
   props: [
     'allData', 'getGraphData', 'axisLabel', 'colors', 'isPercent', 'tickFormat',
-    'isChf', 'radius', 'minDist', 'minPadding',
+    'isChf', 'radius', 'minDist', 'minPadding', 'isTooltipDisabled',
   ],
   data: function() {
     return {
@@ -38,6 +38,7 @@ Vue.component('range-chart', {
     this.width = elSvgDims.width - margins.left - margins.right
     this.height = elSvgDims.height - margins.top - margins.bottom
 
+    this.tooltip = d3.select(this.$el.querySelector('.graph-tooltip'))
     this.g = svg
       .append('g')
       .attr('transform', `translate(${margins.left}, ${margins.top})`)
@@ -97,6 +98,43 @@ Vue.component('range-chart', {
       return Math.max(this.nodeRadius * 2, 15)
     },
 
+    formatValue(val) {
+      if (this.tickFormat) {
+        return this.tickFormat(val)
+      } else if (this.isPercent) {
+        return d3.format(',.2%')(val)
+      } else {
+        return d3.format(',.2f')(val)
+      }
+    },
+
+    showTooltip(el, d) {
+      if (this.isTooltipDisabled) {
+        return
+      }
+      const rect = el.getBoundingClientRect()
+      const left = rect.left + window.scrollX + ((rect.right - rect.left) / 2)
+      const top = rect.top + window.scrollY + ((rect.bottom - rect.top) / 2)
+      const TOP_MARGIN = 0 - 13 - this.nodeRadius // px
+      this.tooltip
+        .transition()
+        .duration(200)
+        .style('opacity', 1)
+      this.tooltip
+        .html(DISTRICT_NAMES[d.district] + ' — ' + this.formatValue(d.value))
+        .style('left', left + 'px')
+        .style('top', top + TOP_MARGIN + 'px')
+      d3.select(el).classed('active', true)
+    },
+
+    hideTooltip(el, d) {
+      this.tooltip
+        .transition()
+        .duration(200)
+        .style('opacity', 0)
+      d3.select(el).classed('active', false)
+    },
+
     draw() {
       this.g.selectAll('.axis.axis--x').remove()
 
@@ -138,6 +176,8 @@ Vue.component('range-chart', {
         .attr('class', 'circle')
         .attr('r', this.nodeRadius)
         .attr('fill', (d) => d.isFake ? colors.INACTIVE : this.color(d.value))
+        .on('mouseover', util.bindContext(this, this.showTooltip))
+        .on('mouseout', util.bindContext(this, this.hideTooltip))
       nodes
         .append('text')
         .text((d) => d.isFake ? d.name : DISTRICT_NAMES[d.district])

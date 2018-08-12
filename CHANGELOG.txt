@@ -1,5 +1,7 @@
 v0.6.0
 - [improvement] Improve design.
+- [feature] Add tooltips to bar chart.
+- [feature] Add tooltips to range chart.
 - [feature] Add description to income data.
 - [feature] Add description to additional income data.
 

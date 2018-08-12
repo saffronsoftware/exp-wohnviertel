@@ -104,9 +104,9 @@ Vue.component('map-chart', {
       if (this.isTooltipDisabled) {
         return
       }
-      let rect = el.getBoundingClientRect()
-      let left = rect.left + window.scrollX + ((rect.right - rect.left) / 2)
-      let top = rect.top + window.scrollY + ((rect.bottom - rect.top) / 2)
+      const rect = el.getBoundingClientRect()
+      const left = rect.left + window.scrollX + ((rect.right - rect.left) / 2)
+      const top = rect.top + window.scrollY + ((rect.bottom - rect.top) / 2)
       this.tooltip
         .transition()
         .duration(200)
