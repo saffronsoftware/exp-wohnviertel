@@ -1,0 +1,19 @@
+.chart-section
+  .grid-container
+    .chart-group
+      .chart-group__description
+        h3 Age
+        p Turpis ac tempus gravida, mauris ex dictum ex, nec gravida odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci.
+        p Odio velit non sapien. Sed ante lorem, finibus quis urna sit amet, sodales finibus diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque id dolor eu enim aliquam scelerisque non eget odio.
+      .chart-group__chart
+        stack-chart(
+          xLabel='',
+          yLabel='',
+          :allData='allData',
+          :getGraphData='ageChart.getData',
+          :getKeys='ageChart.getKeys',
+          :colors='ageChart.colors',
+          :defaultSort='ageChart.defaultSort',
+        )
+      .chart-group__sources
+        | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/1-bevoelkerung/bestand-struktur.html') T01.1.22], 2016.

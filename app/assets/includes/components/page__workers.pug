@@ -1,0 +1,66 @@
+.chart-section
+  .grid-container
+    .chart-group
+      .chart-group__description
+        h3 Workers
+        p Shown here is the number of people working in each district. Since part-time work is common in Switzerland, this statistic considers the equivalent number of full-time workers for each district.
+        p An interesting observation is that many people work in Altstadt Grossbasel and Vorstädte, which are districts with a lower than average population. This implies that many people work in the city centre but live somewhere else.
+      .chart-group__chart
+        map-chart(
+          axisLabel='Workers',
+          valueFormat=',d',
+          :allData='allData',
+          :getGraphData='employeeChart.getData',
+          :colors='colors.GRAPHIQ3_12_LOWER',
+        )
+      .chart-group__chart
+        // range-chart(
+        //   axisLabel='Full-time Employee Equivalents',
+        //   :allData='allData',
+        //   :getGraphData='employeeChart.getData',
+        //   :isPercent='false',
+        //   :colors='colors.GRAPHIQ3_12_LOWER',
+        //   :radius='5',
+        //   :minDist='15',
+        //   :minPadding='1.0',
+        // )
+        bar-chart(
+          xLabel='Workers',
+          yLabel='',
+          :allData='allData',
+          :getGraphData='employeeChart.getData',
+          :colors='colors.GRAPHIQ3_12_LOWER',
+          :xTickFormat='employeeChart.xTickFormat',
+          :yTickFormat='employeeChart.yTickFormat',
+        )
+      // hr
+      // .chart-group__chart
+      //   map-chart(
+      //     axisLabel='Workers Per Capita',
+      //     valueFormat=',.2f',
+      //     :allData='allData',
+      //     :getGraphData='employeePerCapitaChart.getData',
+      //     :colors='colors.GRAPHIQ3_12_LOWER',
+      //   )
+      // .chart-group__chart
+      //   // range-chart(
+      //   //   axisLabel='Full-time Employee Equivalents',
+      //   //   :allData='allData',
+      //   //   :getGraphData='employeeChart.getData',
+      //   //   :isPercent='false',
+      //   //   :colors='colors.GRAPHIQ3_12_LOWER',
+      //   //   :radius='5',
+      //   //   :minDist='15',
+      //   //   :minPadding='1.0',
+      //   // )
+      //   bar-chart(
+      //     xLabel='Workers Per Capita',
+      //     yLabel='',
+      //     :allData='allData',
+      //     :getGraphData='employeePerCapitaChart.getData',
+      //     :colors='colors.GRAPHIQ3_12_LOWER',
+      //     :xTickFormat='employeeChart.xTickFormat',
+      //     :yTickFormat='employeeChart.yTickFormat',
+      //   )
+      .chart-group__sources
+        | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/3-erwerbsleben/beschaeftigte.html') T03.2.02], 2014.

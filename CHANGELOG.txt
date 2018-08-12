@@ -1,3 +1,8 @@
+v0.6.0
+- [improvement] Improve design.
+- [feature] Add description to income data.
+- [feature] Add description to additional income data.
+
 v0.5.0
 - [feature] Add initial content for a couple of sections.
 - [improvement] Improve range chart to support employee data.

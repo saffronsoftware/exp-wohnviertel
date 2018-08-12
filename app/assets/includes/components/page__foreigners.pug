@@ -1,0 +1,25 @@
+.chart-section
+  .grid-container
+    .chart-group
+      .chart-group__description
+        h3 Foreigner Proportion
+        p This proportion represents the percentage of a district's population that has non-Swiss citizenship.
+        p Basel traditionally has a very high proportion of foreigners. It is nevertheless particularly interesting that three of the districts have a foreigner population of more than #[code 50%]. Most districts are made up of #[code 35%] foreigners or more.
+      .chart-group__chart
+        map-chart(
+          axisLabel='Foreigner Proportion',
+          valueFormat='.0%',
+          :allData='allData',
+          :getGraphData='foreignersChart.getData',
+          :colors='colors.GRAPHIQ3_12_LOWER',
+        )
+      .chart-group__chart
+        range-chart(
+          axisLabel='Foreigner Proportion',
+          :allData='allData',
+          :getGraphData='foreignersChart.getData',
+          :isPercent='true',
+          :colors='colors.GRAPHIQ3_12_LOWER',
+        )
+      .chart-group__sources
+        | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/1-bevoelkerung/bestand-struktur.html') T01.1.04], 2016.

@@ -1,0 +1,25 @@
+.chart-section
+  .grid-container
+    .chart-group
+      .chart-group__description
+        h3 Social Welfare Quota
+        p The social welfare quota represents the percentage of people that rely on #[a(href='http://www.sozialhilfe.bs.ch/') social welfare], which is financial support provided by the city.
+        p The northern parts of Basel and Gundeldingen have the highest social welfare quotas. Unsurprisingly, these are also districts with low average net incomes.
+      .chart-group__chart
+        map-chart(
+          axisLabel='Social Welfare Quota',
+          valueFormat='.0%',
+          :colors='colors.GRAPHIQ3_12_LOWER',
+          :allData='allData',
+          :getGraphData='welfareChart.getData',
+        )
+      .chart-group__chart
+        range-chart(
+          axisLabel='Social Welfare Quota',
+          :allData='allData',
+          :getGraphData='welfareChart.getData',
+          :isPercent='true',
+          :colors='colors.GRAPHIQ3_12_LOWER',
+        )
+      .chart-group__sources
+        | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/13-soziale-sicherheit/sozialhilfe.html') T13.4.03], 2016.

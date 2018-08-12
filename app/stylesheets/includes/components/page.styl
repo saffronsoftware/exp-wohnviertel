@@ -1,0 +1,66 @@
+.extra-details
+  margin-top 1rem
+  padding 2rem
+  background #f6f6f6
+  .extra-details__title
+    font-size 1.6rem
+    margin-bottom 1rem
+  .extra-details__trigger
+    text-align center
+  .extra-details__content
+    margin-top 2rem
+
+.charts
+  padding 8rem 0
+  .graph-tooltip
+    position absolute
+    padding 0.2rem 0.4rem
+    margin-top -1.5rem
+    background white
+    pointer-events none
+    transform translate(-50%)
+    box-shadow 1px 1px 2px 0 rgba(0,0,0,0.2)
+    opacity 0
+
+  .chapter-heading
+    padding 12rem 0
+    background color-dark-purple
+    color white
+    text-align center
+    h2
+      margin 0
+
+  .chart-section
+    &:last-child
+      .grid-container
+        border-bottom none
+    .grid-container
+      padding 8rem 0
+      border-bottom 1px solid #ddd
+
+  .chart-group
+    margin-top 8rem
+    &:first-child
+      margin-top 0
+    .chart-group__description
+      max-width 50rem
+      h3
+        display inline-block
+        padding 1rem
+        margin-bottom 2rem
+        line-height 1
+        background color-dark-purple
+        color white
+
+    .chart-group__chart
+      margin-top 4rem
+      & + .chart-group__chart
+        margin-top 1rem
+
+    .chart-group__sources
+      margin-top 2rem
+      font-size 0.8rem
+      text-align right
+      color #666
+      a
+        color #666

@@ -1,20 +1,3 @@
-.kind-of-hidden
-  opacity 0.5
-
-.extra-details-trigger
-  margin-top 1rem
-  text-align right
-
-.extra-details
-  margin-top 1rem
-  padding 2rem
-  background #f6f6f6
-
-h2
-  margin 0
-  padding 6rem 0
-  text-align center
-
 svg.chart, .chart svg
   display block
   max-width 100%
@@ -38,62 +21,35 @@ svg.chart, .chart svg
     font-style italic
     fill #555
 
-.charts
-  padding 8rem 0
-  .graph-tooltip
-    position absolute
-    padding 0.2rem 0.4rem
-    margin-top -1.5rem
-    background white
-    pointer-events none
-    transform translate(-50%)
-    box-shadow 1px 1px 2px 0 rgba(0,0,0,0.2)
-    opacity 0
-
-  .chart-group
-    margin-bottom 8rem
-    .chart-group__description
-      h3
-        margin-bottom 1rem
-    .chart-group__chart
-      margin-top 4rem
-    .chart-group__sources
-      margin-top 2rem
-      font-size 0.8rem
-      text-align right
-      color #666
-      a
-        color #666
-
-  .bar-chart
-    .bar-group
-      &.bar-group--hidden
-        .bar
-          cursor default
+.bar-chart
+  .bar-group
+    &.bar-group--hidden
       .bar
-        cursor pointer
-        &.active
-          fill #40d689
+        cursor default
+    .bar
+      cursor pointer
+      &.active
+        fill #40d689
 
-  .range-chart
-    .range-node
+.range-chart
+  .range-node
+    text
+      font-size 0.8rem
+  .axis
+    .tick
       text
         font-size 0.8rem
-    .axis
-      .tick
-        text
-          font-size 0.8rem
 
-  .map-chart
-    display flex
-    justify-content center
-    align-items center
-    svg
-      height 30rem
-      margin 0
-      [data-name='rhein'] polygon
-        fill rgba(0, 138, 195, 0.5)
-    .legend
-      height 20rem
-      margin-left 4rem
-      width 10rem
+.map-chart
+  display flex
+  justify-content center
+  align-items center
+  svg
+    height 30rem
+    margin 0
+    [data-name='rhein'] polygon
+      fill rgba(0, 138, 195, 0.5)
+  .legend
+    height 20rem
+    margin-left 4rem
+    width 10rem
