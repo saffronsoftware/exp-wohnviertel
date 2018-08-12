@@ -63,11 +63,11 @@ Vue.component('profile', {
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getWelfareData),
         },
-        wealthGini: {
-          name: 'Wealth Inequality',
-          formatValue: (d) => d3.format('.2f')(d) + '/1.00',
+        medianIncome: {
+          name: 'Average Net Income',
+          formatValue: (d) => util.formatChf(d),
           rankFormat: STANDARD_RANK_FORMAT,
-          data: this.getDataByFunction(dataGetters.getAugmentedWealthGiniData),
+          data: this.getDataByFunction(dataGetters.getMedianIncomeData),
         },
         medianWealth: {
           name: 'Average Net Worth',
@@ -81,11 +81,11 @@ Vue.component('profile', {
           rankFormat: STANDARD_RANK_FORMAT,
           data: this.getDataByFunction(dataGetters.getAugmentedIncomeGiniData),
         },
-        medianIncome: {
-          name: 'Average Net Income',
-          formatValue: (d) => util.formatChf(d),
+        wealthGini: {
+          name: 'Wealth Inequality',
+          formatValue: (d) => d3.format('.2f')(d) + '/1.00',
           rankFormat: STANDARD_RANK_FORMAT,
-          data: this.getDataByFunction(dataGetters.getMedianIncomeData),
+          data: this.getDataByFunction(dataGetters.getAugmentedWealthGiniData),
         },
         employees: {
           name: 'Workers',
