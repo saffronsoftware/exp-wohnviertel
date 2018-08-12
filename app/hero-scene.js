@@ -9,22 +9,25 @@ export default class HeroScene {
     this.elContainer = document.querySelector(selContainer)
 
     this.framerate = 30
+    this.frameInterval = 1000 / this.framerate
+    this.lastFrameTime = window.performance.now()
     this.objectSize = 10
     this.objectDepth = 200
     this.objectDefaultZ = 0 - (this.objectDepth / 2)
-    this.objectCountX = 20
-    this.objectCountY = 10
-    this.objectSpeed = 0.03 * 3
+    this.objectCountX = 18
+    this.objectCountY = 8
+    this.objectSpeed = 0.02 * 3
     this.objectDirectionChangeChance = 0
     this.objectMinZ = this.objectDefaultZ
     this.objectZDiff = 7
     this.objectMaxZ = this.objectMinZ + this.objectZDiff
-    this.mouseRotationDampenX = 70000
-    this.mouseRotationDampenY = 20000
+    this.mouseRotationDampenX = 25000
+    this.mouseRotationDampenY = 10000
     this.cameraRotXTarget = 0
     this.cameraRotYTarget = 0
     this.cameraRotXSpeed = 0.1
     this.cameraRotYSpeed = 0.1
+    this.cameraRotThresh = 1e-5
 
     this.updateDimensions()
 
@@ -38,7 +41,7 @@ export default class HeroScene {
     Dom(this.elContainer).bind('mousemove', this.reactToMouse.bind(this))
 
     this.enactDimensions()
-    this.render()
+    this.render(0)
   }
 
   reactToMouse(event) {
@@ -50,8 +53,13 @@ export default class HeroScene {
   }
 
   updateCameraRotation() {
-    this.camera.rotation.x += (this.cameraRotXTarget - this.camera.rotation.x) * this.cameraRotXSpeed
-    this.camera.rotation.y += (this.cameraRotYTarget - this.camera.rotation.y) * this.cameraRotYSpeed
+    const xDiff = (this.cameraRotXTarget - this.camera.rotation.x) * this.cameraRotXSpeed
+    const yDiff = (this.cameraRotYTarget - this.camera.rotation.y) * this.cameraRotYSpeed
+    if (Math.abs(xDiff) < this.cameraRotThresh && Math.abs(yDiff) < this.cameraRotThresh) {
+      return
+    }
+    this.camera.rotation.x += xDiff
+    this.camera.rotation.y += yDiff
   }
 
   randomizeObjectDirections() {
@@ -81,16 +89,21 @@ export default class HeroScene {
     this.updateCameraRotation()
   }
 
-  render() {
-    this.animate()
-    this.renderer.render(this.scene, this.camera)
-    setTimeout(() => {
-      requestAnimationFrame(() => this.render())
-    }, 1000 / this.framerate)
+  render(now) {
+    requestAnimationFrame(this.render.bind(this))
+
+    const timeElapsed = now - this.lastFrameTime
+
+    if (timeElapsed > this.frameInterval) {
+      this.lastFrameTime = now - (timeElapsed % this.frameInterval)
+      this.animate()
+      this.renderer.render(this.scene, this.camera)
+    }
   }
 
   makeScene() {
     let scene = new THREE.Scene()
+    scene.background = new THREE.Color(0xffe8b1)
     return scene
   }
 
@@ -107,7 +120,7 @@ export default class HeroScene {
   makeRenderer() {
     // Depends on dimensions
     let renderer = new THREE.WebGLRenderer({
-      antialiasing: true,
+      // antialiasing: true,
       alpha: true,
     })
     // renderer.shadowMap.enabled = true
