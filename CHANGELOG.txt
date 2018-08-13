@@ -5,6 +5,7 @@ v0.6.0
 - [improvement] Add stacked bar chart focusing tips.
 - [improvement] Add description to district profile.
 - [improvement] Improve responsiveness.
+- [improvement] Change stack chart legend to make it better for small screens.
 - [feature] Add tooltips to bar chart.
 - [feature] Add tooltips to range chart.
 - [feature] Add description to income data.
