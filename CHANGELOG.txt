@@ -8,10 +8,14 @@ v0.6.0
 - [feature] Add tooltips to range chart.
 - [feature] Add description to income data.
 - [feature] Add description to additional income data.
+- [feature] Add description to citizenship.
+- [feature] Add description to religion.
+- [feature] Add description to age.
 - [feature] Add header content.
 - [feature] Add minimal Phyramid branding in header.
 - [feature] Add privacy policy.
 - [feature] Add footer.
+- [bug] Age group reducers were incorrectly labelled.
 
 v0.5.0
 - [feature] Add initial content for a couple of sections.
