@@ -1,7 +1,9 @@
 .hero
   position relative
+
   canvas
     display block
+
   .hero-scene
     position absolute
     top 0
@@ -13,6 +15,7 @@
     // the width is calculated before the scrollbar pops up. It's easiest
     // to just fix it here, even if it's a bit of a hack.
     overflow hidden
+
   .hero-cover
     position absolute
     top 0
@@ -22,6 +25,7 @@
     z-index 2
     background rgba(255, 255, 255, 0.3)
     pointer-events none // Allow events to pass to scene underneath
+
   .hero-main
     display flex
     flex-direction column
@@ -32,6 +36,7 @@
     padding 6rem 0
     pointer-events none // Allow events to pass to scene underneath
     text-align center
+
     .hero-text
       h1
         margin 0
@@ -47,23 +52,36 @@
             background color-dark-purple
             color white
       .hero-body
-        max-width 35rem
         margin 0 auto
+        max-width 40rem
+        text-shadow 0px 0px 2px white
+        font-size 1.6rem
         p
           margin-top 2rem
           margin-bottom 0
           color color-dark-purple
-          font-size 1.6rem
-          text-shadow 0px 0px 2px white
-    .hero-hint
-      .hero-hint__circle
+        .hero-body__logo
+          margin-top 2.2rem // Hmm... 0.2 extra?
+          a
+            display flex
+            justify-content center
+            align-items center
+            border-bottom none
+            pointer-events all
+            font-size 1rem
+            img
+              width 128px
+              height 32px
+              margin-left 1rem
+
+    .hero-footer
+      margin-top 6rem
+
+      .hero-footer__hint
         display flex
         justify-content center
         align-items center
-        width 3.5rem
-        height 3.5rem
         margin 0 auto
-        margin-top 3rem
         img
-          max-width 100%
-          max-height 100%
+          width 56px
+          height 56px

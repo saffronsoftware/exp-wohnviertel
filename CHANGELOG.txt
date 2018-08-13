@@ -3,11 +3,15 @@ v0.6.0
 - [improvement] Improve hero appearance.
 - [improvement] Optimise header scene slightly.
 - [improvement] Add stacked bar chart focusing tips.
+- [improvement] Add description to district profile.
 - [feature] Add tooltips to bar chart.
 - [feature] Add tooltips to range chart.
 - [feature] Add description to income data.
 - [feature] Add description to additional income data.
 - [feature] Add header content.
+- [feature] Add minimal Phyramid branding in header.
+- [feature] Add privacy policy.
+- [feature] Add footer.
 
 v0.5.0
 - [feature] Add initial content for a couple of sections.
