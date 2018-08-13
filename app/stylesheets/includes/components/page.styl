@@ -1,3 +1,16 @@
+.mobile-warning
+  position fixed
+  top 0
+  left 0
+  right 0
+  z-index 10
+  padding 1rem
+  border-bottom 1px solid rgba(255, 255, 255, 0.5)
+  background color-dark-purple
+  color white
+  @media (min-width: 1101px)
+    display none
+
 .extra-details
   margin-top 1rem
   padding 2rem
@@ -11,7 +24,7 @@
     margin-top 2rem
 
 .charts
-  padding 8rem 0
+  padding-bottom 8rem
   .graph-tooltip
     position absolute
     padding 0.2rem 0.4rem
@@ -42,7 +55,8 @@
       .grid-container
         border-bottom none
     .grid-container
-      padding 8rem 0
+      padding-top 8rem
+      padding-bottom 8rem
       border-bottom 1px solid #ddd
 
   .chart-group

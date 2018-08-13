@@ -4,6 +4,7 @@ v0.6.0
 - [improvement] Optimise header scene slightly.
 - [improvement] Add stacked bar chart focusing tips.
 - [improvement] Add description to district profile.
+- [improvement] Improve responsiveness.
 - [feature] Add tooltips to bar chart.
 - [feature] Add tooltips to range chart.
 - [feature] Add description to income data.
