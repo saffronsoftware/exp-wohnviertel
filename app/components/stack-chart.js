@@ -10,7 +10,8 @@ Vue.component('stack-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--stack-chart',
   props: [
-    'allData', 'getGraphData', 'getKeys', 'xLabel', 'yLabel', 'colors', 'defaultSort'
+    'allData', 'getGraphData', 'getKeys', 'xLabel', 'yLabel', 'colors', 'defaultSort',
+    'legendColumnLength',
   ],
   data: function() {
     return {
@@ -20,24 +21,29 @@ Vue.component('stack-chart', {
   },
 
   mounted() {
+    this.legendColumnWidth = 250
+    this.legendColumnHeight = 25
+    this.legendNrPerColumn = this.legendColumnLength || 5
+
     const elSvg = this.$el.querySelector('svg')
     const elSvgDims = elSvg.getBoundingClientRect()
     const svg = d3.select(elSvg)
     const margins = {
-      top: 30,
-      right: 5,
+      top: 50 + (this.legendNrPerColumn * this.legendColumnHeight),
+      right: 20,
       bottom: 40,
       left: 130,
-      legend: 200,
     }
 
     this.tooltip = d3.select(this.$el.querySelector('.graph-tooltip'))
 
     this.width = elSvgDims.width - margins.left - margins.right
     this.height = elSvgDims.height - margins.top - margins.bottom
-    this.graphWidth = this.width - margins.legend
+    this.graphWidth = this.width
 
     this.g = svg
+      .append('g')
+    this.graphContainer = this.g
       .append('g')
       .attr('transform', `translate(${margins.left}, ${margins.top})`)
     this.graphData = []
@@ -70,8 +76,8 @@ Vue.component('stack-chart', {
     },
 
     drawAxes() {
-      this.g.selectAll('.axis.axis--x').remove()
-      let xAxis = this.g
+      this.graphContainer.selectAll('.axis.axis--x').remove()
+      let xAxis = this.graphContainer
         .append('g')
         .attr('class', 'axis axis--x')
         .attr('transform', `translate(0, ${this.height})`)
@@ -89,8 +95,8 @@ Vue.component('stack-chart', {
         .attr('text-anchor', 'end')
         .text(this.xLabel)
 
-      this.g.selectAll('.axis.axis--y').remove()
-      this.g
+      this.graphContainer.selectAll('.axis.axis--y').remove()
+      this.graphContainer
         .append('g')
         .attr('class', 'axis axis--y')
         .call(d3.axisLeft(this.y))
@@ -103,36 +109,36 @@ Vue.component('stack-chart', {
     },
 
     drawLegend() {
+      const makeTranslateForLegendItem = (d, i) => {
+        const x = Math.floor(i / this.legendNrPerColumn) * this.legendColumnWidth
+        const y = (i % this.legendNrPerColumn) * this.legendColumnHeight
+        return `translate(${x}, ${y})`
+      }
       this.g.selectAll('.legend').remove()
       let legend = this.g
         .append('g')
         .attr('class', 'legend')
-        .attr('text-anchor', 'end')
-        .attr('y', 0)
         .selectAll('g')
         .data(this.stackKeys)
         .enter()
         .append('g')
-        .attr('transform', (d, i) => `translate(0, ${i * 25})`)
+        .attr('transform', makeTranslateForLegendItem)
 
       legend
         .append('rect')
-        .attr('x', this.width - 20)
         .attr('width', 20)
         .attr('height', 20)
         .attr('fill', this.z);
 
       legend
         .append('text')
-        .attr('y', 10)
-        .attr('dy', '6px')
-        .attr('transform', `translate(${this.width - 33}) rotate(-30)`)
-        .attr('text-anchor', 'end')
+        .attr('dx', '30px')
+        .attr('dy', '15px')
         .text((d) => d)
     },
 
     getAllBars() {
-      return this.g
+      return this.graphContainer
         .selectAll('.bar-group')
         .data(d3.stack().keys(this.stackKeys)(this.graphData))
         .selectAll('.bar')
@@ -255,7 +261,7 @@ Vue.component('stack-chart', {
     },
 
     drawBars() {
-      let barGroups = this.g
+      let barGroups = this.graphContainer
         .selectAll('.bar-group')
         .data(d3.stack().keys(this.stackKeys)(this.graphData))
 
