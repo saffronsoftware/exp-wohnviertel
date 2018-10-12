@@ -1,39 +1,19 @@
-## Starting the server
+## Wohnviertel
 
-Use `./bin/start-dev` to start a development server.
+This project is making data b e a u t i ful
 
-For production, use your platform of choice to start
-`NODE_ENV="production" node server.js`.
 
-## Config
+## Development
 
-Copy `config-example.js` to `config.js`, then set the appropriate
-variables if needed.
+	$ npm start  # will run the server and watch for changes
 
-## Assets
+## Building
 
-To build and watch:
+	$ npm build  # only builds the app for serving production
 
-```bash
-npm run gulp
-```
 
-To just build:
+## Brunch
 
-```bash
-npm run build
-```
+[Brunch](https://brunch.io/) is used for building the project.
 
-To build in production mode:
-
-```bash
-npm run build-production
-```
-
-The gulpfile compiles in the following ways:
-
-* `app/views/**/*.js` -> babel -> `public/javascripts/views/`
-* `app/stylesheets/**/*.styl` -> stylus -> `public/stylesheets/compiled/`
-* `<your configuration>` -> concat -> `public/stylesheets/build/<name>.css`
-* `<your configuration>` -> concat -> `public/javascripts/build/<name>.js`
-* `<your configuration>` -> browserify -> `public/javascripts/build/<name>.js`
+Librarys for js and css in `vendor` will be bundled together with `app` js and css.
