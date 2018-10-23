@@ -8,6 +8,8 @@ import {DISTRICT_NAMES} from '../common'
 import * as dataGetters from '../data-getters'
 import * as colors from '../colors'
 import * as util from '../util'
+import device from 'current-device'
+
 
 Vue.component('page', {
   delimiters: ['${', '}'],
