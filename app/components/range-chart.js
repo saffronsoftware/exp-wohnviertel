@@ -29,10 +29,6 @@ Vue.component('range-chart', {
         position: 0,
         dm: 0
       },
-      mobile: {
-        width: Number,
-        height: Number
-      },
       tooltip: d3.Selection,
       margins: {
         left: 0,

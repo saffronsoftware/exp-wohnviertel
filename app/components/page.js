@@ -34,11 +34,13 @@ Vue.component('page', {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: util.formatChfShort,
+        yTickFormatMobile: util.formatChfAbsent,
       },
       averageWealthChart: {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: util.formatChfShort,
+        yTickFormatMobile: util.formatChfAbsent,
       },
       areWealthDetailsVisible: false,
       augmentedIncomeGiniChart: {
@@ -51,11 +53,13 @@ Vue.component('page', {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: util.formatChfShort,
+        yTickFormatMobile: util.formatChfAbsent,
       },
       averageIncomeChart: {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: util.formatChfShort,
+        yTickFormatMobile: util.formatChfAbsent,
       },
       areIncomeDetailsVisible: false,
       citizenshipChart: {

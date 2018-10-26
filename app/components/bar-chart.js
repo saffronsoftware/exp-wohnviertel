@@ -5,17 +5,41 @@ import * as d3 from 'd3'
 import * as _ from 'lodash'
 import * as util from '../util'
 import {DISTRICT_NAMES} from '../common'
+import device from 'current-device'
 
 
 Vue.component('bar-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--bar-chart',
   props: [
-    'allData', 'getGraphData', 'xLabel', 'yLabel', 'colors', 'xTickFormat', 'yTickFormat',
+    'allData', 'getGraphData', 'xLabel', 'yLabel', 'colors',
+    'xTickFormat', 'yTickFormat', 'yTickFormatMobile',
     'isTooltipDisabled',
   ],
   data: function() {
     return {
+      graphData: [],
+      width: Number,
+      height: Number,
+      svgEl: SVGElement,
+      dragStartPosition: Number,
+      graph: {
+        w: Number,
+        h: Number,
+        inner: {
+          w: Number,
+          h: Number
+        },
+        el: {},
+        position: 0,
+        dm: 0
+      },
+      margins: {
+        left: 70,
+        top: 28,
+        right: 55,
+        bottom: 80,
+      }
     }
   },
 
@@ -23,42 +47,54 @@ Vue.component('bar-chart', {
     const elSvg = this.$el.querySelector('svg')
     const elSvgDims = elSvg.getBoundingClientRect()
     const svg = d3.select(elSvg)
-    const margins = {
-      top: 20,
-      right: 55,
-      bottom: 80,
-      left: 70,
-    }
 
-    this.width = elSvgDims.width - margins.left - margins.right
-    this.height = elSvgDims.height - margins.top - margins.bottom
+    if (device.mobile() || device.tablet()) {
+      this.margins.left = this.margins.right = 4
+    }
 
     this.tooltip = d3.select(this.$el.querySelector('.graph-tooltip'))
     this.g = svg
       .append('g')
-      .attr('transform', `translate(${margins.left}, ${margins.top})`)
+      .attr('transform', `translate(${this.margins.left}, ${this.margins.top})`)
 
-    this.x = d3.scaleBand().rangeRound([0, this.width]).padding(0.1)
-    this.y = d3.scaleLinear().rangeRound([this.height, 0])
+    this.graph.w = this.width = elSvgDims.width - this.margins.left - this.margins.right
+    this.graph.h = this.height = elSvgDims.height - this.margins.top - this.margins.bottom
+
+    this.graph.h = this.height = (device.mobile() || device.tablet()) ? window.innerHeight / 2 : this.graph.h
+
+    if (device.mobile() || device.tablet()) {
+      this.x = d3.scaleLinear().rangeRound([this.graph.w, 0])
+      this.y = d3.scaleBand().rangeRound([this.graph.h, 0]).padding(0.1)
+    }
+    else {
+      this.x = d3.scaleBand().rangeRound([0, this.graph.w]).padding(0.1)
+      this.y = d3.scaleLinear().rangeRound([this.graph.h, 0])
+    }
+    
     this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
 
-    this.graphData = []
-
     this.makeGraphData()
-    this.draw()
+
+    const draw = (device.mobile() || device.tablet()) ? this.verticalDraw : this.draw
+    draw()
   },
 
   methods: {
     makeGraphData() {
       // NOTE: It is very important that data is sorted, for colors to work.
       this.graphData = _.sortBy(this.getGraphData(), (d) => d.value)
+
       this.updateAxes()
     },
 
     updateAxes() {
       let graphDataValues = this.graphData.map((d) => d.value)
-      this.x.domain(this.graphData.map((d) => d.district))
-      this.y.domain([0, d3.max(graphDataValues)])
+      let districtDomain = this.graphData.map((d) => d.district)
+      let rangeDomain = [10, d3.max(graphDataValues)]
+
+      this.x.domain((device.mobile() || device.tablet()) ? rangeDomain : districtDomain)
+      this.y.domain((device.mobile() || device.tablet()) ? districtDomain : rangeDomain)
+
       this.color.domain(util.sampleEvenly(graphDataValues, this.colors.length))
     },
 
@@ -96,12 +132,60 @@ Vue.component('bar-chart', {
       d3.select(el).classed('active', false)
     },
 
-    hideTooltip(el, d) {
-      this.tooltip
-        .transition()
-        .duration(200)
-        .style('opacity', 0)
-      d3.select(el).classed('active', false)
+    verticalDraw() {
+      let topAxis = d3.axisTop(this.x).ticks(6)
+
+      console.log(this.yTickFormatMobile)
+
+      if (this.yTickFormatMobile && (device.mobile() || device.tablet()))
+        topAxis = topAxis.tickFormat(this.yTickFormatMobile)
+      else if (this.yTickFormat)
+        topAxis = topAxis.tickFormat(this.yTickFormat)
+
+      let rightAxis = d3.axisLeft(this.y)
+
+      rightAxis = (this.xTickFormat) ? rightAxis.tickFormat(this.xTickFormat) : rightAxis
+
+      let bars = this.g
+        .append('g')
+        .selectAll('.bar')
+        .data(this.graphData)
+
+      bars.exit().remove()
+
+      bars
+        .enter()
+        .append('rect')
+        .attr('class', 'bar')
+        .attr('transform', `translate(2, ${this.margins.top})`)  // for padding to make the tick marks visible
+        .attr('x', (d) => this.x(d.value))
+        .attr('y', (d) => this.y(d.district))
+        .attr('width', (d) => this.graph.w - this.x(d.value) - 8)  // moving for translate padding
+        .attr('height', this.y.bandwidth())
+        .attr('fill', (d) => this.color(d.value))
+        .on('mouseover', util.bindContext(this, this.showTooltip))
+        .on('mouseout', util.bindContext(this, this.hideTooltip))
+
+      let yAxis = this.g
+        .append('g')
+        .attr('id', 'test-y-id')
+        .attr('class', 'axis axis--y')
+        .attr('transform', `translate(${this.graph.w}, ${this.margins.top})`)
+        .call(rightAxis)
+
+      let xAxis = this.g
+        .append('g')
+        .attr('id', 'test-id')
+        .attr('class', 'axis axis--x')
+        .attr('transform', `translate(0, ${this.margins.top})`)
+        .call(topAxis)
+
+      xAxis
+        .append('text')
+        .attr('class', 'axis-label')
+        .attr('transform', `translate(${this.graph.w}, ${-this.margins.top})`)
+        .attr('text-anchor', 'end')
+        .text(this.xLabel)
     },
 
     draw() {
