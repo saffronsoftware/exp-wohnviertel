@@ -64,6 +64,7 @@
         )
       .chart-group__chart
         bar-chart(
+          id='average-net-worth',
           xLabel='Average Net Worth (CHF)',
           yLabel='',
           :allData='allData',
@@ -94,6 +95,7 @@
               p This massive discrepancy shows us that few people have extremely high incomes, in the millions or tens of millions of francs. These few high-net-worth individuals greatly skew the entire arithmetic mean upwards. This massive different between the median and mean gives us clues about the considerable financial inequality between residents.
             .chart-group__chart
               bar-chart(
+                id='average-net-worth-extra',
                 xLabel='Mean Net Worth (CHF)',
                 yLabel='',
                 :allData='allData',
@@ -122,6 +124,7 @@
         )
       .chart-group__chart
         bar-chart(
+          id='average-net-income',
           xLabel='Average Net Income (CHF)',
           yLabel='',
           :allData='allData',
@@ -152,6 +155,7 @@
               p Even though it's less pronounced than with net worth, net income inequality also shows in the difference between the median and the mean here. Bruderholz residents have a median net income of #[code 64&thinsp;291 CHF], but a mean net income of #[code 118&thinsp;672 CHF]. This leads us to believe that there exist a smaller number of residents with significantly higher net incomes.
             .chart-group__chart
               bar-chart(
+                id='average-net-income-extra',
                 xLabel='Mean Net Income (CHF)',
                 yLabel='',
                 :allData='allData',

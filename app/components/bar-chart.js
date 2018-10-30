@@ -12,7 +12,7 @@ Vue.component('bar-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--bar-chart',
   props: [
-    'allData', 'getGraphData', 'xLabel', 'yLabel', 'colors',
+    'id', 'allData', 'getGraphData', 'xLabel', 'yLabel', 'colors',
     'xTickFormat', 'yTickFormat', 'yTickFormatMobile',
     'isTooltipDisabled',
   ],
@@ -73,6 +73,11 @@ Vue.component('bar-chart', {
     
     this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
 
+    let greyscale = ['#000', '#333', '#eee', '#fff']
+    this.test = d3.scaleLinear().range(greyscale).domain([0, greyscale.length])
+
+    console.log(this.test, this.test(2))
+
     this.makeGraphData()
 
     const draw = (device.mobile() || device.tablet()) ? this.verticalDraw : this.draw
@@ -132,10 +137,30 @@ Vue.component('bar-chart', {
       d3.select(el).classed('active', false)
     },
 
+    colourLabel(d, i) { // is this how you spell marian??
+      let colour
+
+      switch (this.id) {
+        case 'average-net-worth':
+        case 'average-net-income':
+        case 'average-net-income-extra':
+          colour = (i >= 11) ? '#fff' : '#000'
+          break
+        case 'workers':
+          colour = (i >= 14) ? '#fff' : '#000'
+          break
+        case 'average-net-worth-extra':
+          colour = (i >= 14 && i != 18) ? '#fff' : '#000'
+          break
+        default:
+          colour = '#000'
+      }
+
+      return colour
+    },
+
     verticalDraw() {
       let topAxis = d3.axisTop(this.x).ticks(6)
-
-      console.log(this.yTickFormatMobile)
 
       if (this.yTickFormatMobile && (device.mobile() || device.tablet()))
         topAxis = topAxis.tickFormat(this.yTickFormatMobile)
@@ -172,6 +197,9 @@ Vue.component('bar-chart', {
         .attr('class', 'axis axis--y')
         .attr('transform', `translate(${this.graph.w}, ${this.margins.top})`)
         .call(rightAxis)
+
+      yAxis.selectAll('text')
+        .attr('fill', this.colourLabel)
 
       let xAxis = this.g
         .append('g')
