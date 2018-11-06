@@ -74,9 +74,6 @@ Vue.component('bar-chart', {
     this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
 
     let greyscale = ['#000', '#333', '#eee', '#fff']
-    this.test = d3.scaleLinear().range(greyscale).domain([0, greyscale.length])
-
-    console.log(this.test, this.test(2))
 
     this.makeGraphData()
 
