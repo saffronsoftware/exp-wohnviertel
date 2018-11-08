@@ -28,6 +28,13 @@ svg.chart, .chart svg
   svg
     height 55rem
 
+@media screen and (min-device-width: 360px) and (max-device-width: 667px)
+  .chart svg.bar-chart
+    height 65vh
+  
+  .stack-chart .tick text
+    pointer-events none
+
 .bar-chart
   .bar-group
     &.bar-group--hidden
@@ -63,3 +70,23 @@ svg.chart, .chart svg
     @media (max-width: 1100px)
       margin-left 1rem
       width 12rem
+
+  // @media screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3)
+  //   .legend
+  //     margin-left 0
+  //     width 8rem
+
+  /* Mobile */
+  @media screen and (min-device-width: 360px) and (max-device-width: 667px)
+    svg
+      height 20rem
+    .legend
+      margin-left 0
+      width 7rem
+
+/* Mobile */
+@media screen and (min-device-width: 360px) and (max-device-width: 667px)
+  #average-net-worth, #average-net-income
+    .map-chart
+      .map
+        height 13rem

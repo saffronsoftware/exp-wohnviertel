@@ -79,6 +79,9 @@ Vue.component('bar-chart', {
 
     const draw = (device.mobile() || device.tablet()) ? this.verticalDraw : this.draw
     draw()
+
+    let contain = this.g.node().getBBox()
+    elSvg.setAttribute('height', contain.height + this.margins.top)
   },
 
   methods: {

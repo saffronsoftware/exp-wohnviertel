@@ -10,6 +10,12 @@
   .extra-details__content
     margin-top 2rem
 
+  @media screen and (min-device-width: 375px) and (max-device-width: 667px)
+    padding 1rem
+    padding-top 2rem
+    .extra-details__content
+      margin-top 1rem
+
 .charts
   padding-bottom 8rem
   .graph-tooltip
@@ -45,6 +51,15 @@
       padding-top 8rem
       padding-bottom 8rem
       border-bottom 1px solid #ddd
+      
+    // @media screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2)
+    @media screen and (min-device-width: 360px) and (max-device-width: 667px)
+      .grid-container
+        padding-top 2rem
+        padding-bottom 2rem
+
+  @media screen and (min-device-width: 360px) and (max-device-width: 667px)
+    padding-bottom 4rem
 
   .chart-group
     margin-top 8rem
@@ -72,3 +87,9 @@
       color #666
       a
         color #666
+
+    @media screen and (min-device-width: 360px) and (max-device-width: 667px)
+      margin-top 4rem
+
+      .chart-group__chart
+        margin-top 0

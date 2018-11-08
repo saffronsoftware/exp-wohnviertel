@@ -27,11 +27,11 @@ Vue.component('range-chart', {
         height: Number,
         el: {},
         position: 0,
-        dm: 0
+        dm: 0  // named for marian's help
       },
       tooltip: d3.Selection,
       margins: {
-        left: 0,
+        left: 8,
         top: 0,
         right: 0,
         bottom: 36
@@ -83,6 +83,7 @@ Vue.component('range-chart', {
 
     this.elSvg.addEventListener('mousedown', this.startDrag, false)
     this.elSvg.addEventListener('touchstart', this.startDrag, false)
+    this.elSvg.addEventListener('touchend', this.stopDrag, false)
     this.elSvg.addEventListener('mouseup', this.removeDrag, false)
     this.elSvg.addEventListener('wheel', this.scrollX, false)
   },
@@ -91,58 +92,67 @@ Vue.component('range-chart', {
     this.elSvg.removeEventListener('wheel', this.scrollX)
     this.elSvg.removeEventListener('mousedown', this.startDrag)
     this.elSvg.removeEventListener('touchstart', this.startDrag)
+    this.elSvg.removeEventListener('touchend', this.stopDrag)
     this.elSvg.removeEventListener('mouseup', this.removeDrag)
   },
 
   methods: {
     removeDrag(event) {
-      console.log('removed events')
       this.elSvg.removeEventListener('mousemove', this.dragging)
       this.elSvg.removeEventListener('touchmove', this.dragging)
     },
 
+    stopDrag(event) {
+      event.preventDefault()
+
+      let control = this.getEvent(event)
+
+      if (this.graph.position >= this.margins.left) {
+        this.graph.position = this.graph.dm = this.margins.left
+        this.dragStartPosition = control.pageX
+      }
+      else if (this.graph.position < (-this.graph.width + (window.innerWidth - 46))) {
+        this.graph.position = this.graph.dm = (-this.graph.width + (window.innerWidth - 46))
+        this.dragStartPosition = control.pageX
+      }
+
+      this.g
+        .transition()
+        .duration(200)
+        .ease(d3.easeBackOut)
+        .attr('transform', `translate(${this.graph.position}, 0)`)
+    },
+
     startDrag(event) {
       event.preventDefault()
-      console.log('start drag', event)
 
       const control = this.getEvent(event)
 
       this.graph.dm = this.graph.position
       this.dragStartPosition = control.pageX
 
-      console.log('dragStartPosition', this.dragStartPosition)
-
       this.elSvg.addEventListener('mousemove', this.dragging, false)
       this.elSvg.addEventListener('touchmove', this.dragging, false)
     },
 
     dragging(event) {
-      console.log('starting to drag')
-
       const control = this.getEvent(event)
-
-      console.log('pageX', control.pageX, 'dragStartPosition', this.dragStartPosition, 'graph pos', this.graph.position)
-      console.log('nextGraphPosition', (control.pageX - this.graph.position) - (this.dragStartPosition - this.graph.position))
 
       this.graph.position = this.graph.dm + ((control.pageX - this.graph.position) - (this.dragStartPosition - this.graph.position))
 
-      console.log('graph should stop left', )
-      console.log('graph should stop right', (-this.graph.width + (window.innerWidth + 46)))
+      // these are for over dragging the graph, the stopDrag event function
+      // will translate to the svg viewport edges
+      if (this.graph.position >= window.innerWidth * 0.25)
+        this.graph.position = window.innerWidth * 0.25
 
-      if (this.graph.position >= 0) {
-        this.graph.position = this.graph.dm = 0
-        this.dragStartPosition = control.pageX
-      }
-      else if (this.graph.position < (-this.graph.width + (window.innerWidth + 46))) {
-        this.graph.position = this.graph.dm = (-this.graph.width + (window.innerWidth - 46))
-        this.dragStartPosition = control.pageX
-      }
+      else if (this.graph.position < (-this.graph.width + (window.innerWidth * 0.75 - 46)))
+        this.graph.position = (-this.graph.width + (window.innerWidth * 0.75 - 46))
 
       this.g.attr('transform', `translate(${this.graph.position}, 0)`)
     },
 
     getEvent(event) {
-      return (event.touches) ? event.touches[0] : event
+      return (event.changedTouches) ? event.changedTouches[0] : (event.touches) ? event.touches[0] : event
     },
 
     scrollX(event) {
@@ -160,14 +170,10 @@ Vue.component('range-chart', {
       event.preventDefault()
       event.stopPropagation()
 
-      console.log('svg to scroll:', this.graph.el)
-      console.log('target (where mouse is):', event.target)
-
       if (event.target.closest('.parent-group') == this.graph.el ||
           event.target.querySelector('.parent-group') == this.graph.el) {
 
         this.graph.position = nextGraphPosition
-        console.log(this.graph.position)
 
         this.g.attr('transform', `translate(${this.graph.position}, ${0})`)
       }

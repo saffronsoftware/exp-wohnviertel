@@ -1,3 +1,8 @@
+exports.watcher = {
+  awaitWriteFinish: true,
+  usePolling: true
+}
+
 exports.files = {
   javascripts: {
     joinTo: {
