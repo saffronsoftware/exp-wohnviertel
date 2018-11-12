@@ -73,8 +73,6 @@ Vue.component('bar-chart', {
     
     this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
 
-    let greyscale = ['#000', '#333', '#eee', '#fff']
-
     this.makeGraphData()
 
     const draw = (device.mobile() || device.tablet()) ? this.verticalDraw : this.draw
@@ -147,10 +145,8 @@ Vue.component('bar-chart', {
           colour = (i >= 11) ? '#fff' : '#000'
           break
         case 'workers':
-          colour = (i >= 14) ? '#fff' : '#000'
-          break
         case 'average-net-worth-extra':
-          colour = (i >= 14 && i != 18) ? '#fff' : '#000'
+          colour = (i >= 14) ? '#fff' : '#000'
           break
         default:
           colour = '#000'
