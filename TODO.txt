@@ -1,4 +1,9 @@
-* [improvement] Check statistics to make sure they make sense, for example population change
-* [feature] Add branding
+* [feature] Add full branding
 * [feature] Add i18n
 * [feature] Add analytics
+* [bug] Fix undefined hover over gray bubbles in Net Worth Inequality
+* [improvement] Make arrow clickable
+* [improvement] Add chart for workers divided by population
+* [improvement] Make note that Swiss people are excluded in foreigners table
+* [improvement] Show workers as portion of total population instead of absolute number
+* [idea] Stacked line charts to show correlation
