@@ -9,4 +9,5 @@ import './components/stack-chart'
 import './components/map-chart'
 import './components/profile'
 
+
 new Vue({el: '#page-container'})

@@ -4,19 +4,32 @@ Vue.use(VueResource)
 import * as d3 from 'd3'
 import * as _ from 'lodash'
 import {bindContext} from '../util'
+import device from 'current-device'
 
 
 Vue.component('stack-chart', {
   delimiters: ['${', '}'],
   template: '#component-template--stack-chart',
   props: [
-    'allData', 'getGraphData', 'getKeys', 'xLabel', 'yLabel', 'colors', 'defaultSort',
+    'id', 'allData', 'getGraphData', 'getKeys', 'xLabel', 'yLabel', 'colors', 'defaultSort',
     'legendColumnLength',
   ],
   data: function() {
     return {
       factoryDefaultSort: 'district',
       isFocused: false,
+      width: Number,
+      height: Number,
+      graph: {
+        w: Number,
+        h: Number
+      },
+      margins: {
+        top: 50,
+        right: 20,
+        bottom: 40,
+        left: 130,
+      }
     }
   },
 
@@ -28,27 +41,27 @@ Vue.component('stack-chart', {
     const elSvg = this.$el.querySelector('svg')
     const elSvgDims = elSvg.getBoundingClientRect()
     const svg = d3.select(elSvg)
-    const margins = {
-      top: 50 + (this.legendNrPerColumn * this.legendColumnHeight),
-      right: 20,
-      bottom: 40,
-      left: 130,
+    
+    this.margins.top = this.margins.top + (this.legendNrPerColumn * this.legendColumnHeight)
+
+    if (device.mobile() || device.tablet()) {
+      this.margins.left = 8
+      this.margins.right = 24
     }
 
     this.tooltip = d3.select(this.$el.querySelector('.graph-tooltip'))
 
-    this.width = elSvgDims.width - margins.left - margins.right
-    this.height = elSvgDims.height - margins.top - margins.bottom
-    this.graphWidth = this.width
+    this.graph.w = this.width = elSvgDims.width - this.margins.left - this.margins.right
+    this.graph.h = this.height = elSvgDims.height - this.margins.top - this.margins.bottom
 
     this.g = svg
       .append('g')
     this.graphContainer = this.g
       .append('g')
-      .attr('transform', `translate(${margins.left}, ${margins.top})`)
+      .attr('transform', `translate(${this.margins.left}, ${this.margins.top})`)
     this.graphData = []
 
-    this.x = d3.scaleLinear().rangeRound([0, this.graphWidth])
+    this.x = d3.scaleLinear().rangeRound([0, this.graph.w])
     this.y = d3.scaleBand().rangeRound([0, this.height]).padding(0.1)
     this.z = d3.scaleOrdinal().range(this.colors)
 
@@ -81,7 +94,7 @@ Vue.component('stack-chart', {
         .append('g')
         .attr('class', 'axis axis--x')
         .attr('transform', `translate(0, ${this.height})`)
-        .call(d3.axisBottom(this.x).ticks(10, '%'))
+        .call(d3.axisBottom(this.x).ticks(5, '%'))
       xAxis
         .selectAll('text')
         .attr('transform', 'rotate(30)')
@@ -89,17 +102,19 @@ Vue.component('stack-chart', {
       xAxis
         .append('text')
         .attr('class', 'axis-label')
-        .attr('transform', `translate(${this.graphWidth})`)
+        .attr('transform', `translate(${this.graph.w})`)
         .attr('dx', '0')
         .attr('dy', '33px')
         .attr('text-anchor', 'end')
         .text(this.xLabel)
 
+      let yAxisDisplay = (device.mobile() || device.tablet()) ? d3.axisRight(this.y) : d3.axisLeft(this.y)
+
       this.graphContainer.selectAll('.axis.axis--y').remove()
       this.graphContainer
         .append('g')
         .attr('class', 'axis axis--y')
-        .call(d3.axisLeft(this.y))
+        .call(yAxisDisplay)
         .append('text')
         .attr('class', 'axis-label')
         .attr('dx', '-9px')
@@ -118,6 +133,7 @@ Vue.component('stack-chart', {
       let legend = this.g
         .append('g')
         .attr('class', 'legend')
+        .attr('transform', `translate(0, ${24})`)
         .selectAll('g')
         .data(this.stackKeys)
         .enter()
@@ -198,7 +214,19 @@ Vue.component('stack-chart', {
       this.hideUnfocusedBars()
       this.updateAxes()
       this.drawAxes()
+
       this.updateBarY(this.zeroBarX(this.getFocusedBars()))
+
+      if (device.mobile() || device.tablet()) {
+        d3.selectAll(`#${this.id} .axis--y .tick text`)
+          .transition()
+          .duration(600)
+          .attr('transform', (d, i) => {
+            let district = parentDatum.filter((group) => group.data.district == d)[0]
+
+            return `translate(${this.x(district[1]) - this.x(district[0])}, 0)`
+          })
+      }
     },
 
     unfocusBar() {

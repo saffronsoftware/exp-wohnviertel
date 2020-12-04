@@ -50,7 +50,7 @@
         br
         | International Gini coefficients for income from #[a(href='https://www.gut-leben-in-deutschland.de/static/LB/indicators/income/gini-coefficient-income/') “Gini-Koeffizient der Einkommen”, Bundesregierung Deutschland, 2014].
 
-    .chart-group
+    #average-net-worth.chart-group
       .chart-group__description
         h3 Average Net Worth
         p The average net worth of Basel's residents varies considerably depending on the district. Klybeck ranks lowest, at #[code 1&thinsp;440 CHF]. Bettingen, on the other hand, has the highest average net worth, at #[code 72&thinsp;735 CHF], which is more than 50 times Klybeck's average.
@@ -64,13 +64,15 @@
         )
       .chart-group__chart
         bar-chart(
-          xLabel='Average Net Worth',
+          id='average-net-worth',
+          xLabel='Average Net Worth (CHF)',
           yLabel='',
           :allData='allData',
           :getGraphData='medianWealthChart.getData',
           :colors='colors.GRAPHIQ3_12_LOWER',
           :xTickFormat='medianWealthChart.xTickFormat',
           :yTickFormat='medianWealthChart.yTickFormat',
+          :yTickFormatMobile='medianWealthChart.yTickFormatMobile'
         )
         // range-chart(
         //   axisLabel='Average Net Worth',
@@ -93,26 +95,28 @@
               p This massive discrepancy shows us that few people have extremely high incomes, in the millions or tens of millions of francs. These few high-net-worth individuals greatly skew the entire arithmetic mean upwards. This massive different between the median and mean gives us clues about the considerable financial inequality between residents.
             .chart-group__chart
               bar-chart(
-                xLabel='Mean Net Worth',
+                id='average-net-worth-extra',
+                xLabel='Mean Net Worth (CHF)',
                 yLabel='',
                 :allData='allData',
                 :getGraphData='averageWealthChart.getData',
                 :colors='colors.GRAPHIQ3_12_LOWER',
                 :xTickFormat='averageWealthChart.xTickFormat',
                 :yTickFormat='averageWealthChart.yTickFormat',
+                :yTickFormatMobile='averageWealthChart.yTickFormatMobile'
               )
       .chart-group__sources
         | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/18-oeffentliche-finanzen/steuern.html') T18.2.03], 2014.
         br
         | The median (and not the mean) is used for average financial values to avoid skewing.
 
-    .chart-group
+    #average-net-income.chart-group
       .chart-group__description
         h3 Average Net Income
         p Compared to average net worth, Basel's average net income is much more evenly distributed. Klybeck again ranks lowest, at #[code 38&thinsp;322 CHF]. Bettingen keeps its position, with an average net income of #[code 67&thinsp;444 CHF], which is a little under double Klybeck's average.
       .chart-group__chart
         map-chart(
-          axisLabel='Average Net Income',
+          axisLabel='Average Net Income (CHF)',
           :allData='allData',
           :getGraphData='medianIncomeChart.getData',
           :isChf='true',
@@ -120,13 +124,15 @@
         )
       .chart-group__chart
         bar-chart(
-          xLabel='Average Net Income',
+          id='average-net-income',
+          xLabel='Average Net Income (CHF)',
           yLabel='',
           :allData='allData',
           :getGraphData='medianIncomeChart.getData',
           :colors='colors.GRAPHIQ3_12_LOWER',
           :xTickFormat='medianIncomeChart.xTickFormat',
           :yTickFormat='medianIncomeChart.yTickFormat',
+          :yTickFormatMobile='medianIncomeChart.yTickFormatMobile'
         )
         // range-chart(
         //   axisLabel='Average Net Income',
@@ -149,13 +155,15 @@
               p Even though it's less pronounced than with net worth, net income inequality also shows in the difference between the median and the mean here. Bruderholz residents have a median net income of #[code 64&thinsp;291 CHF], but a mean net income of #[code 118&thinsp;672 CHF]. This leads us to believe that there exist a smaller number of residents with significantly higher net incomes.
             .chart-group__chart
               bar-chart(
-                xLabel='Mean Net Income',
+                id='average-net-income-extra',
+                xLabel='Mean Net Income (CHF)',
                 yLabel='',
                 :allData='allData',
                 :getGraphData='averageIncomeChart.getData',
                 :colors='colors.GRAPHIQ3_12_LOWER',
                 :xTickFormat='averageIncomeChart.xTickFormat',
                 :yTickFormat='averageIncomeChart.yTickFormat',
+                :yTickFormatMobile='averageIncomeChart.yTickFormatMobile'
               )
       .chart-group__sources
         | #[strong Source:] Statistisches Amt Basel-Stadt, #[a(href='http://www.statistik.bs.ch/zahlen/tabellen/18-oeffentliche-finanzen/steuern.html') T18.2.03], 2014.

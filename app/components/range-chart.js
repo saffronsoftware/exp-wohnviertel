@@ -6,6 +6,7 @@ import * as _ from 'lodash'
 import {DISTRICTS, DISTRICT_NAMES} from '../common'
 import * as util from '../util'
 import * as colors from '../colors'
+import device from 'current-device'
 
 
 Vue.component('range-chart', {
@@ -17,42 +18,167 @@ Vue.component('range-chart', {
   ],
   data: function() {
     return {
+      width: Number,
+      height: Number,
+      svgEl: SVGElement,
+      dragStartPosition: Number,
+      graph: {
+        width: Number,
+        height: Number,
+        el: {},
+        position: 0,
+        dm: 0  // named for marian's help
+      },
+      tooltip: d3.Selection,
+      margins: {
+        left: 8,
+        top: 0,
+        right: 0,
+        bottom: 36
+      },
     }
   },
 
   mounted() {
-    const elSvg = this.$el.querySelector('svg')
-    const elSvgDims = elSvg.getBoundingClientRect()
-    const svg = d3.select(elSvg)
-    const margins = {
-      top: 0,
-      right: 5,
-      bottom: 30,
-      left: 5,
-    }
+    this.elSvg = this.$el.querySelector('svg')
+
+    const svg = d3.select(this.elSvg)
 
     // Vue property shadowing, meeh.
     this.nodeRadius = this.radius || 8
     this.nodeMinDist = this.minDist || 21 // px
 
-    this.width = elSvgDims.width - margins.left - margins.right
-    this.height = elSvgDims.height - margins.top - margins.bottom
+    const elSvgDims = this.elSvg.getBoundingClientRect()
+    this.width = elSvgDims.width - this.margins.left - this.margins.right
+    this.height = elSvgDims.height - this.margins.top - this.margins.bottom
+
+    this.graph.width = (device.mobile()) ? this.width * 4 : (device.tablet()) ? this.width * 3 : this.width
+    this.graph.height = this.height
 
     this.tooltip = d3.select(this.$el.querySelector('.graph-tooltip'))
     this.g = svg
       .append('g')
-      .attr('transform', `translate(${margins.left}, ${margins.top})`)
+      .attr('class', 'parent-group')
+      .attr('transform', `translate(${this.margins.left}, ${this.margins.top})`)
 
-    this.x = d3.scaleLinear().range([0, this.width])
+    this.graph.el = this.elSvg.querySelector('.parent-group')
+
+    let graphLabel = svg
+      .append('g')
+      .attr('class', 'range-chart__axis-label')
+      .append('text')
+      .attr('class', 'axis-label')
+      .attr('x', this.width)
+      .attr('dy', elSvgDims.height - 4)
+      .attr('text-anchor', 'end')
+      .text(this.axisLabel)
+
+    this.x = d3.scaleLinear().range([0, this.graph.width])
     this.color = d3.scaleLinear().range(this.colors).interpolate(d3.interpolateHsl)
 
     this.graphData = []
 
     this.makeGraphData()
     this.draw()
+
+    this.elSvg.addEventListener('mousedown', this.startDrag, false)
+    this.elSvg.addEventListener('touchstart', this.startDrag, false)
+    this.elSvg.addEventListener('touchend', this.stopDrag, false)
+    this.elSvg.addEventListener('mouseup', this.removeDrag, false)
+    this.elSvg.addEventListener('wheel', this.scrollX, false)
+  },
+
+  beforeDestroy() {
+    this.elSvg.removeEventListener('wheel', this.scrollX)
+    this.elSvg.removeEventListener('mousedown', this.startDrag)
+    this.elSvg.removeEventListener('touchstart', this.startDrag)
+    this.elSvg.removeEventListener('touchend', this.stopDrag)
+    this.elSvg.removeEventListener('mouseup', this.removeDrag)
   },
 
   methods: {
+    removeDrag(event) {
+      this.elSvg.removeEventListener('mousemove', this.dragging)
+      this.elSvg.removeEventListener('touchmove', this.dragging)
+    },
+
+    stopDrag(event) {
+      event.preventDefault()
+
+      let control = this.getEvent(event)
+
+      if (this.graph.position >= this.margins.left) {
+        this.graph.position = this.graph.dm = this.margins.left
+        this.dragStartPosition = control.pageX
+      }
+      else if (this.graph.position < (-this.graph.width + (window.innerWidth - 46))) {
+        this.graph.position = this.graph.dm = (-this.graph.width + (window.innerWidth - 46))
+        this.dragStartPosition = control.pageX
+      }
+
+      this.g
+        .transition()
+        .duration(200)
+        .ease(d3.easeBackOut)
+        .attr('transform', `translate(${this.graph.position}, 0)`)
+    },
+
+    startDrag(event) {
+      event.preventDefault()
+
+      const control = this.getEvent(event)
+
+      this.graph.dm = this.graph.position
+      this.dragStartPosition = control.pageX
+
+      this.elSvg.addEventListener('mousemove', this.dragging, false)
+      this.elSvg.addEventListener('touchmove', this.dragging, false)
+    },
+
+    dragging(event) {
+      const control = this.getEvent(event)
+
+      this.graph.position = this.graph.dm + ((control.pageX - this.graph.position) - (this.dragStartPosition - this.graph.position))
+
+      // these are for over dragging the graph, the stopDrag event function
+      // will translate to the svg viewport edges
+      if (this.graph.position >= window.innerWidth * 0.25)
+        this.graph.position = window.innerWidth * 0.25
+
+      else if (this.graph.position < (-this.graph.width + (window.innerWidth * 0.75 - 46)))
+        this.graph.position = (-this.graph.width + (window.innerWidth * 0.75 - 46))
+
+      this.g.attr('transform', `translate(${this.graph.position}, 0)`)
+    },
+
+    getEvent(event) {
+      return (event.changedTouches) ? event.changedTouches[0] : (event.touches) ? event.touches[0] : event
+    },
+
+    scrollX(event) {
+      let nextGraphPosition = this.graph.position + ((event.deltaY > 0) ? 20 : -20)
+
+      if (nextGraphPosition > 0) {
+        nextGraphPosition = 0
+        return
+      }
+      else if (nextGraphPosition < (-this.graph.width + (window.innerWidth - 46))) {
+        nextGraphPosition = (-this.graph.width - window.innerWidth - 32)
+        return
+      }
+
+      event.preventDefault()
+      event.stopPropagation()
+
+      if (event.target.closest('.parent-group') == this.graph.el ||
+          event.target.querySelector('.parent-group') == this.graph.el) {
+
+        this.graph.position = nextGraphPosition
+
+        this.g.attr('transform', `translate(${this.graph.position}, ${0})`)
+      }
+    },
+
     makeGraphData() {
       // NOTE: It is very important that data is sorted, for `fixCollisions()`
       // and colors to work.
@@ -152,12 +278,6 @@ Vue.component('range-chart', {
         .attr('class', 'axis axis--x')
         .attr('transform', `translate(0, ${this.height})`)
         .call(bottomAxis)
-        .append('text')
-        .attr('class', 'axis-label')
-        .attr('x', this.width)
-        .attr('dy', '-9px')
-        .attr('text-anchor', 'end')
-        .text(this.axisLabel)
 
       let nodes = this.g
         .selectAll('.range-node')

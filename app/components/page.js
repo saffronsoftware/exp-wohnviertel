@@ -8,6 +8,8 @@ import {DISTRICT_NAMES} from '../common'
 import * as dataGetters from '../data-getters'
 import * as colors from '../colors'
 import * as util from '../util'
+import device from 'current-device'
+
 
 Vue.component('page', {
   delimiters: ['${', '}'],
@@ -32,11 +34,13 @@ Vue.component('page', {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: util.formatChfShort,
+        yTickFormatMobile: util.formatChfAbsent,
       },
       averageWealthChart: {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: util.formatChfShort,
+        yTickFormatMobile: util.formatChfAbsent,
       },
       areWealthDetailsVisible: false,
       augmentedIncomeGiniChart: {
@@ -49,11 +53,13 @@ Vue.component('page', {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: util.formatChfShort,
+        yTickFormatMobile: util.formatChfAbsent,
       },
       averageIncomeChart: {
         getData: null,
         xTickFormat: (d) => DISTRICT_NAMES[d],
         yTickFormat: util.formatChfShort,
+        yTickFormatMobile: util.formatChfAbsent,
       },
       areIncomeDetailsVisible: false,
       citizenshipChart: {

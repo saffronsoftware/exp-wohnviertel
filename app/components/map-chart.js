@@ -6,6 +6,7 @@ import * as _ from 'lodash'
 import {DISTRICTS, DISTRICT_NAMES} from '../common'
 import * as util from '../util'
 import * as colors from '../colors'
+import device from 'current-device'
 
 
 Vue.component('map-chart', {
@@ -17,6 +18,12 @@ Vue.component('map-chart', {
   ],
   data: () => {
     return {
+      legendMargins: {
+        top: 35,
+        right: 75,
+        bottom: 10,
+        left: 30,
+      }
     }
   },
   watch: {
@@ -60,19 +67,14 @@ Vue.component('map-chart', {
       this.legendSvg = d3.select(elLegendSvg)
       const legendSvgDims = elLegendSvg.getBoundingClientRect()
 
-      this.legendBarWidth = 30
-      const legendMargins = {
-        top: 35,
-        right: 75,
-        bottom: 10,
-        left: 30,
-      }
-      this.legendWidth = legendSvgDims.width - legendMargins.left - legendMargins.right
-      this.legendHeight = legendSvgDims.height - legendMargins.top - legendMargins.bottom
+      this.legendBarWidth = (device.mobile()) ? 8 : 30
+      this.legendBarMargin = (device.mobile()) ? 8 : 12
+
+      this.legendWidth = legendSvgDims.width
+      this.legendHeight = legendSvgDims.height - this.legendMargins.top - this.legendMargins.bottom
 
       this.legendG = this.legendSvg
         .append('g')
-        .attr('transform', `translate(${legendMargins.left}, ${legendMargins.top})`)
 
       this.legendY = d3.scaleLinear().rangeRound([this.legendHeight, 0])
     },
@@ -160,19 +162,25 @@ Vue.component('map-chart', {
       this.legendYAxis = this.legendG
         .append('g')
         .attr('class', 'axis axis--y')
-        .attr('transform', `translate(${this.legendWidth + 2}, 0)`)
         .call(d3.axisRight(this.legendY).tickFormat(this.formatValue))
+
       this.legendYAxis
         .append('text')
         .attr('class', 'axis-label')
         .attr(
           'transform',
-          `translate(-${this.legendBarWidth}, ${this.legendHeight}) rotate(-90)`
+          `translate(${-this.legendBarWidth - this.legendBarMargin}, ${this.legendHeight}) rotate(-90)`
         )
-        .attr('dx', '3px')
-        .attr('dy', '-12px')
         .attr('text-anchor', 'start')
         .text(this.axisLabel)
+
+      this.legendG
+        .attr('transform', (d) => {
+          let legendLabelWidth = this.legendYAxis.selectAll('.axis-label').node().getBBox().height  // using height because the element is rotate(90)
+          // 4px are subtracted due to the browsers not accounting the bounding box inside the text drawn element causing the positioning to be off by ~2px
+          // depending on the browser 
+          return `translate(${legendLabelWidth + this.legendBarWidth + this.legendBarMargin - 4}, ${this.legendMargins.top})`
+        })
 
       this.legendG.selectAll('defs').remove()
       const gradient = this.legendG
@@ -199,7 +207,7 @@ Vue.component('map-chart', {
       this.legendG.selectAll('rect').remove()
       this.legendG
         .append('rect')
-        .attr('x', this.legendWidth - this.legendBarWidth)
+        .attr('x', -this.legendBarWidth - 2)  // 2px for small space between gradient and tick axis
         .attr('y', 0)
         .attr('width', this.legendBarWidth)
         .attr('height', this.legendHeight)
