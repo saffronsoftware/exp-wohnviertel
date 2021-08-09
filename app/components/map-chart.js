@@ -47,12 +47,16 @@ Vue.component('map-chart', {
         }
       }
 
-      this.mapSvg
+      const districts = this.mapSvg
         .selectAll('[data-name="wohnviertel"] polygon')
         .data(this.graphData, makeKey)
         .on('mouseover', util.bindContext(this, this.showTooltip))
         .on('mouseout', util.bindContext(this, this.hideTooltip))
         .on('click', util.bindContext(this, this.handleClick))
+
+      if (this.onClick) {
+        districts.style('cursor', 'pointer')
+      }
     },
 
     initLegend() {
@@ -97,7 +101,9 @@ Vue.component('map-chart', {
     },
 
     handleClick(el, d) {
-      this.onClick(d.district)
+      if (this.onClick) {
+        this.onClick(d.district)
+      }
     },
 
     showTooltip(el, d) {

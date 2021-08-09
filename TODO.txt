@@ -1,8 +1,13 @@
-* [feature] Add full branding
-* [feature] Add i18n
-* [feature] Add analytics
+# TODO
+
+## Essential
+
 * [bug] Fix undefined hover over gray bubbles in Net Worth Inequality
+* [bug] Add hover states on first map and stacked bar chart
 * [improvement] Make arrow clickable
+
+## Ideas
+
 * [improvement] Add chart for workers divided by population
 * [improvement] Make note that Swiss people are excluded in foreigners table
 * [improvement] Show workers as portion of total population instead of absolute number

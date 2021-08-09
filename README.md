@@ -1,39 +1,17 @@
-## Starting the server
+# exp-wohnviertel
 
-Use `./bin/start-dev` to start a development server.
+This is the Basel Districts page, visible at https://baseldistricts.saffron.so.
 
-For production, use your platform of choice to start
-`NODE_ENV="production" node server.js`.
+## Usage
 
-## Config
-
-Copy `config-example.js` to `config.js`, then set the appropriate
-variables if needed.
-
-## Assets
-
-To build and watch:
+To run a development server:
 
 ```bash
-npm run gulp
+npm run start
 ```
 
-To just build:
+To build:
 
 ```bash
 npm run build
 ```
-
-To build in production mode:
-
-```bash
-npm run build-production
-```
-
-The gulpfile compiles in the following ways:
-
-* `app/views/**/*.js` -> babel -> `public/javascripts/views/`
-* `app/stylesheets/**/*.styl` -> stylus -> `public/stylesheets/compiled/`
-* `<your configuration>` -> concat -> `public/stylesheets/build/<name>.css`
-* `<your configuration>` -> concat -> `public/javascripts/build/<name>.js`
-* `<your configuration>` -> browserify -> `public/javascripts/build/<name>.js`

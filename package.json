@@ -1,9 +1,10 @@
 {
   "name": "wohnviertel",
-  "version": "1.0.0",
+  "version": "0.7.0",
   "private": true,
   "dependencies": {
     "async": "^1.5.0",
+    "buffer": "^6.0.3",
     "d3": "^4.9.1",
     "lodash": "^4.13.1",
     "scrollreveal": "^3.4.0",

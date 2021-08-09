@@ -225,7 +225,7 @@ Vue.component('stack-chart', {
       let rect = el.getBoundingClientRect()
       let barMid = (this.x(d[1]) - this.x(d[0])) / 2
       let left = rect.left + window.scrollX + barMid
-      let top = rect.top + window.scrollY
+      let top = rect.top + window.scrollY - 20
       let barGroup = el.parentNode
       let parentDatum = d3.select(barGroup).datum()
       if (this.isFocused && !(d3.select(barGroup).classed('bar-group--focused'))) {
@@ -286,6 +286,7 @@ Vue.component('stack-chart', {
         .on('mouseover', bindContext(this, this.showTooltip))
         .on('mouseout', bindContext(this, this.hideTooltip))
         .on('click', bindContext(this, this.toggleFocus))
+        .style('cursor', 'pointer')
     },
 
     draw() {

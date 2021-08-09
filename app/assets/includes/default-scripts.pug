@@ -1,3 +1,7 @@
+script(src='/vendor.js')
+script(src='/app.js')
+script.
+  require('app')
 script(async src="https://www.googletagmanager.com/gtag/js?id=UA-74607125-4")
 script.
   if (window.location.hostname != 'localhost') {
@@ -6,7 +10,3 @@ script.
     gtag('js', new Date());
     gtag('config', 'UA-74607125-4');
   }
-script(src='/vendor.js')
-script(src='/app.js')
-script.
-  require('app')

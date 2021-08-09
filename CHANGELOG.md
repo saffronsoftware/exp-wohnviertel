@@ -1,4 +1,15 @@
-v0.6.0
+# Changelog
+
+## v0.7.0
+
+- [improvement] Remove arrow in hero (everyone wanted to click it)
+- [improvement] Move footer into Page component so it doesn't load first
+- [improvement] Make districts clickable in first map
+- [improvement] Make stacked bar chart clickable
+- [improvement] Move stacked bar chart tooltip a bit up
+
+## v0.6.0
+
 - [improvement] Improve design.
 - [improvement] Improve hero appearance.
 - [improvement] Optimise header scene slightly.
@@ -19,7 +30,8 @@ v0.6.0
 - [feature] Add footer.
 - [bug] Age group reducers were incorrectly labelled.
 
-v0.5.0
+## v0.5.0
+
 - [feature] Add initial content for a couple of sections.
 - [improvement] Improve range chart to support employee data.
 - [improvement] Improve district profile design.
@@ -29,7 +41,8 @@ v0.5.0
 - [improvement] Improve arrangement of financial data.
 - [scrapped] Change employee data to reflect population, then change it back because nah.
 
-v0.4.0
+## v0.4.0
+
 - [feature] Add map to district selection.
 - [feature] Add district selection by clicking on map.
 - [feature] Add Gini charts for wealth and income.
@@ -47,7 +60,8 @@ v0.4.0
 - [improvement] Make axis labels look better.
 - [improvement] Add axis label to map chart.
 
-v0.3.0
+## v0.3.0
+
 - [bug] Fix range chart node collisions for very tight data.
 - [bug] Give range chart enough padding for longer axis labels to show.
 - [bug] Optimise header scene performance.
@@ -56,7 +70,8 @@ v0.3.0
 - [feature] Add district profile selection.
 - [bug] Fix label positioning.
 
-v0.2.0
+## v0.2.0
+
 - [bug] Fix chart spacing.
 - [bug] Fix header overflow.
 - [bug] Fix color range in map.
@@ -67,5 +82,6 @@ v0.2.0
 - [feature] Add full-time employee equivalents range chart.
 - [feature] Add full-time employee equivalents map chart.
 
-v0.1.0
+## v0.1.0
+
 - Initial version.
