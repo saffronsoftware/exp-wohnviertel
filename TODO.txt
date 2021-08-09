@@ -2,9 +2,7 @@
 
 ## Essential
 
-* [bug] Fix undefined hover over gray bubbles in Net Worth Inequality
-* [bug] Add hover states on first map and stacked bar chart
-* [improvement] Make arrow clickable
+(All done!)
 
 ## Ideas
 

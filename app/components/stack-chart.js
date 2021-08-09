@@ -128,7 +128,7 @@ Vue.component('stack-chart', {
         .append('rect')
         .attr('width', 20)
         .attr('height', 20)
-        .attr('fill', this.z);
+        .attr('fill', this.z)
 
       legend
         .append('text')

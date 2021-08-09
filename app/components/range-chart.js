@@ -120,8 +120,9 @@ Vue.component('range-chart', {
         .transition()
         .duration(200)
         .style('opacity', 1)
+      const name = d.isFake ? d.name : DISTRICT_NAMES[d.district]
       this.tooltip
-        .html(DISTRICT_NAMES[d.district] + ' — ' + this.formatValue(d.value))
+        .html(name + ' — ' + this.formatValue(d.value))
         .style('left', left + 'px')
         .style('top', top + TOP_MARGIN + 'px')
       d3.select(el).classed('active', true)

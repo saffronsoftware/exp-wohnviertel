@@ -7,6 +7,7 @@
 - [improvement] Make districts clickable in first map
 - [improvement] Make stacked bar chart clickable
 - [improvement] Move stacked bar chart tooltip a bit up
+- [improvement] Fix undefined hover over gray bubbles in Net Worth Inequality
 
 ## v0.6.0
 
